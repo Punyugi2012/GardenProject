@@ -77,7 +77,8 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $employee = DB::select('select * from employee where idemployee = ?', [$id]);
+        return view('employee.edit-employee', ['employee'=>$employee[0]]);
     }
 
     /**
@@ -87,9 +88,20 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EmployeeRequest $request, $id)
     {
-        //
+        DB::update('update employee set name = ?, surname = ?, phone = ?, nationality = ?, date_worked = ?, salary = ?, gender = ? where idEmployee = ?',[
+            $request->name,
+            $request->surname,
+            $request->phone,
+            $request->nationality,
+            $request->date_worked,
+            $request->salary,
+            $request->gender,
+            $id
+        ]);
+        session()->flash('edited', 'แก้ไขพนักงานเรียบร้อยแล้ว');
+        return redirect('/employees/'.$id.'/edit');
     }
 
     /**
