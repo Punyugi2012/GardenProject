@@ -75,7 +75,9 @@ class AttendanceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $employees = DB::select('select * from employee');
+        $attendance = DB::select('select * from attendance natural join employee where idAttendance = ?', [$id]);
+        return view('attendance.edit-attendance', ['attendance'=>$attendance[0], 'employees'=>$employees]);
     }
 
     /**
@@ -85,9 +87,21 @@ class AttendanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AttendanceRequest $request, $id)
     {
-        //
+        $finishTime = Carbon::parse($request->input('finish_time'));
+        $startTime =  Carbon::parse($request->input('start_time'));
+        $totalDuration = $finishTime->diffInHours($startTime);
+        DB::update('update attendance set start_time = ?, finish_time = ?, amount_time = ?, date = ?, idEmployee = ? where idAttendance = ?', [
+            $request->input('start_time'),
+            $request->input('finish_time'),
+            $totalDuration,
+            $request->input('date'),
+            $request->input('employee'),
+            $id
+        ]);
+        session()->flash('edited', 'แก้ไขการลงเวลาสำเร็จ');
+        return redirect('/attendances/'.$id.'/edit');
     }
 
     /**

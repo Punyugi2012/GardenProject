@@ -62,6 +62,7 @@
                         <th>เวลาเข้าทำงาน</th>
                         <th>เวลาออกงาน</th>
                         <th>จำนวนเวลา(ชม.)</th>
+                        <th>เครื่องมือ</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,6 +74,12 @@
                             <td>{{formatDateThai($attendance->start_time)}} น.</td>
                             <td>{{formatDateThai($attendance->finish_time)}} น.</td>
                             <td>{{$attendance->amount_time}} ชม.</td>
+                            <td>
+                                <form class="d-inline">
+                                    <a href="#" class="btn btn-light">ลบ</a>
+                                </form>
+                                <a href="{{url('/attendances/'.$attendance->idAttendance.'/edit')}}" class="btn btn-light">แก้ไข</a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
