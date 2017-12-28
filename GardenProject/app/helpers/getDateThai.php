@@ -14,6 +14,9 @@ function formatDateThai($strDate)
         return "$strDay $strMonthThai $strYear";
     }
     else {
-        return "$strDay $strMonthThai $strYear $strHour:$strMinute";
+        return "$strHour:$strMinute";
     }
+    // else {
+    //     return "$strDay $strMonthThai $strYear $strHour:$strMinute";
+    // }
 }

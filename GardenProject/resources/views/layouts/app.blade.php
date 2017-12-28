@@ -15,7 +15,7 @@
         body {
             font-family: 'Prompt', sans-serif;
         }
-        .flex-column a {
+        .flex-column .nav-link {
             margin-top:10px;
         }
     </style>
@@ -28,10 +28,20 @@
         <div class="row">
             <div class="col-md-2">
                 <nav class="nav flex-column">
-                    <a class="nav-link btn btn-light" href="#">หน้าหลัก</a>
                     <a class="nav-link btn btn-light" href="#">งาน</a>
                     <a class="nav-link btn btn-light" href="{{url('/employees')}}">พนักงาน</a>
-                    <a class="nav-link btn btn-light" href="#">เครื่องมือ</a>
+                    <a class="nav-link btn btn-light" href="#">วัตถุดิบ</a>
+                    <div>
+                        <button class="nav-link btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width:100%">
+                            เครื่องมือ
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width:inherit!important">
+                            <a class="dropdown-item" href="{{url('/attendances')}}">การลงเวลาทำงาน</a>
+                            <a class="dropdown-item" href="#">การจ่ายเงินเดือน</a>
+                            <a class="dropdown-item" href="#">การลางาน</a>
+                            <a class="dropdown-item" href="#">การสั่งซื้อ</a>
+                        </div>
+                    </div>
                 </nav>
             </div>
             <div class="col-md-10">

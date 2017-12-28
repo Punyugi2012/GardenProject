@@ -30,7 +30,7 @@
                             <td>{{$employee->name}}</td>
                             <td>{{$employee->surname}}</td>
                             <td>{{$employee->phone}}</td>
-                            <td>{{$employee->gender}}</td>
+                            <td>{{getGenderThai($employee->gender)}}</td>
                             <td>{{$employee->nationality}}</td>
                             <td>{{formatDateThai($employee->date_worked)}}</td>
                             <td>

@@ -11,6 +11,6 @@
 |
 */
 Route::resource('/employees', 'EmployeeController');
-
+Route::resource('/attendances', 'AttendanceController');
 Auth::routes();
 
