@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Requests\SalaryRequest;
+use Carbon\Carbon;
 
 class SalaryController extends Controller
 {
@@ -67,9 +68,21 @@ class SalaryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    private function setFormatDateTime($date) {
+        $year = $date->year;
+        $month = $date->month;
+        $day = $date->day;
+        $hour = $date->hour;
+        $minute = $date->minute;
+        return $year.'-'.$month.'-'.$day.'T'.$hour.':'.$minute.':00';
+    }
     public function edit($id)
     {
-        //
+        $employees = DB::select('select * from employee');
+        $salary = DB::select('select * from salary where idSalary = ?', [$id]);
+        $date = Carbon::parse($salary[0]->date_time);
+        $dateTime = $this->setFormatDateTime($date);
+        return view('salary.edit-salary', ['salary'=>$salary[0], 'employees'=>$employees, 'dateTime'=>$dateTime]);
     }
 
     /**
@@ -81,7 +94,17 @@ class SalaryController extends Controller
      */
     public function update(SalaryRequest $request, $id)
     {
-        //
+        $rest_money = $request->input('amount_money') - $request->input('cost');
+        DB::update('update salary set date_time = ?, amount_money = ?, cost = ?, rest_money = ?, round = ? where idSalary = ?', [
+            $request->input('date_time'),
+            $request->input('amount_money'),
+            $request->input('cost'),
+            $rest_money,
+            $request->input('round'),
+            $id
+        ]);
+        session()->flash('edited', 'แก้ไขการจ่ายเงินเดือนสำเร็จ');
+        return redirect('/salaries/'.$id.'/edit');
     }
 
     /**
@@ -92,6 +115,8 @@ class SalaryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::delete('delete from salary where idSalary = ?', [$id]);
+        session()->flash('deleted', 'ลบการจ่ายเงินเดือนเรียบร้อยแล้ว');
+        return redirect('/salaries');
     }
 }

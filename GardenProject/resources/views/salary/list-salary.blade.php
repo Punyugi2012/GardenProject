@@ -34,7 +34,12 @@
                             <td>{{$salary->rest_money}}</td>
                             <td>{{$salary->round}}</td>
                             <td>
-                                <a href="#" class="btn btn-light">แก้ไข</a>    
+                                <a href="{{url('/salaries/'.$salary->idSalary.'/edit')}}" class="btn btn-light">แก้ไข</a>   
+                                <form action="{{url('/salaries/'.$salary->idSalary)}}" method="POST" class="d-inline">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <button type="submit" class="btn btn-light">ลบ</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
