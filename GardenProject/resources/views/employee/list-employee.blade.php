@@ -40,7 +40,9 @@
                             </td>
                             <td>{{$employee->salary}}</td>
                             <td>
+                                <a href="#" class="btn btn-light">ดูรายละเอียด</a>
                                 <a href="{{url('employees/'.$employee->idEmployee.'/edit')}}" class="btn btn-light">แก้ไข</a>
+                            
                             </td>
                         </tr>
                     @endforeach

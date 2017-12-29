@@ -38,7 +38,7 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width:inherit!important">
                             <a class="dropdown-item" href="{{url('/attendances')}}">การลงเวลาทำงาน</a>
                             <a class="dropdown-item" href="#">การจ่ายเงินเดือน</a>
-                            <a class="dropdown-item" href="#">การลางาน</a>
+                            <a class="dropdown-item" href="{{url('/leaves')}}">การลางาน</a>
                             <a class="dropdown-item" href="#">การสั่งซื้อ</a>
                         </div>
                     </div>

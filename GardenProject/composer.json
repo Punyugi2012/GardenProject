@@ -31,7 +31,7 @@
         "psr-4": {
             "Tests\\": "tests/"
         },
-        "files" : ["app/helpers/getDateThai.php", "app/helpers/getGenderThai.php"]
+        "files" : ["app/helpers/getDateThai.php", "app/helpers/getGenderThai.php", "app/helpers/getLeaveThai.php"]
     },
     "extra": {
         "laravel": {
