@@ -15,7 +15,7 @@ class LeaveController extends Controller
      */
     public function index()
     {
-        $leaves = DB::select('select * from takeleave natural join employee');
+        $leaves = DB::select('select * from takeleave natural join employee order by idtakeleave desc');
         return view('leave.list-leave', ['leaves'=>$leaves]);
     }
 

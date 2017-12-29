@@ -13,5 +13,6 @@
 Route::resource('/employees', 'EmployeeController');
 Route::resource('/attendances', 'AttendanceController');
 Route::resource('/leaves', 'LeaveController');
+Route::resource('/salaries', 'SalaryController');
 Auth::routes();
 

@@ -15,7 +15,7 @@
                 </ul>
             </div>
             @endif
-            <form action="{{url('/leaves')}}" method="POST">
+            <form action="{{url('/leaves')}}" method="POST" autocomplete="off">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="employee">ชื่อ-นามสกุล:</label>

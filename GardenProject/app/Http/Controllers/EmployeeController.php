@@ -16,7 +16,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = DB::select('select * from employee');
+        $employees = DB::select('select * from employee order by idEmployee desc');
         return view('employee/list-employee', ['employees'=>$employees]);
     }
 

@@ -22,7 +22,7 @@ class AttendanceController extends Controller
         $year = $today->year;
         $today = $year.'-'.$month.'-'.$day;
         $employees = DB::select('select * from employee');
-        $attendances = DB::select('select * from attendance natural join employee');
+        $attendances = DB::select('select * from attendance natural join employee order by idattendance desc');
         return view('attendance.attendance', ['today'=>$today, 'employees'=>$employees, 'attendances'=>$attendances]);
     }
 
