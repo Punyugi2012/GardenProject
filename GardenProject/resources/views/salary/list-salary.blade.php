@@ -35,11 +35,27 @@
                             <td>{{$salary->round}}</td>
                             <td>
                                 <a href="{{url('/salaries/'.$salary->idSalary.'/edit')}}" class="btn btn-light">แก้ไข</a>   
-                                <form action="{{url('/salaries/'.$salary->idSalary)}}" method="POST" class="d-inline">
-                                    {{ csrf_field() }}
-                                    {{ method_field('DELETE') }}
-                                    <button type="submit" class="btn btn-light">ลบ</button>
-                                </form>
+                                <button data-toggle="modal" data-target="#deleteSalary{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <div class="modal fade" id="deleteSalary{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h2 class="modal-title">ยืนยันการลบ</h2>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="{{url('/salaries/'.$salary->idSalary)}}" method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">ยืนยัน</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                            </div>
+                                        </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
