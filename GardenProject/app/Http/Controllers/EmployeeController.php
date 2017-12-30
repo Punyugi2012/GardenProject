@@ -54,7 +54,7 @@ class EmployeeController extends Controller
             $request->salary,
             $request->gender
         ]);
-        session()->flash('added', 'เพิ่มพนักงานเรียบร้อยแล้ว');
+        session()->flash('added', 'เพิ่มพนักงาน เรียบร้อยแล้ว');
         return redirect('/employees');
     }
 
@@ -100,7 +100,7 @@ class EmployeeController extends Controller
             $request->gender,
             $id
         ]);
-        session()->flash('edited', 'แก้ไขพนักงานเรียบร้อยแล้ว');
+        session()->flash('edited', 'แก้ไขพนักงาน เรียบร้อยแล้ว');
         return redirect('/employees/'.$id.'/edit');
     }
 

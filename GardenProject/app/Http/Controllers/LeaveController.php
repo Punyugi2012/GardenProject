@@ -49,7 +49,7 @@ class LeaveController extends Controller
             $request->input('cause'),
             $request->input('employee')
         ]);
-        session()->flash('added', 'เพิ่มการลางานเรียบร้อยแล้ว');
+        session()->flash('added', 'เพิ่มการลางาน เรียบร้อยแล้ว');
         return redirect('/leaves');
     }
 
@@ -98,7 +98,7 @@ class LeaveController extends Controller
             $request->input('employee'),
             $id
         ]);
-        session()->flash('edited', 'แก้ไขการลาทำงานเรียบร้อยแล้ว');
+        session()->flash('edited', 'แก้ไขการลาทำงาน เรียบร้อยแล้ว');
         return redirect('/leaves/'.$id.'/edit');
     }
 
@@ -111,7 +111,7 @@ class LeaveController extends Controller
     public function destroy($id)
     {
         DB::delete('delete from takeleave where idtakeleave = ?', [$id]);
-        session()->flash('deleted', 'ลบการลางานเรียบร้อยแล้ว');
+        session()->flash('deleted', 'ลบการลางาน เรียบร้อยแล้ว');
         return redirect('/leaves');
     }
 }

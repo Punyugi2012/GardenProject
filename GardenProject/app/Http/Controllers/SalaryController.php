@@ -103,7 +103,7 @@ class SalaryController extends Controller
             $request->input('round'),
             $id
         ]);
-        session()->flash('edited', 'แก้ไขการจ่ายเงินเดือนสำเร็จ');
+        session()->flash('edited', 'แก้ไขการจ่ายเงินเดือน เรียบร้อยแล้ว');
         return redirect('/salaries/'.$id.'/edit');
     }
 
@@ -116,7 +116,7 @@ class SalaryController extends Controller
     public function destroy($id)
     {
         DB::delete('delete from salary where idSalary = ?', [$id]);
-        session()->flash('deleted', 'ลบการจ่ายเงินเดือนเรียบร้อยแล้ว');
+        session()->flash('deleted', 'ลบการจ่ายเงินเดือน เรียบร้อยแล้ว');
         return redirect('/salaries');
     }
 }
