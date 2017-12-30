@@ -30,8 +30,9 @@
                     <input type="text" id="phone" name="phone" class="form-control" placeholder="เบอร์โทรศัพท์" required>
                 </div>
                 <div class="form-group">
-                    <select class="custom-select" name="nationality" required>
-                        <option selected>เลือกสัญชาติ</option>
+                    <label for="nationality">สัญชาติ:</label>
+                    <select class="custom-select form-control" id="nationality" name="nationality" required>
+                        <option value="" selected>เลือกสัญชาติ</option>
                         <option value="Vietnamese">เวียดนาม</option>
                         <option value="Thai">ไทย</option>
                         <option value="Singaporean">สิงคโปร์</option>
@@ -53,18 +54,19 @@
                 </div>
                 <div class="form-group">
                     <label for="salary">เงินเดือน:</label>
-                    <input type="number" id="salary" name="salary" class="form-control" placeholder="เงินเดือน" required>
+                    <input type="number" step=any id="salary" name="salary" class="form-control" placeholder="เงินเดือน" required>
                 </div>
                 <div class="form-group">
-                    <select class="custom-select" name="gender" required>
-                        <option selected>เลือกเพศ</option>
+                    <label for="gender">เพศ:</label>
+                    <select class="custom-select form-control" id="gender" name="gender" required>
+                        <option value="" selected>เลือกเพศ</option>
                         <option value="male">ชาย</option>
                         <option value="female">หญิง</option>
                     </select>
                 </div>
                 <div class="text-center">
-                    <button type="submit">ยืนยัน</button>
-                    <button type="reset">ล้าง</button>
+                    <button type="submit" class="btn btn-light">ยืนยัน</button>
+                    <button type="reset" class="btn btn-light">ล้าง</button>
                 </div>
             </form>
         </div>

@@ -31,7 +31,8 @@
                 <input type="text" id="phone" name="phone" class="form-control" value="{{$employee->phone}}" placeholder="เบอร์โทรศัพท์" required>
             </div>
             <div class="form-group">
-                <select class="custom-select" name="nationality" required>
+                <label for="nationality">สัญชาติ:</label>
+                <select class="custom-select form-control" id="nationality" name="nationality" required>
                     <option value="Vietnamese" {{$employee->nationality == 'Vietnamese' ? 'selected': ''}}>เวียดนาม</option>
                     <option value="Thai" {{$employee->nationality == 'Thai' ? 'selected': ''}}>ไทย</option>
                     <option value="Singaporean" {{$employee->nationality == 'Singaporean' ? 'selected': ''}}>สิงคโปร์</option>
@@ -47,17 +48,18 @@
             </div>
             <div class="form-group">
                 <label for="salary">เงินเดือน:</label>
-                <input type="number" id="salary" name="salary" class="form-control" value="{{$employee->salary}}" placeholder="เงินเดือน" required>
+                <input type="number" step=any id="salary" name="salary" class="form-control" value="{{$employee->salary}}" placeholder="เงินเดือน" required>
             </div>
             <div class="form-group">
-                <select class="custom-select" name="gender" required>
+                <label for="gender">เพศ:</label>
+                <select class="custom-select form-control" id="gender" name="gender" required>
                     <option value="male" {{$employee->gender == 'male' ? 'selected': ''}}>ชาย</option>
                     <option value="female" {{$employee->gender == 'female' ? 'selected': ''}}>หญิง</option>
                 </select>
             </div>
             <div class="text-center">
-                <button type="submit">บันทึก</button>
-                <button type="reset">ล้าง</button>
+                <button type="submit" class="btn btn-light">บันทึก</button>
+                <button type="reset" class="btn btn-light">ล้าง</button>
             </div>
         </form>
     </div>

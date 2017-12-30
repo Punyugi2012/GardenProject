@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -13,7 +13,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        //
+        $items = DB::select('select * from item');
+        return view('item.list-item', ['items'=>$items]);
     }
 
     /**
@@ -23,7 +24,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+        return view('item.add-item');
     }
 
     /**

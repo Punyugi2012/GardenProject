@@ -22,7 +22,7 @@
                     <select class="custom-select form-control" name="employee" id="employee" required>
                         <option value="" selected>เลือกชื่อ-นามสกุล</option>
                         @foreach ($employees as $employee)
-                            <option value="{{$employee->idEmployee}}">{{$employee->name}}-{{$employee->surname}}</option>
+                            <option value="{{$employee->idEmployee}}">{{$employee->name}}-{{$employee->surname}}, {{$employee->salary}} บาท</option>
                         @endforeach
                     </select>
                 </div>
@@ -44,13 +44,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="amount_money">จำนวนเงิน:</label>
-                            <input type="number" id="amount_money" name="amount_money" class="form-control" placeholder="จำนวนเงิน" required>
+                            <input type="number" step=any id="amount_money" name="amount_money" class="form-control" placeholder="จำนวนเงิน" required>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="cost">ค่าเสียหาย:</label>
-                            <input type="number" id="cost" name="cost" class="form-control" placeholder="จำนวนค่าเสียหาย" required>
+                            <input type="number" step=any id="cost" name="cost" class="form-control" placeholder="จำนวนค่าเสียหาย" required>
                         </div>
                     </div>
                 </div>
