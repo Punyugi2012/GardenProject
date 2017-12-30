@@ -54,6 +54,8 @@ class AttendanceController extends Controller
             $request->input('date'),
             $request->input('employee')
         ]);
+        session()->flash('added', 'เพิ่มการลาทำงานเรียบร้อยแล้ว');
+        return redirect('/attendances');
     }
 
     /**
@@ -112,6 +114,8 @@ class AttendanceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::delete('delete from attendance where idAttendance = ?', [$id]);
+        session()->flash('deleted', 'ลบการลงเวลาทำงานเรียบร้อยแล้ว');
+        return redirect('/attendances');
     }
 }
