@@ -17,5 +17,6 @@ Route::resource('/salaries', 'SalaryController');
 Route::resource('/items', 'ItemController');
 Route::resource('/shops', 'ShopController');
 Route::resource('/purchases', 'PurchaseController');
+Route::post('/purchases_detail/purchase/{idPurchase}', 'PurchaseDetailController@store');
 Auth::routes();
 

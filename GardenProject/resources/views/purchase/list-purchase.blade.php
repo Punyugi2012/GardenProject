@@ -13,6 +13,7 @@
             <table id="table_id" class="display">
                 <thead>
                     <tr>
+                        <th>เลขที่การสั่งซื้อ</th>
                         <th>วันที่สั่ง</th>
                         <th>เวลาสั่ง</th>
                         <th>วันที่จ่าย</th>
@@ -28,6 +29,7 @@
                 <tbody>
                     @foreach ($purchases as $purchase)
                         <tr>
+                            <td>{{$purchase->idPurchase}}</td>
                             <td>{{formatDateThai($purchase->date_order)}}</td>
                             <td>{{formatDateThai($purchase->time_order)}} น.</td>
                             <td>{{formatDateThai($purchase->date_pay)}}</td>

@@ -61,7 +61,9 @@ class PurchaseController extends Controller
     public function show($id)
     {
         $purchase = DB::select('select * from purchase where idPurchase = ?', [$id]);
-        return view('purchase.detail-purchase', ['purchase'=>$purchase[0]]);
+        $items = DB::select('select * from item');
+        $purchasesDetail = DB::select('select * from purchasedetail natural join item where idPurchase = ?', [$id]); 
+        return view('purchase.detail-purchase', ['purchase'=>$purchase[0], 'items'=>$items, 'purchasesDetail'=>$purchasesDetail]);
     }
 
     /**
