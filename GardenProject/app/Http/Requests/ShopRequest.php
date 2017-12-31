@@ -13,7 +13,7 @@ class ShopRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,16 @@ class ShopRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'=>'required',
+            'address'=>'required',
+            'phone'=>'required',
+        ];
+    }
+    public function messages() {
+        return [
+            'name'=>'กรุณากรอกชื่อ',
+            'address'=>'กรุณากรอกที่อยู่',
+            'phone'=>'กรุณากรอกเบอร์โทรศัพท์',
         ];
     }
 }

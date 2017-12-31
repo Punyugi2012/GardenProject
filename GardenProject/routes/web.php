@@ -15,5 +15,6 @@ Route::resource('/attendances', 'AttendanceController');
 Route::resource('/leaves', 'LeaveController');
 Route::resource('/salaries', 'SalaryController');
 Route::resource('/items', 'ItemController');
+Route::resource('/shops', 'ShopController');
 Auth::routes();
 

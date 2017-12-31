@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Http\Requests\ShopRequest;
 
 class ShopController extends Controller
 {
@@ -13,7 +14,8 @@ class ShopController extends Controller
      */
     public function index()
     {
-        //
+        $shops = DB::select('select * from shop order by idShop desc');
+        return view('shop.list-shop', ['shops'=>$shops]);
     }
 
     /**
@@ -23,7 +25,7 @@ class ShopController extends Controller
      */
     public function create()
     {
-        //
+        return view('shop.add-shop');
     }
 
     /**
@@ -32,9 +34,16 @@ class ShopController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ShopRequest $request)
     {
-        //
+        DB::insert('insert into shop(name, address, phone, account_number) values (?, ?, ?, ?)', [
+            $request->input('name'),
+            $request->input('address'),
+            $request->input('phone'),
+            $request->input('account_number')
+        ]);
+        session()->flash('added', 'เพิ่มร้านค้า เรียบร้อยแล้ว');
+        return redirect('/shops');
     }
 
     /**
@@ -56,7 +65,8 @@ class ShopController extends Controller
      */
     public function edit($id)
     {
-        //
+        $shop = DB::select('select * from shop where idShop = ?', [$id]);
+        return view('shop.edit-shop', ['shop'=>$shop[0]]);
     }
 
     /**
@@ -66,9 +76,17 @@ class ShopController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ShopRequest $request, $id)
     {
-        //
+        DB::update('update shop set name = ?, address = ?, phone = ?, account_number = ? where idShop = ?', [
+            $request->input('name'),
+            $request->input('address'),
+            $request->input('phone'),
+            $request->input('account_number'),
+            $id
+        ]);
+        session()->flash('edited', 'แก้ไขร้านค้า เรียบร้อยแล้ว');
+        return redirect('/shops/'.$id.'/edit');
     }
 
     /**

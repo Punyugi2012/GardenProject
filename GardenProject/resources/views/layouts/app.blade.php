@@ -31,7 +31,7 @@
                     <a class="nav-link btn btn-light" href="#">งาน</a>
                     <a class="nav-link btn btn-light" href="{{url('/employees')}}">พนักงาน</a>
                     <a class="nav-link btn btn-light" href="{{url('/items')}}">วัตถุดิบ</a>
-                    <a class="nav-link btn btn-light" href="#">ร้านค้า</a>
+                    <a class="nav-link btn btn-light" href="{{url('/shops')}}">ร้านค้า</a>
                     <div>
                         <button class="nav-link btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width:100%">
                             เครื่องมือ
