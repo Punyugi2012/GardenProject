@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\EmployeeRequest;
 use Image;
+use File;
 
 class EmployeeController extends Controller
 {
@@ -112,6 +113,13 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $employee = DB::select('select * from employee where idEmployee = ?', [$id]);
+        if ($employee[0]->profile_image != 'nopic.png') {
+            File::delete(public_path() . '/images/' . $employee[0]->profile_image);
+            File::delete(public_path() . '/images/resize/' . $employee[0]->profile_image);
+        }
+        DB::delete('delete from employee where idEmployee = ?', [$id]);
+        session()->flash('deleted', 'ลบพนักงาน เรียบร้อยแล้ว');
+        return redirect('/employees');
     }
 }

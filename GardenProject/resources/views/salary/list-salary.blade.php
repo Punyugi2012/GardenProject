@@ -16,6 +16,7 @@
                         <th>ชื่อ</th>
                         <th>นามสกุล</th>
                         <th>วันที่</th>
+                        <th>เวลา</th>
                         <th>จำนวนเงิน</th>
                         <th>ค่าเสียหาย</th>
                         <th>จำนวนเงินสุทธิ</th>
@@ -28,7 +29,8 @@
                         <tr>
                             <td>{{$salary->name}}</td>
                             <td>{{$salary->surname}}</td>
-                            <td>{{formatDateThai($salary->date_time)}} น.</td>
+                            <td>{{formatDateThai($salary->date)}}</td>
+                            <td>{{formatDateThai($salary->time)}} น.</td>
                             <td>{{$salary->amount_money}}</td>
                             <td>{{$salary->cost}}</td>
                             <td>{{$salary->rest_money}}</td>

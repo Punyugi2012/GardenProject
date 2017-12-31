@@ -25,7 +25,8 @@ class SalaryRequest extends FormRequest
     {
         return [
             'employee'=>'required',
-            'date_time'=>'required',
+            'date'=>'required',
+            'time'=>'required',
             'round'=>'required',
             'amount_money'=>'required',
             'cost'=>'required',
@@ -34,7 +35,8 @@ class SalaryRequest extends FormRequest
     public function messages() {
         return [
             'employee'=>'กรุณาเลือกชื่อนามสกุลพนักงาน',
-            'date_time'=>'กรุณากรอกวัน/เดือน/ปี/เวลา',
+            'date'=>'กรุณากรอกวันที่',
+            'time'=>'กรุณากรอกเวลา',
             'round'=>'กรุณากรอกรอบ',
             'amount_money'=>'กรุณากรอกจำนวนเงิน',
             'cost'=>'กรุณากรอกค่าเสียหาย',

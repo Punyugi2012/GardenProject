@@ -97,6 +97,8 @@ class ShopController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::delete('delete from shop where idShop = ?', [$id]);
+        session()->flash('deleted', 'ลบร้านค้า เรียบร้อยแล้ว');
+        return redirect('/shops');
     }
 }

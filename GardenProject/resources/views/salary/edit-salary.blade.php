@@ -27,13 +27,19 @@
                     </select>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label for="date_time">วันที่:</label>
-                            <input type="datetime-local" id="date_time" name="date_time" value="{{$dateTime}}" class="form-control" required>
+                            <label for="date">วันที่:</label>
+                            <input type="date" id="date" name="date" class="form-control" value="{{$salary->date}}" required>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="time">เวลา:</label>
+                            <input type="time" id="time" name="time" class="form-control" value="{{$salary->time}}" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="round">รอบ:</label>
                             <input type="text" id="round" name="round" class="form-control" value="{{$salary->round}}" required>

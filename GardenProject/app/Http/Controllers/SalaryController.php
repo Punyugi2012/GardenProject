@@ -39,8 +39,9 @@ class SalaryController extends Controller
     public function store(SalaryRequest $request)
     {
         $rest_money = $request->input('amount_money') - $request->input('cost');
-        DB::insert('insert into salary(date_time, amount_money, cost, rest_money, round, idEmployee) values (?, ?, ?, ?, ?, ?)', [
-           $request->input('date_time'),
+        DB::insert('insert into salary(date, time, amount_money, cost, rest_money, round, idEmployee) values (?, ?, ?, ?, ?, ?, ?)', [
+           $request->input('date'),
+           $request->input('time'),
            $request->input('amount_money'),
            $request->input('cost'),
            $rest_money,
@@ -68,21 +69,11 @@ class SalaryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    private function setFormatDateTime($date) {
-        $year = $date->year;
-        $month = $date->month;
-        $day = $date->day;
-        $hour = $date->hour;
-        $minute = $date->minute;
-        return $year.'-'.$month.'-'.$day.'T'.$hour.':'.$minute.':00';
-    }
     public function edit($id)
     {
         $employees = DB::select('select * from employee');
         $salary = DB::select('select * from salary where idSalary = ?', [$id]);
-        $date = Carbon::parse($salary[0]->date_time);
-        $dateTime = $this->setFormatDateTime($date);
-        return view('salary.edit-salary', ['salary'=>$salary[0], 'employees'=>$employees, 'dateTime'=>$dateTime]);
+        return view('salary.edit-salary', ['salary'=>$salary[0], 'employees'=>$employees]);
     }
 
     /**
@@ -95,8 +86,9 @@ class SalaryController extends Controller
     public function update(SalaryRequest $request, $id)
     {
         $rest_money = $request->input('amount_money') - $request->input('cost');
-        DB::update('update salary set date_time = ?, amount_money = ?, cost = ?, rest_money = ?, round = ? where idSalary = ?', [
-            $request->input('date_time'),
+        DB::update('update salary set date = ?, time = ?, amount_money = ?, cost = ?, rest_money = ?, round = ? where idSalary = ?', [
+            $request->input('date'),
+            $request->input('time'),
             $request->input('amount_money'),
             $request->input('cost'),
             $rest_money,

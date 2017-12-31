@@ -97,6 +97,8 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::delete('delete from item where idItem = ?', [$id]);
+        session()->flash('deleted', 'ลบวัตถุ เรียบร้อยแล้ว');
+        return redirect('/items');
     }
 }

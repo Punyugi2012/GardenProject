@@ -42,7 +42,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="account_number">เลขที่บัญชี:</label>
+                            <label for="account_number">เลขบัญชี:</label>
                             <input type="text" id="account_number" name="account_number" class="form-control" placeholder="เลขบัญชี">
                         </div>
                     </div>

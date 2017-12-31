@@ -42,7 +42,27 @@
                             <td>
                                 <a href="#" class="btn btn-light">ดูรายละเอียด</a>
                                 <a href="{{url('employees/'.$employee->idEmployee.'/edit')}}" class="btn btn-light">แก้ไข</a>
-                            
+                                <button data-toggle="modal" data-target="#deleteEmployee{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <div class="modal fade" id="deleteEmployee{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h2 class="modal-title">ยืนยันการลบ</h2>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="{{url('/employees/'.$employee->idEmployee)}}" method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">ยืนยัน</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                            </div>
+                                        </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
@@ -57,15 +77,25 @@
             $('#table_id').DataTable();
         });
     </script>
-@if (session()->has('added'))
-    <script type="text/javascript">
-        swal({
-            title: "<?php echo session()->get('added'); ?>",
-            text: "ผลการทำงาน",
-            timer: 10000,
-            type: 'success',
-            showConfirmButton: false
-        });
-    </script>
- @endif
+    @if (session()->has('added'))
+        <script type="text/javascript">
+            swal({
+                title: "<?php echo session()->get('added'); ?>",
+                text: "ผลการทำงาน",
+                timer: 10000,
+                type: 'success',
+                showConfirmButton: false
+            });
+        </script>
+    @elseif(session()->has('deleted'))
+        <script type="text/javascript">
+            swal({
+                title: "<?php echo session()->get('deleted'); ?>",
+                text: "ผลการทำงาน",
+                timer: 10000,
+                type: 'success',
+                showConfirmButton: false
+            });
+        </script>
+    @endif
 @endsection
