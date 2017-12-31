@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Http\Requests\PurchaseRequest;
 
 class PurchaseController extends Controller
 {
@@ -24,7 +25,8 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        //
+        $shops = DB::select('select * from shop');
+        return view('purchase.add-purchase', ['shops'=>$shops]);    
     }
 
     /**
@@ -33,9 +35,21 @@ class PurchaseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PurchaseRequest $request)
     {
-        //
+        DB::insert('insert into purchase(date_order, date_pay, date_get, time_order, time_pay, time_get, total_money, status, idShop) values (?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+            $request->input('date_order'),
+            $request->input('date_pay'),
+            $request->input('date_get'),
+            $request->input('time_order'),
+            $request->input('time_pay'),
+            $request->input('time_get'),
+            $request->input('total_money'),
+            $request->input('status'),
+            $request->input('shop'),
+        ]);
+        session()->flash('added', 'เพิ่มการสั่งซื้อ เรียบร้อยแล้ว');
+        return redirect('/purchases');
     }
 
     /**
@@ -46,7 +60,8 @@ class PurchaseController extends Controller
      */
     public function show($id)
     {
-        //
+        $purchase = DB::select('select * from purchase where idPurchase = ?', [$id]);
+        return view('purchase.detail-purchase', ['purchase'=>$purchase[0]]);
     }
 
     /**
@@ -57,7 +72,9 @@ class PurchaseController extends Controller
      */
     public function edit($id)
     {
-        //
+        $purchase = DB::select('select * from purchase natural join shop where idPurchase = ?', [$id]);
+        $shops = DB::select('select * from shop');
+        return view('purchase.edit-purchase', ['purchase'=>$purchase[0], 'shops'=>$shops]);
     }
 
     /**
@@ -67,9 +84,22 @@ class PurchaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PurchaseRequest $request, $id)
     {
-        //
+        DB::update('update purchase set date_order = ?, date_pay = ?, date_get = ?, time_order = ?, time_pay = ?, time_get = ?, total_money = ?, status = ?, idShop = ? where idPurchase = ?', [
+            $request->input('date_order'),
+            $request->input('date_pay'),
+            $request->input('date_get'),
+            $request->input('time_order'),
+            $request->input('time_pay'),
+            $request->input('time_get'),
+            $request->input('total_money'),
+            $request->input('status'),
+            $request->input('shop'),
+            $id
+        ]);
+        session()->flash('edited', 'แก้ไขการสั่งซื้อ เรียบร้อยแล้ว');
+        return redirect('/purchases/'.$id.'/edit');
     }
 
     /**
@@ -80,6 +110,8 @@ class PurchaseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::delete('delete from purchase where idPurchase = ?', [$id]);
+        session()->flash('deleted', 'ลบการสั่งซื้อ เรียบร้อยแล้ว');
+        return redirect('/purchases');
     }
 }

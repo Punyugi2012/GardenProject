@@ -38,7 +38,7 @@
                             <td>{{$purchase->name}}</td>
                             <td>{{$purchase->status}}</td>
                             <td>
-                                <a href="#" class="btn btn-light">รายละเอียด</a>
+                                <a href="{{url('/purchases/'.$purchase->idPurchase)}}" class="btn btn-light">รายละเอียด</a>
                                 <a href="{{url('/purchases/'.$purchase->idPurchase.'/edit')}}" class="btn btn-light">แก้ไข</a>
                                 <button data-toggle="modal" data-target="#deletePurchase{{$loop->index}}" class="btn btn-light">ลบ</button>
                                 <div class="modal fade" id="deletePurchase{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
