@@ -40,7 +40,7 @@
                             <a class="dropdown-item" href="{{url('/attendances')}}">การลงเวลาทำงาน</a>
                             <a class="dropdown-item" href="{{url('/salaries')}}">การจ่ายเงินเดือน</a>
                             <a class="dropdown-item" href="{{url('/leaves')}}">การลางาน</a>
-                            <a class="dropdown-item" href="#">การสั่งซื้อ</a>
+                            <a class="dropdown-item" href="{{url('/purchases')}}">การสั่งซื้อ</a>
                         </div>
                     </div>
                 </nav>
