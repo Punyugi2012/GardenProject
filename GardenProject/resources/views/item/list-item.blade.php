@@ -32,8 +32,6 @@
                                     ลิตร
                                 @elseif($item->type == 'fertilizer')
                                     กิโลกรัม
-                                @elseif($item->type == 'equipment') 
-                                    ชิ้น/เครื่อง
                                 @endif
                             </td>
                             <td>{{$item->type}}</td>

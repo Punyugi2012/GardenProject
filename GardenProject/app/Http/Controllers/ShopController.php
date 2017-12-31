@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
-use App\Http\Requests\ItemRequest;
 
-class ItemController extends Controller
+use Illuminate\Http\Request;
+
+class ShopController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +13,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = DB::select('select * from item order by iditem desc');
-        return view('item.list-item', ['items'=>$items]);
+        //
     }
 
     /**
@@ -25,7 +23,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        return view('item.add-item');
+        //
     }
 
     /**
@@ -34,16 +32,9 @@ class ItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ItemRequest $request)
+    public function store(Request $request)
     {
-        DB::insert('insert into item(name, amount, type, price_per_item) values (?, ?, ?, ?)', [
-            $request->input('name'),
-            $request->input('amount'),
-            $request->input('type'),
-            $request->input('price_per_item')
-        ]);
-        session()->flash('added', 'เพิ่มวัตถุดิบ เรียบร้อยแล้ว');
-        return redirect('/items');
+        //
     }
 
     /**
@@ -65,8 +56,7 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
-        $item = DB::select('select * from item where idItem = ?', [$id]);
-        return view('item.edit-item', ['item'=>$item[0]]);
+        //
     }
 
     /**
@@ -78,15 +68,7 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        DB::update('update item set name = ?, amount = ?, type = ?, price_per_item = ? where idItem = ?', [
-            $request->input('name'),
-            $request->input('amount'),
-            $request->input('type'),
-            $request->input('price_per_item'),
-            $id
-        ]);
-        session()->flash('edited', 'แก้ไขวัตถุดิบ เรียบร้อยแล้ว');
-        return redirect('/items/'.$id.'/edit');
+        //
     }
 
     /**

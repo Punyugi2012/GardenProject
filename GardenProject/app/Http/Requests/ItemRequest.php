@@ -13,7 +13,7 @@ class ItemRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,18 @@ class ItemRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'type'=>'required',
+            'name'=>'required',
+            'amount'=>'required',
+            'price_per_item'=>'required'
+        ];
+    }
+    public function messages() {
+        return [
+            'type'=>'กรุณาเลือกประเภท',
+            'name'=>'กรุณากรอกชื่อ',
+            'amount'=>'กรุณากรอกจำนวน',
+            'price_per_item'=>'กรุณากรอกราคาต่อชิ้น'
         ];
     }
 }
