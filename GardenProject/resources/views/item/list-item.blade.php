@@ -15,8 +15,8 @@
                     <tr>
                         <th>ชื่อ</th>
                         <th>จำนวน</th>
-                        <th>ประเภท</th>
                         <th>ราคาต่อชิ้น</th>
+                        <th>ประเภท</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -34,11 +34,11 @@
                                     กิโลกรัม
                                 @endif
                             </td>
-                            <td>{{$item->type}}</td>
                             <td>{{$item->price_per_item}} บาท</td>
+                            <td>{{$item->type}}</td>
                             <td>
                                 <a href="#" class="btn btn-light">รายละเอียด</a>
-                                <a href="{{url('/items/'.$item->idItem.'/edit')}}" class="btn btn-light">แก้ไข</a>
+                                <a href="#" class="btn btn-light">แก้ไข</a>
                                 <button data-toggle="modal" data-target="#deleteItem{{$loop->index}}" class="btn btn-light">ลบ</button>
                                 <div class="modal fade" id="deleteItem{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">

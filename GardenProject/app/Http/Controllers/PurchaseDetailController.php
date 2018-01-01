@@ -19,4 +19,9 @@ class PurchaseDetailController extends Controller
         session()->flash('added', 'เพิ่มเรียบร้อยแล้ว');
         return redirect('/purchases/'.$idPurchase);
     }
+    public function destroy($idPurchaseDetail, $idPurchase) {
+        DB::delete('delete from purchasedetail where idPurchaseDetail = ?', [$idPurchaseDetail]);
+        session()->flash('deleted', 'ลบ เรียบร้อยแล้ว');
+        return redirect('/purchases/'.$idPurchase);
+    }
 }

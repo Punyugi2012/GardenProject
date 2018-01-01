@@ -18,5 +18,6 @@ Route::resource('/items', 'ItemController');
 Route::resource('/shops', 'ShopController');
 Route::resource('/purchases', 'PurchaseController');
 Route::post('/purchases_detail/purchase/{idPurchase}', 'PurchaseDetailController@store');
+Route::delete('/purchases_detail/{idPurchaseDetail}/purchase/{idPurchase}', 'PurchaseDetailController@destroy');
 Auth::routes();
 
