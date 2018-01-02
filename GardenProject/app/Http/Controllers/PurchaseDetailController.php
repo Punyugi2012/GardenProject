@@ -30,7 +30,6 @@ class PurchaseDetailController extends Controller
         ->join('PurchaseDetail', 'Item.idItem', '=', 'PurchaseDetail.idItem')
         ->where('idPurchaseDetail', $idPurchaseDetail)
         ->first();
-        print_r($purchaseDetail);
         return view('purchase.edit-purchaseDetail', ['items'=>$items, 'purchaseDetail'=>$purchaseDetail, 'idPurchase'=>$idPurchase]);
     }
     public function update(PurchaseDetailRequest $request, $idPurchaseDetail, $idPurchase) {
