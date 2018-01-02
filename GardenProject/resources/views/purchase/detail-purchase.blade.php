@@ -6,7 +6,7 @@
             <h3>รายละเอียดการสั่งซื้อ</h3>
         </div>
         <div class="card-body">
-            <form action="{{url('/purchases_detail/purchase/'.$purchase->idPurchase)}}" method="POST" autocomplete="off">
+            <form action="{{url('/purchases_detail/purchase/'.$idPurchase)}}" method="POST" autocomplete="off">
                 {{csrf_field()}}
                 <div class="row">
                     <div class="col-md-6">
@@ -34,20 +34,22 @@
             <table id="table_id" class="display">
                 <thead>
                     <tr>
-                        <td>ชื่อวัตถุดิบ</td>
-                        <td>จำนวน</td>
-                        <td>จำนวนเงินรวม</td>
-                        <td>เครื่องมือ</td>
+                        <th>เลขที่รายละเอียด</th>
+                        <th>ชื่อวัตถุดิบ</th>
+                        <th>จำนวน</th>
+                        <th>จำนวนเงินรวม</th>
+                        <th>เครื่องมือ</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($purchasesDetail as $purchaseDetail)
                         <tr>
+                            <td>{{$purchaseDetail->idPurchaseDetail}}</td>
                             <td>{{$purchaseDetail->name}}</td>
                             <td>{{$purchaseDetail->amount}}</td>
                             <td>{{$purchaseDetail->total_money}}</td>
                             <td>
-                                <a href="#" class="btn btn-light">แก้ไข</a>
+                                <a href="{{url('/edit-purchases_detail/'.$purchaseDetail->idPurchaseDetail.'/purchase/'.$idPurchase)}}" class="btn btn-light">แก้ไข</a>
                                 <button data-toggle="modal" data-target="#deletePurchaseDetail{{$loop->index}}" class="btn btn-light">ลบ</button>
                                 <div class="modal fade" id="deletePurchaseDetail{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -58,7 +60,7 @@
                                             <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="{{url('/purchases_detail/'.$purchaseDetail->idPurchaseDetail.'/purchase/'.$purchase->idPurchase)}}" method="POST">
+                                        <form action="{{url('/purchases_detail/'.$purchaseDetail->idPurchaseDetail.'/purchase/'.$idPurchase)}}" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">
@@ -97,6 +99,16 @@
         <script type="text/javascript">
             swal({
                 title: "<?php echo session()->get('deleted'); ?>",
+                text: "ผลการทำงาน",
+                timer: 10000,
+                type: 'success',
+                showConfirmButton: false
+            });
+        </script>
+    @elseif (session()->has('edited'))
+        <script type="text/javascript">
+            swal({
+                title: "<?php echo session()->get('edited'); ?>",
                 text: "ผลการทำงาน",
                 timer: 10000,
                 type: 'success',

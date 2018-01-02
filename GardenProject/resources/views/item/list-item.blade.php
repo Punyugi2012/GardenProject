@@ -13,6 +13,7 @@
             <table id="table_id" class="display">
                 <thead>
                     <tr>
+                        <th>เลขที่วัตถุดิบ</th>
                         <th>ชื่อ</th>
                         <th>จำนวน</th>
                         <th>ราคาต่อชิ้น</th>
@@ -23,18 +24,12 @@
                 <tbody>
                     @foreach ($items as $item)
                         <tr>
+                            <td>{{$item->idItem}}</td>
                             <td>{{$item->name}}</td>
                             <td>
                                 {{$item->amount}}
-                                @if($item->type == 'tree')
-                                    ต้น
-                                @elseif($item->type == 'drug') 
-                                    ลิตร
-                                @elseif($item->type == 'fertilizer')
-                                    กิโลกรัม
-                                @endif
                             </td>
-                            <td>{{$item->price_per_item}} บาท</td>
+                            <td>{{$item->price_per_item}}</td>
                             <td>{{$item->type}}</td>
                             <td>
                                 <a href="#" class="btn btn-light">รายละเอียด</a>

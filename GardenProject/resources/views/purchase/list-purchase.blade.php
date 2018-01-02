@@ -36,7 +36,7 @@
                             <td>{{formatDateThai($purchase->time_pay)}} น.</td>
                             <td>{{formatDateThai($purchase->date_get)}}</td>
                             <td>{{formatDateThai($purchase->time_get)}} น.</td>
-                            <td>{{$purchase->total_money}} บาท</td>
+                            <td>{{$purchase->total_money}}</td>
                             <td>{{$purchase->name}}</td>
                             <td>{{$purchase->status}}</td>
                             <td>

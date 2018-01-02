@@ -16,12 +16,35 @@ class PurchaseDetailController extends Controller
             $idPurchase,
             $request->input('item')
         ]);
-        session()->flash('added', 'เพิ่มเรียบร้อยแล้ว');
+        session()->flash('added', 'เพิ่ม เรียบร้อยแล้ว');
         return redirect('/purchases/'.$idPurchase);
     }
     public function destroy($idPurchaseDetail, $idPurchase) {
         DB::delete('delete from purchasedetail where idPurchaseDetail = ?', [$idPurchaseDetail]);
         session()->flash('deleted', 'ลบ เรียบร้อยแล้ว');
         return redirect('/purchases/'.$idPurchase);
+    }
+    public function edit($idPurchaseDetail, $idPurchase) {
+        $items = DB::select('select * from item');
+        $purchaseDetail = DB::table('Item')
+        ->join('PurchaseDetail', 'Item.idItem', '=', 'PurchaseDetail.idItem')
+        ->where('idPurchaseDetail', $idPurchaseDetail)
+        ->first();
+        print_r($purchaseDetail);
+        return view('purchase.edit-purchaseDetail', ['items'=>$items, 'purchaseDetail'=>$purchaseDetail, 'idPurchase'=>$idPurchase]);
+    }
+    public function update(PurchaseDetailRequest $request, $idPurchaseDetail, $idPurchase) {
+        $item = DB::table('Item')->where('idItem', $request->input('item'))->first();
+        $total_money = $item->price_per_item * $request->input('amount');
+        DB::table('PurchaseDetail')
+            ->where('idPurchaseDetail', $idPurchaseDetail)
+            ->update([
+                'amount'=>$request->input('amount'),
+                'total_money'=>$total_money,
+                'idPurchase'=>$idPurchase,
+                'idItem'=>$request->input('item')
+            ]);
+        session()->flash('edited', 'แก้ไข เรียบร้อยแล้ว');
+        return redirect('/edit-purchases_detail/'.$idPurchaseDetail.'/purchase/'.$idPurchase);
     }
 }
