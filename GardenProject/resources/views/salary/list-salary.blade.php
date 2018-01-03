@@ -13,6 +13,7 @@
             <table id="table_id" class="display">
                 <thead>
                     <tr>
+                        <th>เลขที่การจ่ายเงินเดือน</th>
                         <th>ชื่อ</th>
                         <th>นามสกุล</th>
                         <th>วันที่</th>
@@ -27,6 +28,7 @@
                 <tbody>
                     @foreach ($salaries as $salary)
                         <tr>
+                            <td>{{$salary->idSalary}}</td>
                             <td>{{$salary->name}}</td>
                             <td>{{$salary->surname}}</td>
                             <td>{{formatDateThai($salary->date)}}</td>

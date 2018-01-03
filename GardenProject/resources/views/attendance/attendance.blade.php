@@ -56,6 +56,7 @@
             <table id="table_id" class="display">
                 <thead>
                     <tr>
+                        <th>เลขที่การลงเวลา</th>
                         <th>วันที่</th>
                         <th>ชื่อ</th>
                         <th>นามสกุล</th>
@@ -68,6 +69,7 @@
                 <tbody>
                     @foreach ($attendances as $attendance)
                         <tr>
+                            <td>{{$attendance->idAttendance}}</td>
                             <td>{{formatDateThai($attendance->date)}}</td>
                             <td>{{$attendance->name}}</td>
                             <td>{{$attendance->surname}}</td>

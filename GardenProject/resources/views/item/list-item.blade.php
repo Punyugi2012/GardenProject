@@ -25,7 +25,15 @@
                     @foreach ($items as $item)
                         <tr>
                             <td>{{$item->idItem}}</td>
-                            <td>{{$item->name}}</td>
+                            <td>{{$item->name}}
+                                @if ($item->type == 'tree')
+                                    (ต้น)
+                                @elseif($item->type == 'drug')
+                                    (ลิตร)
+                                @elseif($item->type == 'fertilizer')
+                                    (กิโลกรัม)
+                                @endif
+                            </td>
                             <td>
                                 {{$item->amount}}
                             </td>

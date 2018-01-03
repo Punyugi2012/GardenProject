@@ -13,6 +13,7 @@
             <table id="table_id" class="display">
                 <thead>
                     <tr>
+                        <th>เลขที่พนักงาน</th>
                         <th>ชื่อ</th>
                         <th>นามสกุล</th>
                         <th>เบอร์โทรศัพท์</th>
@@ -27,6 +28,7 @@
                 <tbody>
                     @foreach ($employees as $employee)
                         <tr>
+                            <td>{{$employee->idEmployee}}</td>
                             <td>{{$employee->name}}</td>
                             <td>{{$employee->surname}}</td>
                             <td>{{$employee->phone}}</td>

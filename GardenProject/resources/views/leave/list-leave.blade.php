@@ -13,6 +13,7 @@
             <table id="table_id" class="display">
                 <thead>
                     <tr>
+                        <th>เลขที่การลา</th>
                         <th>ชื่อ</th>
                         <th>นามสกุล</th>
                         <th>จากวันที่</th>
@@ -26,6 +27,7 @@
                 <tbody>
                     @foreach ($leaves as $leave)
                         <tr>
+                            <td>{{$leave->idLeave}}</td>
                             <td>{{$leave->name}}</td>
                             <td>{{$leave->surname}}</td>
                             <td>{{formatDateThai($leave->from_date)}}</td>

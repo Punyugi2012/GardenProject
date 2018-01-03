@@ -13,6 +13,7 @@
             <table id="table_id" class="display">
                 <thead>
                     <tr>
+                        <th>เลขที่ร้านค้า</th>
                         <th>ชื่อ</th>
                         <th>ที่อยู่</th>
                         <th>เบอร์โทรศัพท์</th>
@@ -23,6 +24,7 @@
                 <tbody>
                     @foreach ($shops as $shop)
                         <tr>
+                            <td>{{$shop->idShop}}</td>
                             <td>{{$shop->name}}</td>
                             <td>{{$shop->address}}</td>
                             <td>{{$shop->phone}}</td>
