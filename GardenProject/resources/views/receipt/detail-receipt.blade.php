@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', 'รายละเอียดการสั่งซื้อ')
+@section('title', 'รายละเอียดการรับวัตถุดิบ')
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
-            <h3>รายละเอียดการสั่งซื้อ</h3>
+            <h3>รายละเอียดการรับวัตถุดิบ</h3>
         </div>
         <div class="card-body">
             @if ($errors->any())
@@ -15,17 +15,17 @@
                 </ul>
             </div>
             @endif
-            <form action="{{url('/purchases_detail/purchase/'.$idPurchase)}}" method="POST" autocomplete="off">
+            <form action="{{url('/receipt_detail/receipt/'.$idReceipt)}}" method="POST" autocomplete="off">
                 {{csrf_field()}}
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="amount">จำนวน:</label>
-                            <input type="number" id="amount" name="amount" class="form-control" placeholder="จำนวน" required>
+                            <input type="number" id="amount" name="amount" class="form-control" placeholder="จำนวนวัตถุดิบ" required>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="item">วัตถุดิบ:</label>
+                        <label for="item">วัตถุดิบ</label>
                         <select class="custom-select form-control" id="item" name="item" required>
                             <option value="">เลือกวัตถุดิบ</option>
                             @foreach ($items as $item)
@@ -46,21 +46,19 @@
                         <th>เลขที่รายละเอียด</th>
                         <th>ชื่อวัตถุดิบ</th>
                         <th>จำนวน</th>
-                        <th>จำนวนเงินรวม</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($purchasesDetail as $purchaseDetail)
+                    @foreach ($receiptsDetail as $receiptDetail)
                         <tr>
-                            <td>{{$purchaseDetail->idPurchaseDetail}}</td>
-                            <td>{{$purchaseDetail->name}}</td>
-                            <td>{{$purchaseDetail->amount}}</td>
-                            <td>{{$purchaseDetail->total_money}}</td>
+                            <td>{{$receiptDetail->idReceivingDetail}}</td>
+                            <td>{{$receiptDetail->name}}</td>
+                            <td>{{$receiptDetail->amount}}</td>
                             <td>
-                                <a href="{{url('/edit-purchases_detail/'.$purchaseDetail->idPurchaseDetail.'/purchase/'.$idPurchase)}}" class="btn btn-light">แก้ไข</a>
-                                <button data-toggle="modal" data-target="#deletePurchaseDetail{{$loop->index}}" class="btn btn-light">ลบ</button>
-                                <div class="modal fade" id="deletePurchaseDetail{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <a href="{{url('/edit-receipt_detail/'.$receiptDetail->idReceivingDetail.'/receipt/'.$idReceipt)}}" class="btn btn-light">แก้ไข</a>
+                                <button data-toggle="modal" data-target="#deleteReceiptDetail{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <div class="modal fade" id="deleteReceiptDetail{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                         <div class="modal-header">
@@ -69,7 +67,7 @@
                                             <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="{{url('/purchases_detail/'.$purchaseDetail->idPurchaseDetail.'/purchase/'.$idPurchase)}}" method="POST">
+                                        <form action="{{url('/receipt_detail/'.$receiptDetail->idReceivingDetail.'/receipt/'.$idReceipt)}}" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">

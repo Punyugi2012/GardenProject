@@ -1,35 +1,36 @@
 @extends('layouts.app')
-@section('title', 'แก้ไขรายละเอียดการสั่งซื้อ')
+@section('title', 'แก้ไขรายละเอียดการรับวัตถุดิบ')
 @section('content')
     <div class="card" style="margin-top:10px">
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
         <div class="card-header">
-            <h3>แก้ไขรายละเอียดการสั่งซื้อ</h3>
+            <h3>แก้ไขรายละเอียดการรับวัตถุดิบ</h3>
         </div>
         <div class="card-body">
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
-            <form action="{{url('/edit-purchases_detail/'.$purchaseDetail->idPurchaseDetail.'/purchase/'.$idPurchase)}}" method="POST" autocomplete="off">
-                {{csrf_field()}}
-                {{method_field('PUT')}}
+            <form action="{{url('/edit-receipt_detail/'.$receiptDetail->idReceivingDetail.'/receipt/'.$idReceipt)}}" method="POST" autocomplete="off">
+                {{ csrf_field() }}
+                {{ method_field('PUT') }}
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="amount">จำนวน:</label>
-                            <input type="number" id="amount" name="amount" class="form-control" value="{{$purchaseDetail->amount}}" required>
+                            <input type="number" id="amount" name="amount" class="form-control" value="{{$receiptDetail->amount}}" required>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="item">วัตถุดิบ:</label>
+                        <label for="item">วัตถุดิบ</label>
                         <select class="custom-select form-control" id="item" name="item" required>
+                            <option value="">เลือกวัตถุดิบ</option>
                             @foreach ($items as $item)
-                                <option value="{{$item->idItem}}" {{$purchaseDetail->idItem == $item->idItem ? 'selected' : ''}}>{{$item->name}}</option>
+                                <option value="{{$item->idItem}}" {{$receiptDetail->idItem == $item->idItem ? 'selected' : ''}}>{{$item->name}}</option>
                             @endforeach
                         </select>
                     </div>

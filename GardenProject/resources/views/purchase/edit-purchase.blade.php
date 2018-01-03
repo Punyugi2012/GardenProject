@@ -6,6 +6,15 @@
             <h3>แก้ไขการสั่งซื้อ</h3>
         </div>
         <div class="card-body">
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             <form action="{{url('/purchases/'.$purchase->idPurchase)}}" method="POST" autocomplete="off">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}

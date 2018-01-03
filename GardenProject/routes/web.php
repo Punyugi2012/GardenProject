@@ -21,5 +21,10 @@ Route::post('/purchases_detail/purchase/{idPurchase}', 'PurchaseDetailController
 Route::delete('/purchases_detail/{idPurchaseDetail}/purchase/{idPurchase}', 'PurchaseDetailController@destroy');
 Route::get('/edit-purchases_detail/{idPurchaseDetail}/purchase/{idPurchase}', 'PurchaseDetailController@edit');
 Route::put('/edit-purchases_detail/{idPurchaseDetail}/purchase/{idPurchase}', 'PurchaseDetailController@update');
+Route::resource('/receipts', 'ReceiptController');
+Route::post('/receipt_detail/receipt/{idReceipt}', 'ReceiptDetailController@store');
+Route::delete('/receipt_detail/{idReceiptDetail}/receipt/{idReceipt}', 'ReceiptDetailController@destroy');
+Route::get('/edit-receipt_detail/{idReceiptDetail}/receipt/{idReceipt}', 'ReceiptDetailController@edit');
+Route::put('/edit-receipt_detail/{idReceiptDetail}/receipt/{idReceipt}', 'ReceiptDetailController@update');
 Auth::routes();
 
