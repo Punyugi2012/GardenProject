@@ -32,9 +32,9 @@ class ReceiptRequest extends FormRequest
     public function messages()
     {
         return [
-            'date'=>'กรุณากรอกวันที่',
-            'time'=>'กรุณากรอกเวลา',
-            'purchase'=>'กรุณาเลือกการสั่งซื้อ'
+            'date.required'=>'กรุณากรอกวันที่',
+            'time.required'=>'กรุณากรอกเวลา',
+            'purchase.required'=>'กรุณาเลือกการสั่งซื้อ'
         ];
     }
 }

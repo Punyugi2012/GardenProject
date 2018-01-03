@@ -1,49 +1,42 @@
 @extends('layouts.app')
-@section('title', 'รายการวัตถุดิบ')
+@section('title', 'รายการการเคลม')
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
-            <h3>รายการวัตถุดิบ</h3>
+            <h3>รายการการเคลม</h3>
         </div>
         <div class="card-body">
             <div>
-                <a href="{{url('items/create')}}" class="btn btn-light">เพิ่มวัตถุดิบ</a>
+                <a href="{{url('claims/create')}}" class="btn btn-light">เพิ่มการเคลม</a>
             </div>
             <br>
             <table id="table_id" class="display">
                 <thead>
                     <tr>
-                        <th>เลขที่วัตถุดิบ</th>
-                        <th>ชื่อ</th>
-                        <th>จำนวน</th>
-                        <th>ราคาต่อหน่วย</th>
-                        <th>ประเภท</th>
+                        <th>เลขที่การเคลม</th>
+                        <th>วันที่เคลม</th>
+                        <th>เวลาเคลม</th>
+                        <th>วันที่รับ</th>
+                        <th>เวลารับ</th>
+                        <th>สถานะ</th>
+                        <th>เลขที่การสั่งซื้อ</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($items as $item)
+                    @foreach ($claims as $claim)
                         <tr>
-                            <td>{{$item->idItem}}</td>
-                            <td>{{$item->name}}
-                                @if ($item->type == 'tree')
-                                    (ต้น)
-                                @elseif($item->type == 'drug')
-                                    (ลิตร)
-                                @elseif($item->type == 'fertilizer')
-                                    (กิโลกรัม)
-                                @endif
-                            </td>
+                            <td>{{$claim->idClaim}}</td>
+                            <td>{{formatDateThai($claim->date_claim)}}</td>
+                            <td>{{formatDateThai($claim->time_claim)}} น.</td>
+                            <td>{{formatDateThai($claim->date_get)}}</td>
+                            <td>{{formatDateThai($claim->time_get)}} น.</td>
+                            <td>{{$claim->status}}</td>
+                            <td>{{$claim->idPurchase}}</td>
                             <td>
-                                {{$item->amount}}
-                            </td>
-                            <td>{{$item->price_per_item}}</td>
-                            <td>{{$item->type}}</td>
-                            <td>
-                                <a href="#" class="btn btn-light">รายละเอียด</a>
-                                <a href="#" class="btn btn-light">แก้ไข</a>
-                                <button data-toggle="modal" data-target="#deleteItem{{$loop->index}}" class="btn btn-light">ลบ</button>
-                                <div class="modal fade" id="deleteItem{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <a href="{{url('/claims/'.$claim->idClaim.'/edit')}}" class="btn btn-light">แก้ไข</a>
+                                <button data-toggle="modal" data-target="#deleteClaim{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <div class="modal fade" id="deleteClaim{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                         <div class="modal-header">
@@ -52,7 +45,7 @@
                                             <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="{{url('/items/'.$item->idItem)}}" method="POST">
+                                        <form action="{{url('/claims/'.$claim->idClaim)}}" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">

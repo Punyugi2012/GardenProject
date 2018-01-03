@@ -1,0 +1,99 @@
+<?php
+
+namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use App\Http\Requests\ClaimRequest;
+
+class ClaimController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $claims = DB::table('purchase')->join('claim', 'purchase.idPurchase', '=', 'claim.idPurchase')->get();
+        return view('claim.list-claim', ['claims'=>$claims]);
+
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $purchases = DB::select('select * from purchase');
+        return view('claim.add-claim', ['purchases'=>$purchases]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(ClaimRequest $request)
+    {
+        DB::insert('insert into claim(date_claim, date_get, time_claim, time_get, status, idPurchase) value(?, ?, ?, ?, ?, ?)', [
+            $request->input('date_claim'),
+            $request->input('date_get'),
+            $request->input('time_claim'),
+            $request->input('time_get'),
+            $request->input('status'),
+            $request->input('purchase'),
+        ]);
+        session()->flash('added', 'เพิ่มการเคลม เรียบร้อยแล้ว');
+        return redirect('/claims');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        DB::delete('delete from claim where idClaim = ?', [$id]);
+        session()->flash('deleted', 'ลบการเคลม เรียบร้อยแล้ว');
+        return redirect('/claims');
+    }
+}

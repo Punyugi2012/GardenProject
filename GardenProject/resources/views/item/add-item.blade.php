@@ -44,8 +44,8 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <label for="price_per_item">ราคาต่อชิ้น:</label>
-                        <input type="number" step=any id="price_per_item" name="price_per_item" class="form-control" placeholder="ราคาต่อชิ้น" required>
+                        <label for="price_per_item">ราคาต่อหน่วย:</label>
+                        <input type="number" step=any id="price_per_item" name="price_per_item" class="form-control" placeholder="ราคาต่อหน่วย" required>
                     </div>
                 </div>
                 <div class="text-center">

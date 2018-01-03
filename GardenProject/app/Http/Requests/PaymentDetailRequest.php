@@ -31,8 +31,8 @@ class PaymentDetailRequest extends FormRequest
     public function messages()
     {
         return [
-            'amount_money'=>'กรุณากรอกจำนวนเงิน',
-            'purchase'=>'กรุณาเลือกการสั่งซื้อ'
+            'amount_money.required'=>'กรุณากรอกจำนวนเงิน',
+            'purchase.required'=>'กรุณาเลือกการสั่งซื้อ'
         ];
     }
 }

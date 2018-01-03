@@ -33,10 +33,10 @@ class PaymentRequest extends FormRequest
     public function messages()
     {
         return [
-            'date'=>'กรุณากรอกวันที่',
-            'time'=>'กรุณากรอกเวลา',
-            'type'=>'กรุณาเลือกประเภท',
-            'shop'=>'กรุณาเลือกร้านค้า'
+            'date.required'=>'กรุณากรอกวันที่',
+            'time.required'=>'กรุณากรอกเวลา',
+            'type.required'=>'กรุณาเลือกประเภท',
+            'shop.required'=>'กรุณาเลือกร้านค้า'
         ];
     }
 }

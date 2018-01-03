@@ -32,10 +32,10 @@ class ItemRequest extends FormRequest
     }
     public function messages() {
         return [
-            'type'=>'กรุณาเลือกประเภท',
-            'name'=>'กรุณากรอกชื่อ',
-            'amount'=>'กรุณากรอกจำนวน',
-            'price_per_item'=>'กรุณากรอกราคาต่อชิ้น'
+            'type.required'=>'กรุณาเลือกประเภท',
+            'name.required'=>'กรุณากรอกชื่อ',
+            'amount.required'=>'กรุณากรอกจำนวน',
+            'price_per_item.required'=>'กรุณากรอกราคาต่อชิ้น'
         ];
     }
 }

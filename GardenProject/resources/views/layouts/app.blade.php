@@ -43,6 +43,7 @@
                             <a class="dropdown-item" href="{{url('/purchases')}}">การสั่งซื้อ</a>
                             <a class="dropdown-item" href="{{url('/receipts')}}">การรับวัตถุดิบ</a>
                             <a class="dropdown-item" href="{{url('/payments')}}">การจ่ายเงิน</a>
+                            <a class="dropdown-item" href="{{url('/claims')}}">การเคลม</a>
                         </div>
                     </div>
                 </nav>

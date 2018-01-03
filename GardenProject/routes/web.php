@@ -31,5 +31,6 @@ Route::post('/payments_detail/payment/{idPayment}', 'PaymentDetailController@sto
 Route::delete('/payments_detail/{idPaymentDetail}/payment/{idPayment}', 'PaymentDetailController@destroy');
 Route::get('/edit-payments_detail/{idPaymentDetail}/payment/{idPayment}', 'PaymentDetailController@edit');
 Route::put('/edit-payments_detail/{idPaymentDetail}/payment/{idPayment}', 'PaymentDetailController@update');
+Route::resource('/claims', 'ClaimController');
 Auth::routes();
 

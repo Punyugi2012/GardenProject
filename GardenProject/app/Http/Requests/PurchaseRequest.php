@@ -37,15 +37,15 @@ class PurchaseRequest extends FormRequest
     }
     public function messages() {
         return [
-            'date_order'=>'กรุณากรอกวันที่สั่ง',
-            'date_pay'=>'กรุณากรอกวันที่จ่าย',
-            'date_get'=>'กรุณากรอกวันที่รับ',
-            'time_order'=>'กรุณากรอกเวลาสั่ง',
-            'time_pay'=>'กรุณากรอกเวลาจ่าย',
-            'time_get'=>'กรุณากรอกเวลารับ',
-            'total_money'=>'กรุณากรอกจำนวนเงินทั้งหมด',
-            'status'=>'กรุณาเลือกสถานะ',
-            'shop'=>'กรุณาเลือกร้านค้า',
+            'date_order.required'=>'กรุณากรอกวันที่สั่ง',
+            'date_pay.required'=>'กรุณากรอกวันที่จ่าย',
+            'date_get.required'=>'กรุณากรอกวันที่รับ',
+            'time_order.required'=>'กรุณากรอกเวลาสั่ง',
+            'time_pay.required'=>'กรุณากรอกเวลาจ่าย',
+            'time_get.required'=>'กรุณากรอกเวลารับ',
+            'total_money.required'=>'กรุณากรอกจำนวนเงินทั้งหมด',
+            'status.required'=>'กรุณาเลือกสถานะ',
+            'shop.required'=>'กรุณาเลือกร้านค้า',
         ];
     }
 }

@@ -31,9 +31,9 @@ class ShopRequest extends FormRequest
     }
     public function messages() {
         return [
-            'name'=>'กรุณากรอกชื่อ',
-            'address'=>'กรุณากรอกที่อยู่',
-            'phone'=>'กรุณากรอกเบอร์โทรศัพท์',
+            'name.required'=>'กรุณากรอกชื่อ',
+            'address.required'=>'กรุณากรอกที่อยู่',
+            'phone.required'=>'กรุณากรอกเบอร์โทรศัพท์',
         ];
     }
 }

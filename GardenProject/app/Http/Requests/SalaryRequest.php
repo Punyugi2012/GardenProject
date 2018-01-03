@@ -34,12 +34,12 @@ class SalaryRequest extends FormRequest
     }
     public function messages() {
         return [
-            'employee'=>'กรุณาเลือกชื่อนามสกุลพนักงาน',
-            'date'=>'กรุณากรอกวันที่',
-            'time'=>'กรุณากรอกเวลา',
-            'round'=>'กรุณากรอกรอบ',
-            'amount_money'=>'กรุณากรอกจำนวนเงิน',
-            'cost'=>'กรุณากรอกค่าเสียหาย',
+            'employee.required'=>'กรุณาเลือกชื่อนามสกุลพนักงาน',
+            'date.required'=>'กรุณากรอกวันที่',
+            'time.required'=>'กรุณากรอกเวลา',
+            'round.required'=>'กรุณากรอกรอบ',
+            'amount_money.required'=>'กรุณากรอกจำนวนเงิน',
+            'cost.required'=>'กรุณากรอกค่าเสียหาย',
         ];
     }
 }

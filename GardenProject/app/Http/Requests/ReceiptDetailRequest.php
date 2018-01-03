@@ -31,8 +31,8 @@ class ReceiptDetailRequest extends FormRequest
     public function messages()
     {
         return [
-            'amount'=>'กรุณากรอกจำนวน',
-            'item'=>'กรุณาเลือกวัตถุดิบ'
+            'amount.required'=>'กรุณากรอกจำนวน',
+            'item.required'=>'กรุณาเลือกวัตถุดิบ'
         ];
     }
 }
