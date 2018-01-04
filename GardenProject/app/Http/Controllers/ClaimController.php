@@ -58,7 +58,9 @@ class ClaimController extends Controller
      */
     public function show($id)
     {
-        //
+        $claimsDetail = DB::table('item')->join('claimdetail', 'item.idItem', '=', 'claimdetail.idItem')->where('idClaim', $id)->get();
+        $items = DB::select('select * from item');
+        return view('claim.detail-claim', ['claimsDetail'=>$claimsDetail, 'items'=>$items, 'idClaim'=>$id]);
     }
 
     /**
@@ -69,7 +71,9 @@ class ClaimController extends Controller
      */
     public function edit($id)
     {
-        //
+        $claim = DB::table('purchase')->join('claim', 'purchase.idPurchase', '=', 'claim.idPurchase')->where('idClaim', $id)->first();
+        $purchases = DB::select('select * from purchase');
+        return view('claim.edit-claim', ['claim'=>$claim, 'purchases'=>$purchases]);
     }
 
     /**
@@ -79,9 +83,19 @@ class ClaimController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ClaimRequest $request, $id)
     {
-        //
+        DB::update('update claim set date_claim = ?, date_get = ?, time_claim = ?, time_get = ?, status = ?, idPurchase = ? where idClaim = ?', [
+            $request->input('date_claim'),
+            $request->input('date_get'),
+            $request->input('time_claim'),
+            $request->input('time_get'),
+            $request->input('status'),
+            $request->input('purchase'),
+            $id
+        ]);
+        session()->flash('edited', 'แก้ไขการเคลม เรียบร้อยแล้ว');
+        return redirect('/claims/'.$id.'/edit');
     }
 
     /**
