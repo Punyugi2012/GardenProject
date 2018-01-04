@@ -41,9 +41,9 @@ class EmployeeController extends Controller
     {
         $filename = 'nopic.png';
         if ($request->hasFile('profile_image')) {
-            $filename = str_random(10) . '.' . $request->file('profile_image')->getClientOriginalExtension(); $request->file('profile_image')->move(public_path() . '/images/', $filename);
-            Image::make(public_path() . '/images/' . $filename)->resize(50, 50)->save(public_path() . '/images/resize/' .
-            $filename);
+            $filename = str_random(10) . '.' . $request->file('profile_image')->getClientOriginalExtension(); 
+            $request->file('profile_image')->move(public_path() . '/images/', $filename);
+            Image::make(public_path() . '/images/' . $filename)->resize(50, 50)->save(public_path() . '/images/resize/' .$filename);
         } 
         DB::insert('insert into employee(name, surname, phone, nationality, date_worked, profile_image, salary, gender) values(?, ?, ?, ?, ?, ?, ?, ?)', [
             $request->name,

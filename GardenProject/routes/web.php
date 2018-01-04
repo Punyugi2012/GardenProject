@@ -41,5 +41,6 @@ Route::post('/receiptclaims_detail/receiptclaim/{idReceiptClaim}', 'Receiptclaim
 Route::get('/edit-receiptclaims_detail/{idReceiptclaimDetail}/receiptclaim/{idReceiptClaim}', 'ReceiptclaimDetailController@edit');
 Route::put('/edit-receiptclaims_detail/{idReceiptclaimDetail}/receiptclaim/{idReceiptClaim}', 'ReceiptclaimDetailController@update');
 Route::delete('/receiptclaims_detail/{idReceiptclaimDetail}/receiptclaim/{idReceiptClaim}', 'ReceiptclaimDetailController@destroy');
+Route::resource('/zones', 'ZoneController');
 Auth::routes();
 

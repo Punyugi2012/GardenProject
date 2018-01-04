@@ -32,6 +32,7 @@
                     <a class="nav-link btn btn-light" href="{{url('/employees')}}">พนักงาน</a>
                     <a class="nav-link btn btn-light" href="{{url('/items')}}">วัตถุดิบ</a>
                     <a class="nav-link btn btn-light" href="{{url('/shops')}}">ร้านค้า</a>
+                    <a class="nav-link btn btn-light" href="{{url('/zones')}}">โซน</a>
                     <div>
                         <button class="nav-link btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width:100%">
                             เครื่องมือ
@@ -44,7 +45,7 @@
                             <a class="dropdown-item" href="{{url('/receipts')}}">การรับวัตถุดิบ</a>
                             <a class="dropdown-item" href="{{url('/payments')}}">การจ่ายเงิน</a>
                             <a class="dropdown-item" href="{{url('/claims')}}">การเคลม</a>
-                            <a class="dropdown-item" href="{{url('/receiptclaims')}}">การรับวัตถุดิบจากการเคลม</a>
+                            <a class="dropdown-item" href="{{url('/receiptclaims')}}">รับวัตถุดิบจากการเคลม</a>
                         </div>
                     </div>
                 </nav>

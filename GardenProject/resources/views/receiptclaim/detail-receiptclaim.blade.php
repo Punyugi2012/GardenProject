@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', 'รายละเอียดการรับจากการเคลม')
+@section('title', 'รายละเอียดการรับวัตถุดิบจากการเคลม')
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
-            <h3>รายละเอียดการรับจากการเคลม</h3>
+            <h3>รายละเอียดการรับวัตถุดิบจากการเคลม</h3>
         </div>
         <div class="card-body">
             @if ($errors->any())
