@@ -36,5 +36,10 @@ Route::post('/claims_detail/claim/{idClaim}', 'ClaimDetailController@store');
 Route::delete('/claims_detail/{idClaimDetail}/claim/{idClaim}', 'ClaimDetailController@destroy');
 Route::get('/edit-claims_detail/{idClaimDetail}/claim/{idClaim}', 'ClaimDetailController@edit');
 Route::put('/edit-claims_detail/{idClaimDetail}/claim/{idClaim}', 'ClaimDetailController@update');
+Route::resource('/receiptclaims', 'ReceiptClaimController');
+Route::post('/receiptclaims_detail/receiptclaim/{idReceiptClaim}', 'ReceiptclaimDetailController@store');
+Route::get('/edit-receiptclaims_detail/{idReceiptclaimDetail}/receiptclaim/{idReceiptClaim}', 'ReceiptclaimDetailController@edit');
+Route::put('/edit-receiptclaims_detail/{idReceiptclaimDetail}/receiptclaim/{idReceiptClaim}', 'ReceiptclaimDetailController@update');
+Route::delete('/receiptclaims_detail/{idReceiptclaimDetail}/receiptclaim/{idReceiptClaim}', 'ReceiptclaimDetailController@destroy');
 Auth::routes();
 
