@@ -64,7 +64,9 @@ class ZoneController extends Controller
      */
     public function show($id)
     {
-        //
+        $zone = DB::table('Zone')->where('idZone', $id)->first();
+        $zone->images = DB::select('select * from ZoneImage where idZone = ?', [$id]);
+        return view('zone.detail-zone', ['zone'=>$zone]);
     }
 
     /**
