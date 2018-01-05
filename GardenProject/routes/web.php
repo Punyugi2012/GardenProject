@@ -42,5 +42,9 @@ Route::get('/edit-receiptclaims_detail/{idReceiptclaimDetail}/receiptclaim/{idRe
 Route::put('/edit-receiptclaims_detail/{idReceiptclaimDetail}/receiptclaim/{idReceiptClaim}', 'ReceiptclaimDetailController@update');
 Route::delete('/receiptclaims_detail/{idReceiptclaimDetail}/receiptclaim/{idReceiptClaim}', 'ReceiptclaimDetailController@destroy');
 Route::resource('/zones', 'ZoneController');
+Route::resource('/assignmentTypes', 'AssignmentTypeController');
+Route::resource('/assignments', 'AssignmentController');
+Route::post('/assignments_detail/assignment/{idAssignment}', 'AssignmentDetailController@store');
+Route::delete('/assignments_detail/{idAssignmentDetail}/assignment/{idAssignment}', 'AssignmentDetailController@destroy');
 Auth::routes();
 

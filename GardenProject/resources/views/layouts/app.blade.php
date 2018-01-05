@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-md-2">
                 <nav class="nav flex-column">
-                    <a class="nav-link btn btn-light" href="#">งาน</a>
+                    <a class="nav-link btn btn-light" href="{{url('/assignments')}}">มอบหมายงาน</a>
                     <a class="nav-link btn btn-light" href="{{url('/employees')}}">พนักงาน</a>
                     <a class="nav-link btn btn-light" href="{{url('/items')}}">วัตถุดิบ</a>
                     <a class="nav-link btn btn-light" href="{{url('/shops')}}">ร้านค้า</a>
