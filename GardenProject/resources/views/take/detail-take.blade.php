@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', 'รายละเอียดการรับวัตถุดิบจากการเคลม')
+@section('title', 'รายละเอียดการเบิก')
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
-            <h3>รายละเอียดการรับวัตถุดิบจากการเคลม</h3>
+            <h3>รายละเอียดการเบิก</h3>
         </div>
         <div class="card-body">
             @if ($errors->any())
@@ -15,7 +15,7 @@
                 </ul>
             </div>
             @endif
-            <form action="{{url('/receiptclaims_detail/receiptclaim/'.$idReceiptClaim)}}" method="POST" autocomplete="off">
+            <form action="{{url('/takes_detail/take/'.$idTake)}}" method="POST" autocomplete="off">
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-md-6">
@@ -50,14 +50,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($receiptclaimsDetail as $receiptclaimDetail)
+                    @foreach ($takesDetail as $detail)
                         <tr>
-                            <td>{{$receiptclaimDetail->idReceivingClaimDetail}}</td>
-                            <td>{{$receiptclaimDetail->name}}</td>
-                            <td>{{$receiptclaimDetail->amount}}</td>
+                            <td>{{$detail->idTakeDetail}}</td>
+                            <td>{{$detail->name}}</td>
+                            <td>{{$detail->amount}}</td>
                             <td>
-                                <button data-toggle="modal" data-target="#deleteReceiptclaimDetail{{$loop->index}}" class="btn btn-light">ลบ</button>
-                                <div class="modal fade" id="deleteReceiptclaimDetail{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <button data-toggle="modal" data-target="#deleteTakeDetail{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <div class="modal fade" id="deleteTakeDetail{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                         <div class="modal-header">
@@ -66,7 +66,7 @@
                                             <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="{{url('/receiptclaims_detail/'.$receiptclaimDetail->idReceivingClaimDetail.'/receiptclaim/'.$idReceiptClaim)}}" method="POST">
+                                        <form action="{{url('/takes_detail/'.$detail->idTakeDetail.'/take/'.$idTake)}}" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">

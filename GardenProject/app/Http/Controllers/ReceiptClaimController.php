@@ -55,7 +55,7 @@ class ReceiptClaimController extends Controller
     public function show($id)
     {
         $receiptclaimsDetail = DB::table('Item')->join('ReceivingClaimDetail', 'Item.idItem', '=', 'ReceivingClaimDetail.idItem')->where('idReceivingClaim', $id)->get();
-        $items = DB::select('select * from item');
+        $items = DB::select('select * from item where type = "equipment"');
         return view('receiptclaim.detail-receiptclaim', ['receiptclaimsDetail'=>$receiptclaimsDetail, 'items'=>$items, 'idReceiptClaim'=>$id]);
     
     }

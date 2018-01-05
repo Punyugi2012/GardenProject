@@ -56,7 +56,6 @@
                             <td>{{$receiptDetail->name}}</td>
                             <td>{{$receiptDetail->amount}}</td>
                             <td>
-                                <a href="{{url('/edit-receipt_detail/'.$receiptDetail->idReceivingDetail.'/receipt/'.$idReceipt)}}" class="btn btn-light">แก้ไข</a>
                                 <button data-toggle="modal" data-target="#deleteReceiptDetail{{$loop->index}}" class="btn btn-light">ลบ</button>
                                 <div class="modal fade" id="deleteReceiptDetail{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">

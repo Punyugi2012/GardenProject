@@ -59,7 +59,7 @@ class ClaimController extends Controller
     public function show($id)
     {
         $claimsDetail = DB::table('item')->join('claimdetail', 'item.idItem', '=', 'claimdetail.idItem')->where('idClaim', $id)->get();
-        $items = DB::select('select * from item');
+        $items = DB::select('select * from item where type = "equipment"');
         return view('claim.detail-claim', ['claimsDetail'=>$claimsDetail, 'items'=>$items, 'idClaim'=>$id]);
     }
 
