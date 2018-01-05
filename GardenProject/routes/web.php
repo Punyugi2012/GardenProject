@@ -44,5 +44,9 @@ Route::resource('/takes', 'TakeController');
 Route::post('/takes_detail/take/{idTake}', 'TakeDetailController@store');
 Route::delete('/takes_detail/{idTakeDetail}/take/{idTake}', 'TakeDetailController@destroy');
 Route::resource('/returnings', 'ReturningController');
+Route::post('/returnings_detail/returning/{idReturning}', 'ReturningDetailController@store');
+Route::delete('/returnings_detail/{idReturningDetail}/returning/{idReturning}', 'ReturningDetailController@destroy');
+Route::get('/edit-returnings_detail/{idReturningDetail}/returning/{idReturning}', 'ReturningDetailController@edit');
+Route::put('/edit-returnings_detail/{idReturningDetail}/returning/{idReturning}', 'ReturningDetailController@update');
 Auth::routes();
 

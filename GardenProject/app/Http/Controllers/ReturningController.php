@@ -57,7 +57,10 @@ class ReturningController extends Controller
      */
     public function show($id)
     {
-        //
+        $returningsDetail = DB::table('Item')->join('RevertingDetail', 'Item.idItem', '=', 'RevertingDetail.idItem')
+        ->where('idReverting', $id)->get();
+        $items = DB::select('select * from Item where type = "equipment"');
+        return view('returning.detail-returning', ['returningsDetail'=>$returningsDetail, 'items'=>$items, 'idReturning'=>$id]);
     }
 
     /**
@@ -82,7 +85,7 @@ class ReturningController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ReturningRequest $request, $id)
     {
         DB::update('update Reverting set date = ?, time = ?, idTake = ?, idEmployee = ? where idReverting = ?', [
             $request->input('date'),
