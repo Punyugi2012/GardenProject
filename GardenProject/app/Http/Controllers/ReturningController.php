@@ -68,7 +68,11 @@ class ReturningController extends Controller
      */
     public function edit($id)
     {
-        //
+        $returning = DB::table('Reverting')->join('Take', 'Reverting.idTake', '=', 'Take.idTake')
+        ->join('Employee', 'Reverting.idEmployee', '=', 'Employee.idEmployee')->where('idReverting', $id)->first();
+        $takes = DB::select('select * from Take');
+        $employees = DB::select('select * from Employee');
+        return view('returning.edit-returning', ['returning'=>$returning, 'takes'=>$takes, 'employees'=>$employees]);
     }
 
     /**
@@ -80,7 +84,15 @@ class ReturningController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::update('update Reverting set date = ?, time = ?, idTake = ?, idEmployee = ? where idReverting = ?', [
+            $request->input('date'),
+            $request->input('time'),
+            $request->input('take'),
+            $request->input('employee'),
+            $id
+        ]);
+        session()->flash('edited', 'แก้ไขการคืน เรียบร้อยแล้ว');
+        return redirect('/returnings/'.$id.'/edit');
     }
 
     /**

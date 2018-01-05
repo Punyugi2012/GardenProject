@@ -30,6 +30,7 @@
                             <td>{{formatDateThai($returning->time)}} น.</td>
                             <td>{{$returning->idTake}}</td>
                             <td>
+                                <a href="{{url('/returnings/'.$returning->idReverting)}}" class="btn btn-light">รายละเอียด</a>
                                 <a href="{{url('/returnings/'.$returning->idReverting.'/edit')}}" class="btn btn-light">แก้ไข</a>
                                 <button data-toggle="modal" data-target="#deleteReturning{{$loop->index}}" class="btn btn-light">ลบ</button>
                                 <div class="modal fade" id="deleteReturning{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
