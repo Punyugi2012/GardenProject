@@ -10,7 +10,7 @@
                 <a href="{{url('assignments/create')}}" class="btn btn-light">เพิ่มการมอบหมายงาน</a>
             </div>
             <br>
-            <table id="table_id" class="display">
+            <table id="table_id" data-order='[[ 0, "desc" ]]' class="display">
                 <thead>
                     <tr>
                         <th>เลขที่การมอบหมายงาน</th>
@@ -66,7 +66,7 @@
 @section('footer')
     <script type="text/javascript">
         $(document).ready( function () {
-            $('#table_id').DataTable();
+            $('#table_id').DataTable({});
         });
     </script>
     @if (session()->has('added'))

@@ -62,5 +62,10 @@
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
     <script src="{{ asset('js/lity.min.js') }}"></script>
     @yield('footer')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#table_id_filter input').addClass('rounded border border-secondary');
+        });
+    </script>
 </body>
 </html>

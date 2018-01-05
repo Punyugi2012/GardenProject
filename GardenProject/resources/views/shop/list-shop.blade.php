@@ -10,7 +10,7 @@
                 <a href="{{url('shops/create')}}" class="btn btn-light">เพิ่มร้านค้า</a>
             </div>
             <br>
-            <table id="table_id" class="display">
+            <table id="table_id" data-order='[[ 0, "desc" ]]' class="display">
                 <thead>
                     <tr>
                         <th>เลขที่ร้านค้า</th>
