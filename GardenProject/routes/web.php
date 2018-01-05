@@ -43,5 +43,6 @@ Route::delete('/assignments_detail/{idAssignmentDetail}/assignment/{idAssignment
 Route::resource('/takes', 'TakeController');
 Route::post('/takes_detail/take/{idTake}', 'TakeDetailController@store');
 Route::delete('/takes_detail/{idTakeDetail}/take/{idTake}', 'TakeDetailController@destroy');
+Route::resource('/returnings', 'ReturningController');
 Auth::routes();
 

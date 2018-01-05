@@ -47,6 +47,7 @@
                             <a class="dropdown-item" href="{{url('/claims')}}">การเคลม</a>
                             <a class="dropdown-item" href="{{url('/receiptclaims')}}">รับวัตถุดิบจากการเคลม</a>
                             <a class="dropdown-item" href="{{url('/takes')}}">การเบิก</a>
+                            <a class="dropdown-item" href="{{url('/returnings')}}">การคืนจากการเบิก</a>
                         </div>
                     </div>
                 </nav>
