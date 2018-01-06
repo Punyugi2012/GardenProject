@@ -9,10 +9,9 @@ class PurchaseDetailController extends Controller
 {
     public function store(PurchaseDetailRequest $request, $idPurchase) {
         $item = DB::select('select * from item where idItem = ?', [$request->input('item')]);
-        $total_money = $item[0]->price_per_item * $request->input('amount');
         DB::insert('insert into purchasedetail(amount, total_money, idPurchase, idItem) values(?, ?, ?, ?)', [
             $request->input('amount'),
-            $total_money,
+            $request->input('total_money'),
             $idPurchase,
             $request->input('item')
         ]);
@@ -34,12 +33,11 @@ class PurchaseDetailController extends Controller
     }
     public function update(PurchaseDetailRequest $request, $idPurchaseDetail, $idPurchase) {
         $item = DB::table('Item')->where('idItem', $request->input('item'))->first();
-        $total_money = $item->price_per_item * $request->input('amount');
         DB::table('PurchaseDetail')
             ->where('idPurchaseDetail', $idPurchaseDetail)
             ->update([
                 'amount'=>$request->input('amount'),
-                'total_money'=>$total_money,
+                'total_money'=>$request->input('total_money'),
                 'idPurchase'=>$idPurchase,
                 'idItem'=>$request->input('item')
             ]);

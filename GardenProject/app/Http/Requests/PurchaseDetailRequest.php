@@ -25,12 +25,14 @@ class PurchaseDetailRequest extends FormRequest
     {
         return [
             'amount'=>'required',
+            'total_money'=>'required',
             'item'=>'required'
         ];
     }
     public function messages() {
         return [
             'amount.required'=>'กรุณากรอกจำนวน',
+            'total_money.required'=>'กรุณากรอกจำนวนเงินรวม',
             'item.required'=>'กรุณาเลือกวัตถุดิบ'
         ];
     }

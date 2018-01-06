@@ -18,6 +18,14 @@
             <form action="{{url('/edit-purchases_detail/'.$purchaseDetail->idPurchaseDetail.'/purchase/'.$idPurchase)}}" method="POST" autocomplete="off">
                 {{csrf_field()}}
                 {{method_field('PUT')}}
+                <div class="form-group">
+                    <label for="item">วัตถุดิบ:</label>
+                    <select class="custom-select form-control" id="item" name="item" required>
+                        @foreach ($items as $item)
+                            <option value="{{$item->idItem}}" {{$purchaseDetail->idItem == $item->idItem ? 'selected' : ''}}>{{$item->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -26,12 +34,10 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="item">วัตถุดิบ:</label>
-                        <select class="custom-select form-control" id="item" name="item" required>
-                            @foreach ($items as $item)
-                                <option value="{{$item->idItem}}" {{$purchaseDetail->idItem == $item->idItem ? 'selected' : ''}}>{{$item->name}}</option>
-                            @endforeach
-                        </select>
+                        <div class="form-group">
+                            <label for="total_money">จำนวนเงินรวม:</label>
+                            <input type="number" step="any" id="total_money" name="total_money" class="form-control" value="{{$purchaseDetail->total_money}}" required>
+                        </div>
                     </div>
                 </div>
                 <div class="text-right">
