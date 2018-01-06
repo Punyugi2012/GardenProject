@@ -48,5 +48,6 @@ Route::post('/returnings_detail/returning/{idReturning}', 'ReturningDetailContro
 Route::delete('/returnings_detail/{idReturningDetail}/returning/{idReturning}', 'ReturningDetailController@destroy');
 Route::get('/edit-returnings_detail/{idReturningDetail}/returning/{idReturning}', 'ReturningDetailController@edit');
 Route::put('/edit-returnings_detail/{idReturningDetail}/returning/{idReturning}', 'ReturningDetailController@update');
+Route::resource('/deductions', 'DeductionController');
 Auth::routes();
 

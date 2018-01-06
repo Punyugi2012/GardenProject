@@ -15,7 +15,7 @@
         body {
             font-family: 'Prompt', sans-serif;
         }
-        .flex-column .nav-link {
+        .flex-column .nav-item {
             margin-top:10px;
         }
     </style>
@@ -27,30 +27,43 @@
     <div class="container-fluid" style="margin-top:20px;margin-bottom:20px">
         <div class="row">
             <div class="col-md-2">
-                <nav class="nav flex-column">
-                    <a class="nav-link btn btn-light" href="{{url('/assignments')}}">มอบหมายงาน</a>
-                    <a class="nav-link btn btn-light" href="{{url('/employees')}}">พนักงาน</a>
-                    <a class="nav-link btn btn-light" href="{{url('/items')}}">วัตถุดิบ</a>
-                    <a class="nav-link btn btn-light" href="{{url('/shops')}}">ร้านค้า</a>
-                    <a class="nav-link btn btn-light" href="{{url('/zones')}}">โซน</a>
-                    <div>
-                        <button class="nav-link btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width:100%">
-                            เครื่องมือ
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width:inherit!important">
-                            <a class="dropdown-item" href="{{url('/attendances')}}">การลงเวลาทำงาน</a>
-                            <a class="dropdown-item" href="{{url('/salaries')}}">การจ่ายเงินเดือน</a>
-                            <a class="dropdown-item" href="{{url('/leaves')}}">การลางาน</a>
-                            <a class="dropdown-item" href="{{url('/purchases')}}">การสั่งซื้อ</a>
-                            <a class="dropdown-item" href="{{url('/receipts')}}">การรับวัตถุดิบ</a>
-                            <a class="dropdown-item" href="{{url('/payments')}}">การจ่ายเงิน</a>
-                            <a class="dropdown-item" href="{{url('/claims')}}">การเคลม</a>
-                            <a class="dropdown-item" href="{{url('/receiptclaims')}}">รับวัตถุดิบจากการเคลม</a>
-                            <a class="dropdown-item" href="{{url('/takes')}}">การเบิก</a>
-                            <a class="dropdown-item" href="{{url('/returnings')}}">การคืนจากการเบิก</a>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/assignments')}}">มอบหมายงาน</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/employees')}}">พนักงาน</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/items')}}">วัตถุดิบ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/shops')}}">ร้านค้า</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/zones')}}">โซน</a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="btn-group" style="width:100%!important">
+                            <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width:100%!important">
+                                เครื่องมือ
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-left">
+                                <a class="dropdown-item" href="{{url('/attendances')}}">การลงเวลาทำงาน</a>
+                                <a class="dropdown-item" href="{{url('/salaries')}}">การจ่ายเงินเดือน</a>
+                                <a class="dropdown-item" href="{{url('/leaves')}}">การลางาน</a>
+                                <a class="dropdown-item" href="{{url('/purchases')}}">การสั่งซื้อ</a>
+                                <a class="dropdown-item" href="{{url('/receipts')}}">การรับวัตถุดิบ</a>
+                                <a class="dropdown-item" href="{{url('/payments')}}">การจ่ายเงิน</a>
+                                <a class="dropdown-item" href="{{url('/claims')}}">การเคลม</a>
+                                <a class="dropdown-item" href="{{url('/receiptclaims')}}">รับวัตถุดิบจากการเคลม</a>
+                                <a class="dropdown-item" href="{{url('/takes')}}">การเบิก</a>
+                                <a class="dropdown-item" href="{{url('/returnings')}}">การคืนจากการเบิก</a>
+                                <a class="dropdown-item" href="{{url('/deductions')}}">การหักเงิน</a>
+                            </div>
                         </div>
-                    </div>
-                </nav>
+                    </li>
+                </ul>
             </div>
             <div class="col-md-10">
                 @yield('content')
