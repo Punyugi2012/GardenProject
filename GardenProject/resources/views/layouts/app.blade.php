@@ -41,6 +41,9 @@
                         <a class="nav-link btn btn-light" href="{{url('/zones')}}">โซน</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/products')}}">ผลผลิต</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link btn btn-light" href="{{url('/assignments')}}">การมอบหมายงาน</a>
                     </li>
                     <li class="nav-item">

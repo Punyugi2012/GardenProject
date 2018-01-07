@@ -17,7 +17,6 @@
         @endif
         <form action="{{url('/items')}}" method="POST" autocomplete="off">
             {{ csrf_field() }}
-            <div class="form-group">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -34,8 +33,10 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <label for="name">ชื่อ:</label>
-                        <input type="text" id="name" name="name" class="form-control" placeholder="ชื่อวัตถุดิบ" required>
+                        <div class="form-group">
+                            <label for="name">ชื่อ:</label>
+                            <input type="text" id="name" name="name" class="form-control" placeholder="ชื่อวัตถุดิบ" required>
+                        </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
@@ -44,15 +45,16 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <label for="price_per_item">ราคาต่อหน่วย:</label>
-                        <input type="number" step=any id="price_per_item" name="price_per_item" class="form-control" placeholder="ราคาต่อหน่วย" required>
+                        <div class="form-group">
+                            <label for="price_per_item">ราคาต่อหน่วย:</label>
+                            <input type="number" step=any id="price_per_item" name="price_per_item" class="form-control" placeholder="ราคาต่อหน่วย" required>
+                        </div>
                     </div>
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-light">ยืนยัน</button>
                     <button type="reset" class="btn btn-light">ล้าง</button>
                 </div>
-            </div>
         </form>
     </div>
 </div>
