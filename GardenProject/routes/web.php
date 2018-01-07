@@ -54,5 +54,6 @@ Route::get('/edit-deductions_detail/{idDeductionDetail}/deduction/{idDeduction}'
 Route::put('/edit-deductions_detail/{idDeductionDetail}/deduction/{idDeduction}', 'DeductionDetailController@update');
 Route::delete('/deductions_detail/{idDeductionDetail}/deduction/{idDeduction}', 'DeductionDetailController@destroy');
 Route::resource('/products', 'ProductController');
+Route::resource('/harvests', 'HarvestController');
 Auth::routes();
 
