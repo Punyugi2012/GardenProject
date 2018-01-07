@@ -29,9 +29,6 @@
             <div class="col-md-2">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link btn btn-light" href="{{url('/assignments')}}">มอบหมายงาน</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link btn btn-light" href="{{url('/employees')}}">พนักงาน</a>
                     </li>
                     <li class="nav-item">
@@ -44,6 +41,42 @@
                         <a class="nav-link btn btn-light" href="{{url('/zones')}}">โซน</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/assignments')}}">การมอบหมายงาน</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/attendances')}}">การลงเวลาทำงาน</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/salaries')}}">การจ่ายเงินเดือน</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/leaves')}}">การลางาน</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/purchases')}}">การสั่งซื้อ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/receipts')}}">การรับวัตถุดิบ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/payments')}}">การจ่ายเงิน</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/claims')}}">การเคลม</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/receiptclaims')}}">รับวัตถุดิบจากการเคลม</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/takes')}}">การเบิก</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/returnings')}}">การคืนจากการเบิก</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/deductions')}}">การหักเงิน</a>
+                    </li>
+                    {{--  <li class="nav-item">
                         <div class="btn-group" style="width:100%!important">
                             <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width:100%!important">
                                 เครื่องมือ
@@ -62,7 +95,7 @@
                                 <a class="dropdown-item" href="{{url('/deductions')}}">การหักเงิน</a>
                             </div>
                         </div>
-                    </li>
+                    </li>  --}}
                 </ul>
             </div>
             <div class="col-md-10">

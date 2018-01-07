@@ -14,7 +14,9 @@ class DeductionController extends Controller
      */
     public function index()
     {
-        //
+        $deductions = DB::table('Deduction')->join('Employee', 'Deduction.idEmployee', '=', 'Employee.idEmployee')
+            ->join('Take', 'Deduction.idTake', '=', 'Take.idTake')->get();
+        return view('deduction.list-deduction', ['deductions'=>$deductions]);
     }
 
     /**
@@ -24,7 +26,9 @@ class DeductionController extends Controller
      */
     public function create()
     {
-        //
+        $takes = DB::select('select * from Take');
+        $employees = DB::select('select * from employee');
+        return view('deduction.add-deduction', ['takes'=>$takes, 'employees'=>$employees]);
     }
 
     /**
@@ -33,9 +37,16 @@ class DeductionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DeductionRequest $request)
     {
-        //
+        DB::insert('insert into Deduction(date, total_money, idEmployee, idTake) values(?, ?, ?, ?)', [
+            $request->input('date'),
+            $request->input('total_money'),
+            $request->input('employee'),
+            $request->input('take'),
+        ]);
+        session()->flash('added', 'เพิ่มการหักเงิน เรียบร้อยแล้ว');
+        return redirect('/deductions');
     }
 
     /**
@@ -46,7 +57,10 @@ class DeductionController extends Controller
      */
     public function show($id)
     {
-        //
+        $deductionsDetail = DB::table('Item')->join('DeductionDetail', 'Item.idItem', '=', 'DeductionDetail.idItem')
+            ->where('idDeduction', $id)->get();
+        $items = DB::select('select * from Item where type = "equipment"');
+        return view('deduction.detail-deduction', ['deductionsDetail'=>$deductionsDetail, 'items'=>$items, 'idDeduction'=>$id]);
     }
 
     /**
@@ -57,7 +71,11 @@ class DeductionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $deduction = DB::table('Deduction')->join('Employee', 'Deduction.idEmployee', '=', 'Employee.idEmployee')
+        ->join('Take', 'Deduction.idTake', '=', 'Take.idTake')->where('idDeduction', $id)->first();
+        $takes = DB::select('select * from Take');
+        $employees = DB::select('select * from employee');
+        return view('deduction.edit-deduction', ['deduction'=>$deduction, 'takes'=>$takes, 'employees'=>$employees]);
     }
 
     /**
@@ -67,9 +85,17 @@ class DeductionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DeductionRequest $request, $id)
     {
-        //
+        DB::update('update Deduction set date = ?, total_money = ?, idEmployee = ?, idTake = ? where idDeduction = ?', [
+            $request->input('date'),
+            $request->input('total_money'),
+            $request->input('employee'),
+            $request->input('take'),
+            $id
+        ]);
+        session()->flash('edited', 'แก้ไขการหักเงิน เรียบร้อยแล้ว');
+        return redirect('/deductions/'.$id.'/edit');
     }
 
     /**
@@ -80,6 +106,8 @@ class DeductionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::delete('delete from Deduction where idDeduction = ?', [$id]);
+        session()->flash('deleted', 'ลบการหักเงิน เรียบร้อยแล้ว');
+        return redirect('/deductions');
     }
 }

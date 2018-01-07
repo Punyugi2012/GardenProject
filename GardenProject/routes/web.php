@@ -49,5 +49,9 @@ Route::delete('/returnings_detail/{idReturningDetail}/returning/{idReturning}', 
 Route::get('/edit-returnings_detail/{idReturningDetail}/returning/{idReturning}', 'ReturningDetailController@edit');
 Route::put('/edit-returnings_detail/{idReturningDetail}/returning/{idReturning}', 'ReturningDetailController@update');
 Route::resource('/deductions', 'DeductionController');
+Route::post('/deductions_detail/deduction/{idDeduction}', 'DeductionDetailController@store');
+Route::get('/edit-deductions_detail/{idDeductionDetail}/deduction/{idDeduction}', 'DeductionDetailController@edit');
+Route::put('/edit-deductions_detail/{idDeductionDetail}/deduction/{idDeduction}', 'DeductionDetailController@update');
+Route::delete('/deductions_detail/{idDeductionDetail}/deduction/{idDeduction}', 'DeductionDetailController@destroy');
 Auth::routes();
 
