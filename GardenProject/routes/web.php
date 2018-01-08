@@ -55,5 +55,10 @@ Route::put('/edit-deductions_detail/{idDeductionDetail}/deduction/{idDeduction}'
 Route::delete('/deductions_detail/{idDeductionDetail}/deduction/{idDeduction}', 'DeductionDetailController@destroy');
 Route::resource('/products', 'ProductController');
 Route::resource('/harvests', 'HarvestController');
+Route::resource('/sales', 'SaleController');
+Route::post('/sales_detail/sale/{idSale}', 'SaleDetailController@store');
+Route::get('/edit-sales_detail/{idSaleDetail}/sale/{idSale}', 'SaleDetailController@edit');
+Route::put('/edit-sales_detail/{idSaleDetail}/sale/{idSale}', 'SaleDetailController@update');
+Route::delete('/sales_detail/{idSaleDetail}/sale/{idSale}', 'SaleDetailController@destroy');
 Auth::routes();
 

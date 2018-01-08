@@ -44,6 +44,9 @@
                         <a class="nav-link btn btn-light" href="{{url('/products')}}">ผลผลิต</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/sales')}}">การขาย</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link btn btn-light" href="{{url('/harvests')}}">การเก็บเกี่ยว</a>
                     </li>
                     <li class="nav-item">
