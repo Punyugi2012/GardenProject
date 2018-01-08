@@ -91,14 +91,29 @@ class EmployeeController extends Controller
      */
     public function update(EmployeeRequest $request, $id)
     {
-        DB::update('update employee set name = ?, surname = ?, phone = ?, nationality = ?, date_worked = ?, salary = ?, gender = ? where idEmployee = ?',[
-            $request->name,
-            $request->surname,
-            $request->phone,
-            $request->nationality,
-            $request->date_worked,
-            $request->salary,
-            $request->gender,
+        $employee = DB::select('select * from employee where idEmployee = ?', [$id]);
+        $filename = 'nopic.png';
+        if($employee[0]->profile_image != 'nopic.png') {
+            $filename = $employee[0]->profile_image;
+        }
+        if ($request->hasFile('profile_image')) {
+            if($employee[0]->profile_image != 'nopic.png') {
+                File::delete(public_path() . '/images/' . $employee[0]->profile_image);
+                File::delete(public_path() . '/images/resize/' . $employee[0]->profile_image);
+            }
+            $filename = str_random(10) . '.' . $request->file('profile_image')->getClientOriginalExtension(); 
+            $request->file('profile_image')->move(public_path() . '/images/', $filename);
+            Image::make(public_path() . '/images/' . $filename)->resize(50, 50)->save(public_path() . '/images/resize/' .$filename);
+        }
+        DB::update('update employee set name = ?, surname = ?, phone = ?, nationality = ?, date_worked = ?, profile_image = ?, salary = ?, gender = ? where idEmployee = ?',[
+            $request->input('name'),
+            $request->input('surname'),
+            $request->input('phone'),
+            $request->input('nationality'),
+            $request->input('date_worked'),
+            $filename,
+            $request->input('salary'),
+            $request->input('gender'),
             $id
         ]);
         session()->flash('edited', 'แก้ไขพนักงาน เรียบร้อยแล้ว');

@@ -21,7 +21,7 @@
                         <th>สัญชาติ</th>
                         <th>วันที่เริ่มทำงาน</th>
                         <th>รูปประจำตัว</th>
-                        <th>เงินเดือน</th>
+                        <th>เงินเดือน (บาท)</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -33,7 +33,7 @@
                             <td>{{$employee->surname}}</td>
                             <td>{{$employee->phone}}</td>
                             <td>{{getGenderThai($employee->gender)}}</td>
-                            <td>{{$employee->nationality}}</td>
+                            <td>{{formatNationalityThai($employee->nationality)}}</td>
                             <td>{{formatDateThai($employee->date_worked)}}</td>
                             <td>
                                 <a href="{{ asset('images/'.$employee->profile_image) }}" data-lity>

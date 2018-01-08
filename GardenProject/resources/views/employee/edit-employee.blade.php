@@ -15,7 +15,7 @@
                 </ul>
             </div>
         @endif
-        <form action="{{url('/employees/'.$employee->idEmployee)}}" method="POST" autocomplete="off">
+        <form action="{{url('/employees/'.$employee->idEmployee)}}" enctype="multipart/form-data" method="POST" autocomplete="off">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
             <div class="form-group">
@@ -47,6 +47,12 @@
                 <input type="date" id="date_worked" name="date_worked" class="form-control" value={{$employee->date_worked}} required>
             </div>
             <div class="form-group">
+                <label for="profile_image">รูปประจำตัว:
+                    <img id="image_upload_preview" src="{{asset('images/resize/'.$employee->profile_image)}}" alt="profile image" style="widht:50px;height:50px">
+                </label>
+                <input type="file" id="profile_image" name="profile_image" class="form-control"  accept="image/*">
+            </div>
+            <div class="form-group">
                 <label for="salary">เงินเดือน:</label>
                 <input type="number" step=any id="salary" name="salary" class="form-control" value="{{$employee->salary}}" placeholder="เงินเดือน" required>
             </div>
@@ -66,15 +72,33 @@
 </div>
 @endsection
 @section('footer')
-@if (session()->has('edited'))
-<script type="text/javascript">
-    swal({
-        title: "<?php echo session()->get('edited'); ?>",
-        text: "ผลการทำงาน",
-        timer: 10000,
-        type: 'success',
-        showConfirmButton: false
-    });
-</script>
-@endif
+    @if (session()->has('edited'))
+        <script type="text/javascript">
+            swal({
+                title: "<?php echo session()->get('edited'); ?>",
+                text: "ผลการทำงาน",
+                timer: 10000,
+                type: 'success',
+                showConfirmButton: false
+            });
+        </script>
+    @endif
+    <script type="text/javascript">
+        $(document).ready( function () {   
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+        
+                    reader.onload = function (e) {
+                        $('#image_upload_preview').attr('src', e.target.result);
+                    }
+        
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            $("#profile_image").change(function () {
+                readURL(this);
+            });
+        });
+    </script>
 @endsection
