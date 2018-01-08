@@ -17,7 +17,7 @@
                         <th>วันที่</th>
                         <th>เวลา</th>
                         <th>ผลผลิต</th>
-                        <th>จำนวน</th>
+                        <th>จำนวน (กิโลกรัม)</th>
                         <th>เลขที่การมอบหมายงาน</th>
                         <th>เครื่องมือ</th>
                     </tr>
@@ -26,8 +26,9 @@
                     @foreach ($harvests as $harvest)
                         <tr>
                             <td>{{$harvest->idHarvest}}</td>
-                            <td>{{$harvest->date}}</td>
-                            <td>{{$harvest->time}}</td>
+                            <td>{{formatDateThai($harvest->date)}}</td>
+                            <td>{{formatDateThai($harvest->time)}} น.</td>
+                            <td>{{$harvest->name}}</td>
                             <td>{{$harvest->amount}}</td>
                             <td>{{$harvest->idAssignment}}</td>
                             <td>

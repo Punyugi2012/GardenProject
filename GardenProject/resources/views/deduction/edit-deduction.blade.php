@@ -31,14 +31,12 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <div class="form-group">
-                                <label for="take">การเบิก:</label>
-                                <select class="custom-select form-control" id="take" name="take" required>
-                                    @foreach ($takes as $take)
-                                        <option value="{{$take->idTake}}" {{$deduction->idTake == $take->idTake ? 'selected' : ''}}>{{$take->idTake}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            <label for="take">การเบิก:</label>
+                            <select class="custom-select form-control" id="take" name="take" required>
+                                @foreach ($takes as $take)
+                                    <option value="{{$take->idTake}}" {{$deduction->idTake == $take->idTake ? 'selected' : ''}}>{{$take->idTake}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>

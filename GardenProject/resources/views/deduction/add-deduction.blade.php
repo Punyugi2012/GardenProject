@@ -31,15 +31,13 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <div class="form-group">
-                                <label for="take">การเบิก:</label>
-                                <select class="custom-select form-control" id="take" name="take" required>
-                                    <option value="">เลือกการเบิก</option>
-                                    @foreach ($takes as $take)
-                                        <option value="{{$take->idTake}}">{{$take->idTake}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            <label for="take">การเบิก:</label>
+                            <select class="custom-select form-control" id="take" name="take" required>
+                                <option value="">เลือกการเบิก</option>
+                                @foreach ($takes as $take)
+                                    <option value="{{$take->idTake}}">{{$take->idTake}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
