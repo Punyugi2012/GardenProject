@@ -19,12 +19,21 @@
             {{ csrf_field() }}
             {{ method_field('PUT') }}
             <div class="from-group">
-                <p> เพิ่มจำนวนวัตถุดิบ
+                <p>จำนวนปัจจุบัน: {{$item->amount}}  
+                    @if ($item->type == 'tree')
+                        ต้น
+                    @elseif($item->type == 'drug')
+                        ลิตร
+                    @elseif($item->type == 'fertilizer')
+                        กิโลกรัม
+                    @endif
+                </p>
+                <p> เพิ่มจำนวนวัตถุดิบ:
                     <img src="http://i.imgur.com/yOadS1c.png" id="minus1" width="20" height="20" class="minus"/>
                     <input id="qty1" name="inAmount" type="text" value="0" class="qty form-control d-inline" style="width:20%"/>
                     <img id="add1" src="http://i.imgur.com/98cvZnj.png" width="20" height="20" class="add"/>
                 </p>
-                <p> ลบจำนวนวัตถุดิบ
+                <p> ลบจำนวนวัตถุดิบ:
                     <img src="http://i.imgur.com/yOadS1c.png" id="minus2" width="20" height="20" class="minus"/>
                     <input id="qty2" name="deAmount" type="text" value="0" class="qty form-control d-inline" style="width:20%"/>
                     <img id="add2" src="http://i.imgur.com/98cvZnj.png" width="20" height="20" class="add"/>
