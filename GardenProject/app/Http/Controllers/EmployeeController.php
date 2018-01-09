@@ -67,7 +67,14 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        //
+        $employee = DB::table('Employee')->where('idEmployee', $id)->first();
+        $leaves = DB::select('select * from TakeLeave where idEmployee = ?', [$id]);
+        $salaries = DB::select('select * from Salary where idEmployee = ?', [$id]);
+        $attendances = DB::select('select * from Attendance where idEmployee = ?', [$id]);
+        $takes = DB::table('Take')->join('Assignment', 'Take.idAssignment', '=', 'Assignment.idAssignment')
+            ->where('idEmployee', $id)->get();
+        $deductions = DB::table('Deduction')->join('Take', 'Deduction.idTake', '=', 'Take.idTake')->where('Deduction.idEmployee', $id)->get();
+        return view('employee.detail-employee', ['leaves'=>$leaves, 'employee'=>$employee, 'salaries'=>$salaries, 'attendances'=>$attendances, 'takes'=>$takes, 'deductions'=>$deductions]);
     }
 
     /**

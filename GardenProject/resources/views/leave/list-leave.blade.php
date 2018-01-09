@@ -10,7 +10,7 @@
                 <a href="{{url('leaves/create')}}" class="btn btn-light">เพิ่มการลางาน</a>
             </div>
             <br>
-            <table id="table_id" data-order='[[ 0, "desc" ]]' class="display">
+            <table id="table_id" data-order='[[ 0, "desc" ]]'>
                 <thead>
                     <tr>
                         <th>เลขที่การลา</th>
@@ -27,7 +27,7 @@
                 <tbody>
                     @foreach ($leaves as $leave)
                         <tr>
-                            <td>{{$leave->idLeave}}</td>
+                            <td>{{$leave->idTakeLeave}}</td>
                             <td>{{$leave->name}}</td>
                             <td>{{$leave->surname}}</td>
                             <td>{{formatDateThai($leave->from_date)}}</td>

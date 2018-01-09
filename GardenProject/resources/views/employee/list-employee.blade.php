@@ -42,8 +42,8 @@
                             </td>
                             <td>{{$employee->salary}}</td>
                             <td>
-                                <a href="#" class="btn btn-light">ดูรายละเอียด</a>
-                                <a href="{{url('employees/'.$employee->idEmployee.'/edit')}}" class="btn btn-light">แก้ไข</a>
+                                <a href="{{url('/employees/'.$employee->idEmployee)}}" class="btn btn-light">ดูรายละเอียด</a>
+                                <a href="{{url('/employees/'.$employee->idEmployee.'/edit')}}" class="btn btn-light">แก้ไข</a>
                                 <button data-toggle="modal" data-target="#deleteEmployee{{$loop->index}}" class="btn btn-light">ลบ</button>
                                 <div class="modal fade" id="deleteEmployee{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
