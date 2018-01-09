@@ -26,7 +26,6 @@ class ItemRequest extends FormRequest
         return [
             'type'=>'required',
             'name'=>'required',
-            'amount'=>'required',
             'price_per_item'=>'required'
         ];
     }
@@ -34,7 +33,6 @@ class ItemRequest extends FormRequest
         return [
             'type.required'=>'กรุณาเลือกประเภท',
             'name.required'=>'กรุณากรอกชื่อ',
-            'amount.required'=>'กรุณากรอกจำนวน',
             'price_per_item.required'=>'กรุณากรอกราคาต่อชิ้น'
         ];
     }

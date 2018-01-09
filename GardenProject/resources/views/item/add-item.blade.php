@@ -30,18 +30,10 @@
                             </select>
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="name">ชื่อ:</label>
                             <input type="text" id="name" name="name" class="form-control" placeholder="ชื่อวัตถุดิบ" required>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="amount">จำนวน:</label>
-                            <input type="number" id="amount" name="amount" class="form-control" placeholder="จำนวน" required>
                         </div>
                     </div>
                     <div class="col-md-4">

@@ -18,6 +18,18 @@
         <form action="{{url('/items/'.$item->idItem)}}" method="POST" autocomplete="off">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
+            <div class="from-group">
+                <p> เพิ่มจำนวนวัตถุดิบ
+                    <img src="http://i.imgur.com/yOadS1c.png" id="minus1" width="20" height="20" class="minus"/>
+                    <input id="qty1" name="inAmount" type="text" value="0" class="qty form-control d-inline" style="width:20%"/>
+                    <img id="add1" src="http://i.imgur.com/98cvZnj.png" width="20" height="20" class="add"/>
+                </p>
+                <p> ลบจำนวนวัตถุดิบ
+                    <img src="http://i.imgur.com/yOadS1c.png" id="minus2" width="20" height="20" class="minus"/>
+                    <input id="qty2" name="deAmount" type="text" value="0" class="qty form-control d-inline" style="width:20%"/>
+                    <img id="add2" src="http://i.imgur.com/98cvZnj.png" width="20" height="20" class="add"/>
+                </p>
+            </div>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -30,18 +42,10 @@
                         </select>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="name">ชื่อ:</label>
                         <input type="text" id="name" name="name" class="form-control" value="{{$item->name}}" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="amount">จำนวน:</label>
-                        <input type="number" id="amount" name="amount" class="form-control" value="{{$item->amount}}" required>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -71,4 +75,20 @@
     });
 </script>
 @endif
+<script type="text/javascript">
+    $('.add').on('click',function(){
+        var $qty=$(this).closest('p').find('.qty');
+        var currentVal = parseInt($qty.val());
+        if (!isNaN(currentVal)) {
+            $qty.val(currentVal + 1);
+        }
+    });
+    $('.minus').on('click',function(){
+        var $qty=$(this).closest('p').find('.qty');
+        var currentVal = parseInt($qty.val());
+        if (!isNaN(currentVal) && currentVal > 0) {
+            $qty.val(currentVal - 1);
+        }
+    });
+</script>
 @endsection

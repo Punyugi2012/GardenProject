@@ -36,9 +36,8 @@ class ItemController extends Controller
      */
     public function store(ItemRequest $request)
     {
-        DB::insert('insert into item(name, amount, type, price_per_item) values (?, ?, ?, ?)', [
+        DB::insert('insert into item(name, type, price_per_item) values (?, ?, ?, ?)', [
             $request->input('name'),
-            $request->input('amount'),
             $request->input('type'),
             $request->input('price_per_item')
         ]);
@@ -66,6 +65,7 @@ class ItemController extends Controller
     public function edit($id)
     {
         $item = DB::select('select * from item where idItem = ?', [$id]);
+        
         return view('item.edit-item', ['item'=>$item[0]]);
     }
 
@@ -76,11 +76,16 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ItemRequest $request, $id)
     {
+        $amount = DB::table('Item')->where('idItem', $id)->first()->amount;
+        $amount += (int)$request->input('inAmount');
+        if((int)$request->input('deAmount') <= $amount) {
+            $amount -= (int)$request->input('deAmount');
+        }
         DB::update('update item set name = ?, amount = ?, type = ?, price_per_item = ? where idItem = ?', [
             $request->input('name'),
-            $request->input('amount'),
+            $amount,
             $request->input('type'),
             $request->input('price_per_item'),
             $id
