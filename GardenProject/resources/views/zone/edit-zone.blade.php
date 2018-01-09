@@ -6,7 +6,16 @@
          <h3>แก้ไขโซน</h3>
      </div>
     <div class="card-body">
-        <form action="{{url('/zones/'.$zone->idZone)}}" method="POST" enctype="multipart/form-data" autocomplete="off">
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+        <form action="{{url('/zones/'.$zone->idZone)}}" method="POST" autocomplete="off">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
             <div class="row">

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Requests\ZoneRequest;
 use File;
+use Image;
 
 class ZoneController extends Controller
 {
@@ -41,21 +42,33 @@ class ZoneController extends Controller
             $request->input('area'),
             $request->input('size'),
         ]);
-        $latestId = DB::table('zone')->orderBy('idZone', 'DESC')->first()->idZone;
-        if ($request->hasFile('zone_images')) {
-            foreach($request->file('zone_images') as $image) {
-                $pathFile = str_random(10) . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path() . '/images/', $pathFile);
-                DB::insert('insert into ZoneImage(pathFile, idZone) value(?, ?)', [
-                    $pathFile,
-                    $latestId
-                ]);
-            }
-        } 
         session()->flash('added', 'เพิ่มโซน เรียบร้อยแล้ว');
         return redirect('/zones');
     }
-
+    public function storeImage(Request $request, $idZone) {
+        $validatedData = $request->validate([
+            'zone_image' => 'required',
+        ]);
+        if ($request->hasFile('zone_image')) {
+            if ($request->hasFile('zone_image')) {
+                $filename = str_random(10) . '.' . $request->file('zone_image')->getClientOriginalExtension(); 
+                $request->file('zone_image')->move(public_path() . '/images/', $filename);
+                Image::make(public_path() . '/images/' . $filename)->resize(50, 50)->save(public_path() . '/images/resize/' .$filename);
+                DB::insert('insert into ZoneImage(pathFile, idZone) values(?, ?)', [
+                    $filename,
+                    $idZone
+                ]);
+            } 
+        } 
+        return redirect('/zones/'.$idZone);
+    }
+    public function destroyImage($idImage, $idZone) {
+        $image = DB::table('ZoneImage')->where('idZone', $idZone)->first();
+        File::delete(public_path() . '/images/' .  $image->pathFile );
+        File::delete(public_path() . '/images/resize/' . $image->pathFile );
+        DB::delete('delete from ZoneImage where idZoneImage = ?', [$idImage]);
+        return redirect('/zones/'.$idZone);
+    }
     /**
      * Display the specified resource.
      *

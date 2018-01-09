@@ -11,6 +11,9 @@
 |
 */
 Route::resource('/employees', 'EmployeeController');
+Route::get('/employees/take_detail/take/{idTake}', 'EmployeeController@detailTake');
+Route::get('/employees/deduction_detail/deduction/{idDeduction}', 'EmployeeController@detailDeduction');
+Route::get('/employees/returning_detail/returning/{idReturning}', 'EmployeeController@detailReturning');
 Route::resource('/attendances', 'AttendanceController');
 Route::resource('/leaves', 'LeaveController');
 Route::resource('/salaries', 'SalaryController');
@@ -36,6 +39,8 @@ Route::resource('/receiptclaims', 'ReceiptClaimController');
 Route::post('/receiptclaims_detail/receiptclaim/{idReceiptClaim}', 'ReceiptclaimDetailController@store');
 Route::delete('/receiptclaims_detail/{idReceiptclaimDetail}/receiptclaim/{idReceiptClaim}', 'ReceiptclaimDetailController@destroy');
 Route::resource('/zones', 'ZoneController');
+Route::post('/zones/{idZone}/images', 'ZoneController@storeImage');
+Route::delete('/image_zone/{idImage}/zone/{idZone}', 'ZoneController@destroyImage');
 Route::resource('/assignmentTypes', 'AssignmentTypeController');
 Route::resource('/assignments', 'AssignmentController');
 Route::post('/assignments_detail/assignment/{idAssignment}', 'AssignmentDetailController@store');

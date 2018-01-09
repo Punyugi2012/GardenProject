@@ -1,6 +1,11 @@
 @extends('layouts.app')
 @section('title', 'รายละเอียดพนักงาน')
 @section('content')
+    <style>
+        h4 {
+            margin-top: 100px;
+        }
+    </style>
     <div class="card" style="margin-top:10px">
         <div class="card-header">
             <h3>รายละเอียดพนักงาน</h3>
@@ -18,7 +23,6 @@
             <p>วันที่เข้าทำงาน: {{formatDateThai($employee->date_worked)}}</p>
             <p>เงินเดือน: {{$employee->salary}} บาท</p>
             <p>เพศ: {{getGenderThai($employee->gender)}}</p>
-            <hr>
             <h4>ประวัติการเข้าทำงาน</h4>
             <table id="table_idThree" data-order='[[ 0, "desc" ]]' class="display">
                 <thead>
@@ -98,35 +102,78 @@
             </table>
             <hr>
             <h4>ประวัติการเบิก</h4>
-            <table id="table_idFour" data-order='[[ 0, "desc" ]]' class="display">
+            <table id="table_idFour" data-order='[[ 0, "desc" ]]'>
                 <thead>
                     <tr>
                         <th>เลขที่การเบิก</th>
+                        <th>วันที่เบิก</th>
+                        <th>เวลาเบิก</th>
                         <th>เลขที่มอบหมายงาน</th>
-                        <th>วันที่</th>
-                        <th>เวลา</th>
+                        <th>วันที่งาน</th>
+                        <th>เวลางาน</th>
+                        <th>งาน</th>
+                        <th>เครื่องมือ</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($takes as $take)
                         <tr>
                             <td>{{$take->idTake}}</td>
-                            <td>{{$take->idAssignment}}</td>
                             <td>{{formatDateThai($take->date_take)}}</td>
                             <td>{{formatDateThai($take->time_take)}} น.</td>
+                            <td>{{$take->assignment->idAssignment}}</td>
+                            <td>{{formatDateThai($take->assignment->date)}}</td>
+                            <td>{{formatDateThai($take->assignment->time)}} น.</td>
+                            <td>{{$take->assignment->name}}</td>
+                            <td>
+                                <a href="{{url('/employees/take_detail/take/'.$take->idTake)}}" class="btn btn-light">รายละเอียด</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <hr>
+            <h4>ประวัติการคืน</h4>
+            <table id="table_idSix" data-order='[[ 0, "desc" ]]'>
+                <thead>
+                    <tr>
+                        <th>เลขที่การคืน</th>
+                        <th>วันที่คืน</th>
+                        <th>เวลาคืน</th>
+                        <th>เลขที่การเบิก</th>
+                        <th>วันที่เบิก</th>
+                        <th>เวลาเบิก</th>
+                        <th>เครื่องมือ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($returnings as $returning)
+                        <tr>
+                            <td>{{$returning->idReverting}}</td>
+                            <td>{{formatDateThai($returning->date)}}</td>
+                            <td>{{formatDateThai($returning->time)}} น.</td>
+                            <td>{{$returning->idTake}}</td>
+                            <td>{{formatDateThai($returning->date_take)}}</td>
+                            <td>{{formatDateThai($returning->time_take)}} น.</td>
+                            <td>
+                                <a href="{{url('/employees/returning_detail/returning/'.$returning->idReverting)}}" class="btn btn-light">รายละเอียด</a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
             <hr>
             <h4>ประวัติการหักเงิน</h4>
-            <table id="table_idFive" data-order='[[ 0, "desc" ]]' class="display">
+            <table id="table_idFive" data-order='[[ 0, "desc" ]]'>
                 <thead>
                     <tr>
                         <th>เลขที่กาหักเงิน</th>
                         <th>วันที่</th>
                         <th>จำนวนเงินรวม (บาท)</th>
                         <th>เลขที่การเบิก</th>
+                        <th>วันที่เบิก</th>
+                        <th>เวลาเบิก</th>
+                        <th>เครื่องมือ</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -136,6 +183,11 @@
                             <td>{{formatDateThai($deduction->date)}}</td>
                             <td>{{$deduction->total_money}}</td>
                             <td>{{$deduction->idTake}}</td>
+                            <td>{{formatDateThai($deduction->date_take)}}</td>
+                            <td>{{formatDateThai($deduction->time_take)}} น.</td>
+                            <td>
+                                <a href="{{url('/employees/deduction_detail/deduction/'.$deduction->idDeduction)}}" class="btn btn-light">รายละเอียด</a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -151,6 +203,7 @@
             $('#table_idThree').DataTable();
             $('#table_idFour').DataTable();
             $('#table_idFive').DataTable();
+            $('#table_idSix').DataTable();
         });
     </script>
 @endsection

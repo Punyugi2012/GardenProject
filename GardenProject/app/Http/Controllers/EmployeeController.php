@@ -71,12 +71,30 @@ class EmployeeController extends Controller
         $leaves = DB::select('select * from TakeLeave where idEmployee = ?', [$id]);
         $salaries = DB::select('select * from Salary where idEmployee = ?', [$id]);
         $attendances = DB::select('select * from Attendance where idEmployee = ?', [$id]);
-        $takes = DB::table('Take')->join('Assignment', 'Take.idAssignment', '=', 'Assignment.idAssignment')
-            ->where('idEmployee', $id)->get();
+        $takes = DB::table('Take')->where('idEmployee', $id)->get();
+        foreach($takes as $take) {
+            $take->assignment = DB::table('Assignment')->join('AssignmentType', 'Assignment.idAssignmentType', '=', 'AssignmentType.idAssignmentType')
+                ->where('idAssignment', $take->idAssignment)->first();
+        }
         $deductions = DB::table('Deduction')->join('Take', 'Deduction.idTake', '=', 'Take.idTake')->where('Deduction.idEmployee', $id)->get();
-        return view('employee.detail-employee', ['leaves'=>$leaves, 'employee'=>$employee, 'salaries'=>$salaries, 'attendances'=>$attendances, 'takes'=>$takes, 'deductions'=>$deductions]);
+        $returnings = DB::table('Reverting')->join('Take', 'Reverting.idTake', '=', 'Take.idTake')
+            ->where('Reverting.idEmployee', $id)->get();
+        return view('employee.detail-employee', ['leaves'=>$leaves, 'employee'=>$employee, 'salaries'=>$salaries, 'attendances'=>$attendances, 'takes'=>$takes, 'deductions'=>$deductions, 'returnings'=>$returnings]);
     }
-
+    public function detailTake($idTake) {
+        $takesDetail = DB::table('Item')->join('TakeDetail', 'Item.idItem', '=', 'TakeDetail.idiTem')->where('idTake', $idTake)->get();
+        return view('employee.detail-take', ['takesDetail'=>$takesDetail]);
+    }
+    public function detailDeduction($idDeduction) {
+        $deductionsDetail = DB::table('Item')->join('DeductionDetail', 'Item.idItem', '=', 'DeductionDetail.idItem')
+        ->where('idDeduction', $idDeduction)->get();
+        return view('employee.detail-deduction', ['deductionsDetail'=>$deductionsDetail]);
+    }
+    public function detailReturning($idReturning) {
+        $returningsDetail = DB::table('Item')->join('RevertingDetail', 'Item.idItem', '=', 'RevertingDetail.idItem')
+        ->where('idReverting', $idReturning)->get();
+        return view('employee.detail-returning', ['returningsDetail'=>$returningsDetail]);
+    }
     /**
      * Show the form for editing the specified resource.
      *

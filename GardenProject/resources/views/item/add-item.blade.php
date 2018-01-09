@@ -46,7 +46,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="price_per_item">ราคาต่อหน่วย:</label>
+                            <label for="price_per_item">ราคาต่อหน่วย (บาท):</label>
                             <input type="number" step=any id="price_per_item" name="price_per_item" class="form-control" placeholder="ราคาต่อหน่วย" required>
                         </div>
                     </div>

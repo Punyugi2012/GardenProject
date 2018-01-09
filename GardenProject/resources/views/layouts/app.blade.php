@@ -85,26 +85,6 @@
                     <li class="nav-item">
                         <a class="nav-link btn btn-light" href="{{url('/deductions')}}">การหักเงิน</a>
                     </li>
-                    {{--  <li class="nav-item">
-                        <div class="btn-group" style="width:100%!important">
-                            <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width:100%!important">
-                                เครื่องมือ
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-left">
-                                <a class="dropdown-item" href="{{url('/attendances')}}">การลงเวลาทำงาน</a>
-                                <a class="dropdown-item" href="{{url('/salaries')}}">การจ่ายเงินเดือน</a>
-                                <a class="dropdown-item" href="{{url('/leaves')}}">การลางาน</a>
-                                <a class="dropdown-item" href="{{url('/purchases')}}">การสั่งซื้อ</a>
-                                <a class="dropdown-item" href="{{url('/receipts')}}">การรับวัตถุดิบ</a>
-                                <a class="dropdown-item" href="{{url('/payments')}}">การจ่ายเงิน</a>
-                                <a class="dropdown-item" href="{{url('/claims')}}">การเคลม</a>
-                                <a class="dropdown-item" href="{{url('/receiptclaims')}}">รับวัตถุดิบจากการเคลม</a>
-                                <a class="dropdown-item" href="{{url('/takes')}}">การเบิก</a>
-                                <a class="dropdown-item" href="{{url('/returnings')}}">การคืนจากการเบิก</a>
-                                <a class="dropdown-item" href="{{url('/deductions')}}">การหักเงิน</a>
-                            </div>
-                        </div>
-                    </li>  --}}
                 </ul>
             </div>
             <div class="col-md-10">
@@ -121,7 +101,7 @@
     @yield('footer')
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#table_id_filter input').addClass('rounded border border-secondary');
+            $('.dataTables_filter input').addClass('rounded border border-secondary');
         });
     </script>
 </body>

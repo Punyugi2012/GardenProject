@@ -16,7 +16,7 @@
                         <th>เลขที่วัตถุดิบ</th>
                         <th>ชื่อ</th>
                         <th>จำนวน</th>
-                        <th>ราคาต่อหน่วย</th>
+                        <th>ราคาต่อหน่วย (บาท)</th>
                         <th>ประเภท</th>
                         <th>เครื่องมือ</th>
                     </tr>
@@ -38,7 +38,16 @@
                                 {{$item->amount}}
                             </td>
                             <td>{{$item->price_per_item}}</td>
-                            <td>{{$item->type}}</td>
+                            <td>  
+                                @if ($item->type == 'tree')
+                                    ต้นไม้
+                                @elseif($item->type == 'drug')
+                                    ยา
+                                @elseif($item->type == 'fertilizer')
+                                    ปุ๋ย
+                                @elseif($item->type == 'equipment')
+                                    อุปกรณ์
+                                @endif</td>
                             <td>
                                 <a href="{{url('/items/'.$item->idItem.'/edit')}}" class="btn btn-light">แก้ไข</a>
                                 <button data-toggle="modal" data-target="#deleteItem{{$loop->index}}" class="btn btn-light">ลบ</button>
