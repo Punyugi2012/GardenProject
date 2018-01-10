@@ -44,7 +44,7 @@ class PurchaseController extends Controller
             $request->input('time_order'),
             $request->input('time_pay'),
             $request->input('time_get'),
-            $request->input('total_money'),
+            0,
             $request->input('status'),
             $request->input('shop'),
         ]);
@@ -90,14 +90,13 @@ class PurchaseController extends Controller
      */
     public function update(PurchaseRequest $request, $id)
     {
-        DB::update('update purchase set date_order = ?, date_pay = ?, date_get = ?, time_order = ?, time_pay = ?, time_get = ?, total_money = ?, status = ?, idShop = ? where idPurchase = ?', [
+        DB::update('update purchase set date_order = ?, date_pay = ?, date_get = ?, time_order = ?, time_pay = ?, time_get = ?, status = ?, idShop = ? where idPurchase = ?', [
             $request->input('date_order'),
             $request->input('date_pay'),
             $request->input('date_get'),
             $request->input('time_order'),
             $request->input('time_pay'),
             $request->input('time_get'),
-            $request->input('total_money'),
             $request->input('status'),
             $request->input('shop'),
             $id

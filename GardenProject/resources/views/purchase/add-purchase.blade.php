@@ -71,12 +71,6 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="total_money">จำนวนเงินทั้งหมด:</label>
-                            <input type="number" step="any" id="total_money" name="total_money" placeholder="จำนวนเงินทั้งหมด" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
                             <label for="status">สถานะ:</label>
                             <select class="custom-select form-control" name="status" id="status" required>
                                 <option value="">เลือกสถานะ</option>

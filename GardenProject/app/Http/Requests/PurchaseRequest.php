@@ -30,7 +30,6 @@ class PurchaseRequest extends FormRequest
             'time_order'=>'required',
             'time_pay'=>'required',
             'time_get'=>'required',
-            'total_money'=>'required',
             'status'=>'required',
             'shop'=>'required',
         ];
@@ -43,7 +42,6 @@ class PurchaseRequest extends FormRequest
             'time_order.required'=>'กรุณากรอกเวลาสั่ง',
             'time_pay.required'=>'กรุณากรอกเวลาจ่าย',
             'time_get.required'=>'กรุณากรอกเวลารับ',
-            'total_money.required'=>'กรุณากรอกจำนวนเงินทั้งหมด',
             'status.required'=>'กรุณาเลือกสถานะ',
             'shop.required'=>'กรุณาเลือกร้านค้า',
         ];
