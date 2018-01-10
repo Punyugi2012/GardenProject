@@ -19,9 +19,9 @@
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="profile_image">รูปสวน:
-                            <img id="image_upload_preview" src="#" alt="zone image" style="widht:50px;height:50px">
+                            <img id="image_upload_preview" src="#" alt="zone image" style="widht:200px;height:200px">
                     </label>
-                    <input type="file" id="zone_image" name="zone_image" class="form-control"  accept="image/*" required>
+                    <input type="file" id="zone_image" name="zone_image" class="form-control"  accept="image/*" style="width:30%"required>
                 </div>
                 <button type="submit" class="btn btn-light">บันทึก</button>
             </form>
@@ -61,4 +61,25 @@
             });
         });
     </script>
+    @if (session()->has('added'))
+        <script type="text/javascript">
+            swal({
+                title: "<?php echo session()->get('added'); ?>",
+                text: "ผลการทำงาน",
+                timer: 10000,
+                type: 'success',
+                showConfirmButton: false
+            });
+        </script>
+    @elseif (session()->has('deleted'))
+        <script type="text/javascript">
+            swal({
+                title: "<?php echo session()->get('deleted'); ?>",
+                text: "ผลการทำงาน",
+                timer: 10000,
+                type: 'success',
+                showConfirmButton: false
+            });
+        </script>
+    @endif
 @endsection

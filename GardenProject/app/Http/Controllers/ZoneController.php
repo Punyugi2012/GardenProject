@@ -53,20 +53,20 @@ class ZoneController extends Controller
             if ($request->hasFile('zone_image')) {
                 $filename = str_random(10) . '.' . $request->file('zone_image')->getClientOriginalExtension(); 
                 $request->file('zone_image')->move(public_path() . '/images/', $filename);
-                Image::make(public_path() . '/images/' . $filename)->resize(50, 50)->save(public_path() . '/images/resize/' .$filename);
                 DB::insert('insert into ZoneImage(pathFile, idZone) values(?, ?)', [
                     $filename,
                     $idZone
                 ]);
+                session()->flash('added', 'เพิ่มรูปสวน เรียบร้อยแล้ว');
             } 
         } 
         return redirect('/zones/'.$idZone);
     }
     public function destroyImage($idImage, $idZone) {
-        $image = DB::table('ZoneImage')->where('idZone', $idZone)->first();
+        $image = DB::table('ZoneImage')->where('idZoneImage', $idImage)->first();
         File::delete(public_path() . '/images/' .  $image->pathFile );
-        File::delete(public_path() . '/images/resize/' . $image->pathFile );
         DB::delete('delete from ZoneImage where idZoneImage = ?', [$idImage]);
+        session()->flash('deleted', 'ลบรูปสวน เรียบร้อยแล้ว');
         return redirect('/zones/'.$idZone);
     }
     /**

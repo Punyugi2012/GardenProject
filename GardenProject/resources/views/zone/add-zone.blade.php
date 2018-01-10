@@ -39,3 +39,16 @@
     </div>
 </div>
 @endsection
+@section('footer')
+    @if (session()->has('added'))
+    <script type="text/javascript">
+        swal({
+            title: "<?php echo session()->get('added'); ?>",
+            text: "ผลการทำงาน",
+            timer: 10000,
+            type: 'success',
+            showConfirmButton: false
+        });
+    </script>
+    @endif
+@endsection
