@@ -71,10 +71,10 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="status">สถานะ:</label>
-                            <select class="custom-select form-control" name="status" id="status" required>
-                                <option value="hasClaim" {{$purchase->status == 'hasClaim' ? 'selected' : ''}}>มีเคลม</option>
-                                <option value="hasnotClaim" {{$purchase->status == 'hasnotClaim' ? 'selected' : ''}}>ไม่มีเคลม</option>
+                            <label for="status_claim">สถานะการเคลม:</label>
+                            <select class="custom-select form-control" name="status_claim" id="status_claim" required>
+                                <option value="hasClaim" {{$purchase->status_claim == 'hasClaim' ? 'selected' : ''}}>มีเคลม</option>
+                                <option value="hasnotClaim" {{$purchase->status_claim == 'hasnotClaim' ? 'selected' : ''}}>ไม่มีเคลม</option>
                             </select>
                         </div>
                     </div>

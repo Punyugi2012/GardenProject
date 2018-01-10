@@ -22,7 +22,9 @@
                         <th>เวลารับ</th>
                         <th>จำนวนเงินทั้งหมด (บาท)</th>
                         <th>ชื่อร้านค้า</th>
-                        <th>สถานะ</th>
+                        <th>เคลม</th>
+                        <th>สถานะการจ่ายเงิน</th>
+                        <th>สถานะการรับ</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -39,10 +41,24 @@
                             <td>{{$purchase->total_money}}</td>
                             <td>{{$purchase->name}}</td>
                             <td>
-                                @if ($purchase->status == 'hasnotClaim')
+                                @if ($purchase->status_claim == 'hasnotClaim')
                                     ไม่มีเคลม
-                                @elseif ($purchase->status == 'hasClaim')    
+                                @elseif ($purchase->status_claim == 'hasClaim')    
                                     มีเคลม
+                                @endif
+                            </td>
+                            <td>
+                                @if ($purchase->status_payment == 'paid')
+                                    จ่ายเงินแล้ว
+                                @elseif ($purchase->status_payment == 'notpaid')    
+                                    ยังไม่จ่าย
+                                @endif
+                            </td>
+                            <td>
+                                @if ($purchase->status_receipt == 'receipted')
+                                    รับวัตถุดิบแล้ว
+                                @elseif ($purchase->status_receipt == 'unreceipted')    
+                                    ยังไม่รับ
                                 @endif
                             </td>
                             <td>

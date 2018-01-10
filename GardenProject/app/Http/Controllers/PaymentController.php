@@ -57,7 +57,8 @@ class PaymentController extends Controller
     public function show($id)
     {
         $paymentsDetail = DB::table('PayDetail')->join('purchase', 'PayDetail.idPurchase', '=', 'purchase.idPurchase')->where('idPay', $id)->get();
-        $purchases = DB::select('select * from purchase');
+        $payment = DB::table('Pay')->where('idPay', $id)->first();
+        $purchases = DB::select('select * from purchase where idShop = ? and status_payment = "notpaid"', [$payment->idShop]);
         return view('payment.detail-payment', ['paymentsDetail'=>$paymentsDetail, 'purchases'=>$purchases, 'idPayment'=>$id]);
     }
 

@@ -30,7 +30,7 @@ class PurchaseRequest extends FormRequest
             'time_order'=>'required',
             'time_pay'=>'required',
             'time_get'=>'required',
-            'status'=>'required',
+            'status_claim'=>'required',
             'shop'=>'required',
         ];
     }
@@ -42,7 +42,7 @@ class PurchaseRequest extends FormRequest
             'time_order.required'=>'กรุณากรอกเวลาสั่ง',
             'time_pay.required'=>'กรุณากรอกเวลาจ่าย',
             'time_get.required'=>'กรุณากรอกเวลารับ',
-            'status.required'=>'กรุณาเลือกสถานะ',
+            'status_claim.required'=>'กรุณาเลือกสถานะการเคลม',
             'shop.required'=>'กรุณาเลือกร้านค้า',
         ];
     }

@@ -13,10 +13,13 @@ class PaymentDetailController extends Controller
             $idPayment,
             $request->input('purchase')
         ]);
+        DB::update('update Purchase set status_payment = "paid" where idPurchase = ?', [$request->input('purchase')]);
         session()->flash('added', 'เพิ่ม เรียบร้อยแล้ว');
         return redirect('/payments/'.$idPayment);
     }
     public function destroy($idPaymentDetail, $idPayment) {
+        $paymentDetail = DB::table('PayDetail')->where('idPayDetail', $idPaymentDetail)->first();
+        DB::update('update Purchase set status_payment = "notpaid" where idPurchase = ?', [$paymentDetail->idPurchase]);
         DB::delete('delete from PayDetail where idPayDetail = ?', [$idPaymentDetail]);
         session()->flash('deleted', 'ลบ เรียบร้อยแล้ว');
         return redirect('/payments/'.$idPayment);

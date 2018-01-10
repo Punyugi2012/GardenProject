@@ -20,7 +20,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="amount_money">จำนวนเงิน:</label>
+                            <label for="amount_money">จำนวนเงิน (บาท):</label>
                             <input type="number" step="any" class="form-control" id="amount_money" name="amount_money" placeholder="จำนวนเงิน" required>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                             <select class="custom-select form-control" id="purchase" name="purchase" required>
                                 <option value="">เลือกการสั่งซื้อ</option>
                                 @foreach ($purchases as $purchase)
-                                    <option value="{{$purchase->idPurchase}}">{{$purchase->idPurchase}}</option>
+                                    <option value="{{$purchase->idPurchase}}">เลขที่การสั่งซื้อ {{$purchase->idPurchase}}, เงินที่ต้องจ่าย {{$purchase->total_money}} บาท</option>
                                 @endforeach
                             </select>
                         </div>
@@ -46,8 +46,9 @@
                 <thead>
                     <tr>
                         <th>เลขที่รายละเอียด</th>
-                        <th>จำนวนเงิน</th>
-                        <th>เลขที่การสั่งซ์้อ</th>
+                        <th>จำนวนเงินที่จ่าย (บาท)</th>
+                        <th>เลขที่การสั่งซื้อ</th>
+                        <th>จำนวนเงินที่ต้องจ่าย (บาท)</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -57,6 +58,7 @@
                             <td>{{$paymentDetail->idPayDetail}}</td>
                             <td>{{$paymentDetail->amount_money}}</td>
                             <td>{{$paymentDetail->idPurchase}}</td>
+                            <td>{{$paymentDetail->total_money}}</td>
                             <td>
                                 <button data-toggle="modal" data-target="#deletePaymentDetail{{$loop->index}}" class="btn btn-light">ลบ</button>
                                 <div class="modal fade" id="deletePaymentDetail{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

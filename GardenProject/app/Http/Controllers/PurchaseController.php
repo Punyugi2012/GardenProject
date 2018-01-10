@@ -37,7 +37,7 @@ class PurchaseController extends Controller
      */
     public function store(PurchaseRequest $request)
     {
-        DB::insert('insert into purchase(date_order, date_pay, date_get, time_order, time_pay, time_get, total_money, status, idShop) values (?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+        DB::insert('insert into purchase(date_order, date_pay, date_get, time_order, time_pay, time_get, total_money, status_claim, status_payment, status_receipt, idShop) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
             $request->input('date_order'),
             $request->input('date_pay'),
             $request->input('date_get'),
@@ -45,7 +45,9 @@ class PurchaseController extends Controller
             $request->input('time_pay'),
             $request->input('time_get'),
             0,
-            $request->input('status'),
+            $request->input('status_claim'),
+            "notpaid",
+            "unreceipted",
             $request->input('shop'),
         ]);
         session()->flash('added', 'เพิ่มการสั่งซื้อ เรียบร้อยแล้ว');
@@ -90,14 +92,14 @@ class PurchaseController extends Controller
      */
     public function update(PurchaseRequest $request, $id)
     {
-        DB::update('update purchase set date_order = ?, date_pay = ?, date_get = ?, time_order = ?, time_pay = ?, time_get = ?, status = ?, idShop = ? where idPurchase = ?', [
+        DB::update('update purchase set date_order = ?, date_pay = ?, date_get = ?, time_order = ?, time_pay = ?, time_get = ?, status_claim = ?, idShop = ? where idPurchase = ?', [
             $request->input('date_order'),
             $request->input('date_pay'),
             $request->input('date_get'),
             $request->input('time_order'),
             $request->input('time_pay'),
             $request->input('time_get'),
-            $request->input('status'),
+            $request->input('status_claim'),
             $request->input('shop'),
             $id
         ]);

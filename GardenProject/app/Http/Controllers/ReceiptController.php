@@ -25,7 +25,7 @@ class ReceiptController extends Controller
      */
     public function create()
     {
-        $purchases = DB::select('select * from purchase');
+        $purchases = DB::select('select * from purchase where status_receipt = "unreceipted"');
         return view('receipt.add-receipt', ['purchases'=>$purchases]);
     }
 
@@ -42,6 +42,7 @@ class ReceiptController extends Controller
             $request->input('time'),
             $request->input('purchase'),
         ]);
+        DB::update('update Purchase set status_receipt = "receipted" where idPurchase = ?', [$request->input('purchase')]);
         session()->flash('added', 'เพิ่มการรับวัตถุ เรียบร้อยแล้ว');
         return redirect('/receipts');
     }
@@ -56,8 +57,12 @@ class ReceiptController extends Controller
     {
         $receiptsDetail = DB::table('Item')->join('ReceivingDetail', 'Item.idItem', '=', 'ReceivingDetail.idItem')
                         ->where('idReceiving', $id)->get();
-        $items = DB::select('select * from item');
-        return view('receipt.detail-receipt', ['receiptsDetail'=>$receiptsDetail, 'items'=>$items, 'idReceipt'=>$id]);
+        $idPurchase = DB::table('Receiving')->where('idReceiving',$id)->first()->idPurchase;
+        $purchasesDetail = DB::select('select * from PurchaseDetail where idPurchase = ?', [$idPurchase]);
+        foreach($purchasesDetail as $detail) {
+            $detail->name = DB::table('Item')->where('idItem', $detail->idItem)->first()->name;
+        }
+        return view('receipt.detail-receipt', ['receiptsDetail'=>$receiptsDetail, 'purchasesDetail'=>$purchasesDetail, 'idReceipt'=>$id]);
     }
 
     /**

@@ -28,8 +28,8 @@
                         <label for="item">วัตถุดิบ</label>
                         <select class="custom-select form-control" id="item" name="item" required>
                             <option value="">เลือกวัตถุดิบ</option>
-                            @foreach ($items as $item)
-                                <option value="{{$item->idItem}}">{{$item->name}}</option>
+                            @foreach ($purchasesDetail as $detail)
+                                <option value="{{$detail->idItem}}">{{$detail->name}}, จำนวนที่สั่ง {{$detail->amount}}</option>
                             @endforeach
                         </select>
                     </div>

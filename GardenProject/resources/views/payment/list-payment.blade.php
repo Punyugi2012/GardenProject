@@ -27,7 +27,13 @@
                             <td>{{$payment->idPay}}</td>
                             <td>{{formatDateThai($payment->date)}}</td>
                             <td>{{formatDateThai($payment->time)}} น.</td>
-                            <td>{{$payment->type}}</td>
+                            <td>
+                                @if ($payment->type == 'normal')
+                                    ปกติ
+                                @elseif($payment->type == 'alienate')
+                                    โอน
+                                @endif
+                            </td>
                             <td>{{$payment->name}}</td>
                             <td>
                                 <a href="{{url('/payments/'.$payment->idPay)}}" class="btn btn-light">รายละเอียด</a>
