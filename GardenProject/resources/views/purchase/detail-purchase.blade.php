@@ -17,26 +17,22 @@
             @endif
             <form action="{{url('/purchases_detail/purchase/'.$idPurchase)}}" method="POST" autocomplete="off">
                 {{csrf_field()}}
-                <div class="form-group">
-                    <label for="item">วัตถุดิบ:</label>
-                    <select class="custom-select form-control" id="item" name="item" required>
-                        <option value="">เลือกวัตถุดิบ</option>
-                        @foreach ($items as $item)
-                            <option value="{{$item->idItem}}">{{$item->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="amount">จำนวน:</label>
-                            <input type="number" id="amount" name="amount" class="form-control" placeholder="จำนวน" required>
+                            <label for="item">วัตถุดิบ:</label>
+                            <select class="custom-select form-control" id="item" name="item" required>
+                                <option value="">เลือกวัตถุดิบ</option>
+                                @foreach ($items as $item)
+                                    <option value="{{$item->idItem}}">{{$item->name}}, ราคา {{$item->price_per_item}} บาท</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="total_money">จำนวนเงินรวม:</label>
-                            <input type="number" step="any" id="total_money" name="total_money" class="form-control" placeholder="จำนวนเงินรวม" required>
+                            <label for="amount">จำนวน:</label>
+                            <input type="number" id="amount" name="amount" class="form-control" placeholder="จำนวน" required>
                         </div>
                     </div>
                 </div>
@@ -51,8 +47,9 @@
                     <tr>
                         <th>เลขที่รายละเอียด</th>
                         <th>ชื่อวัตถุดิบ</th>
+                        <th>ราคาต่อชิ้น (บาท)</th>
                         <th>จำนวน</th>
-                        <th>จำนวนเงินรวม</th>
+                        <th>จำนวนเงินรวม (บาท)</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -60,7 +57,16 @@
                     @foreach ($purchasesDetail as $purchaseDetail)
                         <tr>
                             <td>{{$purchaseDetail->idPurchaseDetail}}</td>
-                            <td>{{$purchaseDetail->name}}</td>
+                            <td>{{$purchaseDetail->name}}
+                                @if ($purchaseDetail->type == 'tree')
+                                (ต้น)
+                                @elseif($purchaseDetail->type == 'drug')
+                                    (ลิตร)
+                                @elseif($purchaseDetail->type == 'fertilizer')
+                                    (กิโลกรัม)
+                                @endif
+                            </td>
+                            <td>{{$purchaseDetail->price_per_item}}</td>
                             <td>{{$purchaseDetail->amount}}</td>
                             <td>{{$purchaseDetail->total_money}}</td>
                             <td>

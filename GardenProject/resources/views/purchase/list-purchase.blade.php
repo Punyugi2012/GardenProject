@@ -20,7 +20,7 @@
                         <th>เวลาจ่าย</th>
                         <th>วันที่รับ</th>
                         <th>เวลารับ</th>
-                        <th>จำนวนเงินทั้งหมด</th>
+                        <th>จำนวนเงินทั้งหมด (บาท)</th>
                         <th>ชื่อร้านค้า</th>
                         <th>สถานะ</th>
                         <th>เครื่องมือ</th>
@@ -38,7 +38,13 @@
                             <td>{{formatDateThai($purchase->time_get)}} น.</td>
                             <td>{{$purchase->total_money}}</td>
                             <td>{{$purchase->name}}</td>
-                            <td>{{$purchase->status}}</td>
+                            <td>
+                                @if ($purchase->status == 'hasnotClaim')
+                                    ไม่มีเคลม
+                                @elseif ($purchase->status == 'hasClaim')    
+                                    มีเคลม
+                                @endif
+                            </td>
                             <td>
                                 <a href="{{url('/purchases/'.$purchase->idPurchase)}}" class="btn btn-light">รายละเอียด</a>
                                 <a href="{{url('/purchases/'.$purchase->idPurchase.'/edit')}}" class="btn btn-light">แก้ไข</a>
