@@ -14,7 +14,7 @@ class ReceiptClaimController extends Controller
      */
     public function index()
     {
-        $receiptclaims = DB::table('ReceivingClaim')->join('Claim', 'ReceivingClaim.idClaim', '=', 'Claim.idClaim')->get();
+        $receiptclaims = DB::table('Claim')->join('ReceivingClaim', 'Claim.idClaim', '=', 'ReceivingClaim.idClaim')->get();
         return view('receiptclaim.list-receiptclaim', ['receiptclaims'=>$receiptclaims]);
     }
 
@@ -23,9 +23,9 @@ class ReceiptClaimController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create()    
     {
-        $claims = DB::select('select * from claim');
+        $claims = DB::select('select * from claim where status = "unfinished"');
         return view('receiptclaim.add-receiptclaim', ['claims'=>$claims]);
     }
 
@@ -55,8 +55,9 @@ class ReceiptClaimController extends Controller
     public function show($id)
     {
         $receiptclaimsDetail = DB::table('Item')->join('ReceivingClaimDetail', 'Item.idItem', '=', 'ReceivingClaimDetail.idItem')->where('idReceivingClaim', $id)->get();
-        $items = DB::select('select * from item where type = "equipment"');
-        return view('receiptclaim.detail-receiptclaim', ['receiptclaimsDetail'=>$receiptclaimsDetail, 'items'=>$items, 'idReceiptClaim'=>$id]);
+        $idClaim = DB::table('ReceivingClaim')->where('idReceivingClaim', $id)->first()->idClaim;
+        $claimsDetail = DB::table('Item')->join('ClaimDetail', 'Item.idItem', '=', 'ClaimDetail.idItem')->where('idClaim', $idClaim)->get();
+        return view('receiptclaim.detail-receiptclaim', ['receiptclaimsDetail'=>$receiptclaimsDetail, 'claimsDetail'=>$claimsDetail, 'idReceiptClaim'=>$id]);
     
     }
 

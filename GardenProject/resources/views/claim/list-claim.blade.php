@@ -31,7 +31,13 @@
                             <td>{{formatDateThai($claim->time_claim)}} น.</td>
                             <td>{{formatDateThai($claim->date_get)}}</td>
                             <td>{{formatDateThai($claim->time_get)}} น.</td>
-                            <td>{{$claim->status}}</td>
+                            <td>
+                                @if ($claim->status == 'unfinished')
+                                    ยังไม่เรียบร้อย
+                                @elseif($claim->status == 'finished')
+                                    เรียบร้อยแล้ว
+                                @endif
+                            </td>
                             <td>{{$claim->idPurchase}}</td>
                             <td>
                                 <a href="{{url('/claims/'.$claim->idClaim)}}" class="btn btn-light">รายละเอียด</a>

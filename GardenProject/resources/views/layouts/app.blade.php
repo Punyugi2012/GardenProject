@@ -21,28 +21,30 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#"><h1>สวนลุงเด่น</h1></a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link btn btn-light" href="{{url('/employees')}}">พนักงาน</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link btn btn-light" href="{{url('/items')}}">วัตถุดิบ</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link btn btn-light" href="{{url('/shops')}}">ร้านค้า</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link btn btn-light" href="{{url('/zones')}}">โซน</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link btn btn-light" href="{{url('/products')}}">ผลผลิต</a>
+            </li>
+        </ul>
     </nav>
     <div class="container-fluid" style="margin-top:20px;margin-bottom:20px">
         <div class="row">
             <div class="col-md-2">
                 <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-light" href="{{url('/employees')}}">พนักงาน</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-light" href="{{url('/items')}}">วัตถุดิบ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-light" href="{{url('/shops')}}">ร้านค้า</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-light" href="{{url('/zones')}}">โซน</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-light" href="{{url('/products')}}">ผลผลิต</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-light" href="{{url('/sales')}}">การขาย</a>
                     </li>

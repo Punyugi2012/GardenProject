@@ -26,7 +26,7 @@ class ClaimController extends Controller
      */
     public function create()
     {
-        $purchases = DB::select('select * from purchase');
+        $purchases = DB::select('select * from purchase where status_claim = "hasClaim"');
         return view('claim.add-claim', ['purchases'=>$purchases]);
     }
 
@@ -59,8 +59,11 @@ class ClaimController extends Controller
     public function show($id)
     {
         $claimsDetail = DB::table('item')->join('claimdetail', 'item.idItem', '=', 'claimdetail.idItem')->where('idClaim', $id)->get();
-        $items = DB::select('select * from item where type = "equipment"');
-        return view('claim.detail-claim', ['claimsDetail'=>$claimsDetail, 'items'=>$items, 'idClaim'=>$id]);
+        $idPurchase = DB::table('Claim')->where('idClaim',$id)->first()->idPurchase;
+        $purchasesDetail = DB::table('Item')->join('PurchaseDetail', 'Item.idItem', '=','PurchaseDetail.idItem')
+        ->where('type', 'equipment')
+        ->where('idPurchase', $idPurchase)->get();
+        return view('claim.detail-claim', ['claimsDetail'=>$claimsDetail, 'purchasesDetail'=>$purchasesDetail, 'idClaim'=>$id]);
     }
 
     /**

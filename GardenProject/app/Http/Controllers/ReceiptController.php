@@ -43,7 +43,7 @@ class ReceiptController extends Controller
             $request->input('purchase'),
         ]);
         DB::update('update Purchase set status_receipt = "receipted" where idPurchase = ?', [$request->input('purchase')]);
-        session()->flash('added', 'เพิ่มการรับวัตถุ เรียบร้อยแล้ว');
+        session()->flash('added', 'เพิ่มการรับวัตถุดิบ เรียบร้อยแล้ว');
         return redirect('/receipts');
     }
 
@@ -58,11 +58,9 @@ class ReceiptController extends Controller
         $receiptsDetail = DB::table('Item')->join('ReceivingDetail', 'Item.idItem', '=', 'ReceivingDetail.idItem')
                         ->where('idReceiving', $id)->get();
         $idPurchase = DB::table('Receiving')->where('idReceiving',$id)->first()->idPurchase;
-        $purchasesDetail = DB::select('select * from PurchaseDetail where idPurchase = ?', [$idPurchase]);
-        foreach($purchasesDetail as $detail) {
-            $detail->name = DB::table('Item')->where('idItem', $detail->idItem)->first()->name;
-        }
+        $purchasesDetail = DB::table('Item')->join('PurchaseDetail', 'Item.idItem', '=','PurchaseDetail.idItem')->where('idPurchase', $idPurchase)->get();
         return view('receipt.detail-receipt', ['receiptsDetail'=>$receiptsDetail, 'purchasesDetail'=>$purchasesDetail, 'idReceipt'=>$id]);
+        print_r($purchasesDetail);
     }
 
     /**
@@ -94,7 +92,7 @@ class ReceiptController extends Controller
             $request->input('purchase'),
             $id
         ]);
-        session()->flash('edited', 'แก้ไขการรับวัตถุ เรียบร้อยแล้ว');
+        session()->flash('edited', 'แก้ไขการรับวัตถุดิบ เรียบร้อยแล้ว');
         return redirect('/receipts/'.$id.'/edit');
     }
 
@@ -106,6 +104,8 @@ class ReceiptController extends Controller
      */
     public function destroy($id)
     {
+        $idPurchase = DB::table('Receiving')->where('idReceiving', $id)->first()->idPurchase;
+        DB::update('update Purchase set status_receipt = "unreceipted" where idPurchase = ?', [$idPurchase]);
         DB::delete('delete from receiving where idReceiving = ?', [$id]);
         session()->flash('deleted', 'ลบการรับวัตถุดิบ เรียบร้อยแล้ว');
         return redirect('/receipts');

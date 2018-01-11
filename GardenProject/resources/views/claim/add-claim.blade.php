@@ -22,7 +22,7 @@
                     <select class="custom-select form-control" id="purchase" name="purchase" required>
                         <option value="">เลือกการสั่งซื้อ</option>
                         @foreach ($purchases as $purchase)
-                            <option value="{{$purchase->idPurchase}}">{{$purchase->idPurchase}}</option>
+                            <option value="{{$purchase->idPurchase}}">เลขที่การสั่งซื้อ {{$purchase->idPurchase}}</option>
                         @endforeach
                     </select>
                 </div>

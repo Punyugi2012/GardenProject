@@ -40,7 +40,7 @@
                 </div>
                 <div class="form-group">
                     <label for="cause">หมายเหตุ:</label>
-                    <textarea class="form-control" id="cause" name="cause" placeholder="สาเหตุ" required></textarea>
+                    <textarea class="form-control" id="cause" name="cause" placeholder="หมายเหตุ" required></textarea>
                 </div>
                 <div class="text-right">
                     <button type="submit" class="btn btn-light">บันทึก</button>

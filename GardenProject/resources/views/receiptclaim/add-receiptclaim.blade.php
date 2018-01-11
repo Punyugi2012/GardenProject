@@ -36,7 +36,7 @@
                             <select class="custom-select form-control" id="claim" name="claim" required>
                                 <option value="">เลือกการเคลม</option>
                                 @foreach ($claims as $claim)
-                                    <option value="{{$claim->idClaim}}">{{$claim->idClaim}}</option>
+                                    <option value="{{$claim->idClaim}}">เลขที่การเคลม {{$claim->idClaim}}</option>
                                 @endforeach
                             </select>
                         </div>

@@ -20,16 +20,16 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="amount">จำนวน:</label>
-                            <input type="number" id="amount" name="amount" class="form-control" placeholder="จำนวนวัตถุดิบ" required>
+                            <label for="amount">จำนวนที่รับ:</label>
+                            <input type="number" id="amount" name="amount" class="form-control" placeholder="จำนวนที่รับ" required>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label for="item">วัตถุดิบ</label>
                         <select class="custom-select form-control" id="item" name="item" required>
                             <option value="">เลือกวัตถุดิบ</option>
-                            @foreach ($items as $item)
-                                <option value="{{$item->idItem}}">{{$item->name}}</option>
+                            @foreach ($claimsDetail as $detail)
+                                <option value="{{$detail->idItem}}">{{$detail->name}}, จำนวนที่นำไปเคลม {{$detail->amount}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -45,7 +45,7 @@
                     <tr>
                         <th>เลขที่รายละเอียด</th>
                         <th>ชื่อวัตถุดิบ</th>
-                        <th>จำนวน</th>
+                        <th>จำนวนที่รับ</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>

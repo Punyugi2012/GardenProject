@@ -29,7 +29,7 @@
                         <select class="custom-select form-control" id="item" name="item" required>
                             <option value="">เลือกวัตถุดิบ</option>
                             @foreach ($items as $item)
-                                <option value="{{$item->idItem}}">{{$item->name}}</option>
+                                <option value="{{$item->idItem}}">{{$item->name}}, จำนวนที่มีอยู่ {{$item->amount}}</option>
                             @endforeach
                         </select>
                     </div>

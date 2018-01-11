@@ -53,7 +53,16 @@
                     @foreach ($receiptsDetail as $receiptDetail)
                         <tr>
                             <td>{{$receiptDetail->idReceivingDetail}}</td>
-                            <td>{{$receiptDetail->name}}</td>
+                            <td>
+                                    {{$receiptDetail->name}}                       
+                                    @if ($receiptDetail->type == 'tree')
+                                        (ต้น)
+                                    @elseif($receiptDetail->type == 'drug')
+                                        (ลิตร)
+                                    @elseif($receiptDetail->type == 'fertilizer')
+                                        (กิโลกรัม)
+                                    @endif
+                            </td>
                             <td>{{$receiptDetail->amount}}</td>
                             <td>
                                 <button data-toggle="modal" data-target="#deleteReceiptDetail{{$loop->index}}" class="btn btn-light">ลบ</button>

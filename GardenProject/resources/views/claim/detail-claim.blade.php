@@ -23,16 +23,16 @@
                             <label for="item">วัตถุดิบ:</label>
                             <select class="select-custom form-control" id="item" name="item" required>
                                 <option value="">เลือกวัตถุดิบ</option>
-                                @foreach ($items as $item)
-                                    <option value="{{$item->idItem}}">{{$item->name}}</option>
+                                @foreach ($purchasesDetail as $detail)
+                                    <option value="{{$detail->idItem}}">{{$detail->name}}, จำนวนที่สั่งซื้อ {{$detail->amount}}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="amount">จำนวน:</label>
-                            <input type="number" id="amount" name="amount" class="form-control" placeholder="จำนวนวัตถุดิบ" required>
+                            <label for="amount">จำนวนที่จะนำไปเคลม:</label>
+                            <input type="number" id="amount" name="amount" class="form-control" placeholder="จำนวนที่จะนำไปเคลม" required>
                         </div>
                     </div>
                 </div>
