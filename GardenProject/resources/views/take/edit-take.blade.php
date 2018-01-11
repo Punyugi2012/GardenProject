@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <div class="form-group">
                                 <label for="date">วันที่:</label>
@@ -49,10 +49,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="time">เวลา:</label>
                             <input type="time" id="time" name="time" value="{{$take->time_take}}" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="status">สถานะ:</label>
+                            <select class="custom-select form-control" id="status" name="status" required>
+                                <option value="fully" {{$take->status_returning == 'fully' ? 'selected' : ''}}>คืนครบเรียบร้อย</option>
+                                <option value="unfully" {{$take->status_returning == 'unfully' ? 'selected' : ''}}>ยังคืนไม่ครบ</option>
+                            </select>
                         </div>
                     </div>
                 </div>

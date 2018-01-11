@@ -58,8 +58,11 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="amount">จำนวนพนักงาน:</label>
-                            <input type="number" id="amount" name="amount" class="form-control" placeholder="จำนวนพนักงาน" required>
+                            <label for="status">สถานะ:</label>
+                            <select class="custom-select form-control" id="status" name="status" required>
+                                <option value="success">เรียบร้อยแล้ว</option>
+                                <option value="unsuccess" selected>ยังไม่เรียบร้อยแล้ว</option>
+                            </select>
                         </div>
                     </div>
                 </div>

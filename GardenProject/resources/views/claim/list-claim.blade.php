@@ -32,10 +32,10 @@
                             <td>{{formatDateThai($claim->date_get)}}</td>
                             <td>{{formatDateThai($claim->time_get)}} น.</td>
                             <td>
-                                @if ($claim->status == 'unfinished')
-                                    ยังไม่เรียบร้อย
-                                @elseif($claim->status == 'finished')
-                                    เรียบร้อยแล้ว
+                                @if ($claim->status == 'success')
+                                    เคลมเรียบร้อยแล้ว
+                                @elseif($claim->status == 'unsuccess')
+                                    เคลมยังไม่เรียบร้อย
                                 @endif
                             </td>
                             <td>{{$claim->idPurchase}}</td>

@@ -20,20 +20,20 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="date">วันที่:</label>
-                            <input type="date" id="date" name="date" value="{{$today}}" class="form-control" required>
+                            <label for="employee">พนักงาน:</label>
+                            <select class="custom-select form-control" name="employee" id="employee" required>
+                                <option value="" selected>เลือกพนักงาน</option>
+                                @foreach ($employees as $employee)
+                                    <option value="{{$employee->idEmployee}}">{{$employee->name}}-{{$employee->surname}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <label for="employee">ชื่อ-นามสกุล:</label>
-                        <select class="custom-select form-control" name="employee" id="employee" required>
-                            <option value="" selected>เลือกชื่อ-นามสกุล</option>
-                            @foreach ($employees as $employee)
-                                <option value="{{$employee->idEmployee}}">{{$employee->name}}-{{$employee->surname}}</option>
-                            @endforeach
-                        </select>
+                        <label for="date">วันที่:</label>
+                        <input type="date" id="date" name="date" class="form-control" required>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
@@ -58,8 +58,7 @@
                     <tr>
                         <th>เลขที่การลงเวลา</th>
                         <th>วันที่</th>
-                        <th>ชื่อ</th>
-                        <th>นามสกุล</th>
+                        <th>ชื่อ-สกุลพนักงาน</th>
                         <th>เวลาเข้าทำงาน</th>
                         <th>เวลาออกงาน</th>
                         <th>จำนวนเวลา(ชม.)</th>
@@ -71,8 +70,7 @@
                         <tr>
                             <td>{{$attendance->idAttendance}}</td>
                             <td>{{formatDateThai($attendance->date)}}</td>
-                            <td>{{$attendance->name}}</td>
-                            <td>{{$attendance->surname}}</td>
+                            <td>{{$attendance->name}} {{$attendance->surname}}</td>
                             <td>{{formatDateThai($attendance->start_time)}} น.</td>
                             <td>{{formatDateThai($attendance->finish_time)}} น.</td>
                             <td>{{$attendance->amount_time}} ชม.</td>

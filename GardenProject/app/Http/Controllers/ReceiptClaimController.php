@@ -25,7 +25,7 @@ class ReceiptClaimController extends Controller
      */
     public function create()    
     {
-        $claims = DB::select('select * from claim where status = "unfinished"');
+        $claims = DB::select('select * from claim where status = "unsuccess"');
         return view('receiptclaim.add-receiptclaim', ['claims'=>$claims]);
     }
 
@@ -70,7 +70,7 @@ class ReceiptClaimController extends Controller
     public function edit($id)
     {
         $receiptclaim = DB::table('ReceivingClaim')->join('Claim', 'ReceivingClaim.idClaim', '=', 'Claim.idClaim')->where('idReceivingClaim', $id)->first();
-        $claims = DB::select('select * from claim');
+        $claims = DB::select('select * from claim where status = "unsuccess"');
         return view('receiptclaim.edit-receiptclaim', ['receiptclaim'=>$receiptclaim, 'claims'=>$claims]); 
     }
 

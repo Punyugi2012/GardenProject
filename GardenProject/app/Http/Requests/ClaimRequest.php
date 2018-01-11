@@ -28,7 +28,6 @@ class ClaimRequest extends FormRequest
             'date_get'=>'required',
             'time_claim'=>'required',
             'time_get'=>'required',
-            'status'=>'required',
             'purchase'=>'required'
         ];
     }
@@ -39,7 +38,6 @@ class ClaimRequest extends FormRequest
             'date_get.required'=>'กรุณากรอกวันที่รับ',
             'time_claim.required'=>'กรุณากรอกเวลาเคลม',
             'time_get.required'=>'กรุณากรอกเวลารับ',
-            'status'=>'กรุณากรอกสถานะ',
             'purchase.required'=>'กรุณาเลือกการสั่งซื้อ'
         ];
     }

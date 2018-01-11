@@ -45,7 +45,46 @@
         <div class="row">
             <div class="col-md-2">
                 <ul class="nav flex-column">
+                    <li>
+                        พนักงาน
+                    </li>
                     <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/attendances')}}">การลงเวลาทำงาน</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/salaries')}}">การจ่ายเงินเดือน</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/leaves')}}">การลางาน</a>
+                    </li>
+                    <li>
+                        การสั่งซื้อ
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/purchases')}}">การสั่งซื้อ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/receipts')}}">การรับวัตถุดิบ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/payments')}}">การจ่ายเงิน</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/claims')}}">การเคลม</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/receiptclaims')}}">รับวัตถุดิบจากการเคลม</a>
+                    </li>
+                    <li>
+                        งาน
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/assignments')}}">การมอบหมายงาน</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light" href="{{url('/takes')}}">การเบิก</a>
+                    </li>
+                    {{--  <li class="nav-item">
                         <a class="nav-link btn btn-light" href="{{url('/sales')}}">การขาย</a>
                     </li>
                     <li class="nav-item">
@@ -86,7 +125,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-light" href="{{url('/deductions')}}">การหักเงิน</a>
-                    </li>
+                    </li>  --}}
                 </ul>
             </div>
             <div class="col-md-10">

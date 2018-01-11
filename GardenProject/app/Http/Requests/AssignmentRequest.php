@@ -24,7 +24,6 @@ class AssignmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'amount'=>'required',
             'date'=>'required',
             'time'=>'required',
             'zone'=>'required',
@@ -34,7 +33,6 @@ class AssignmentRequest extends FormRequest
     public function messages()
     {
         return [
-            'amount.required'=>'กรุณากรอกจำนวนพนักงาน',
             'date.required'=>'กรุณากรอกวันที่',
             'time.required'=>'กรุณากรอกเวลา',
             'zone.required'=>'กรุณาเลือกโซน',

@@ -18,6 +18,7 @@
                         <th>เลขที่มอบหมายงาน</th>
                         <th>วันที่</th>
                         <th>เวลา</th>
+                        <th>สถานะ</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -29,6 +30,13 @@
                             <td>{{$take->idAssignment}}</td>
                             <td>{{formatDateThai($take->date_take)}}</td>
                             <td>{{formatDateThai($take->time_take)}} น.</td>
+                            <td>
+                                @if ($take->status_returning == 'fully')
+                                    คืนครบแล้ว
+                                @elseif($take->status_returning == 'unfully')
+                                    ยังคืนไม่ครบ
+                                @endif
+                            </td>
                             <td>
                                 <a href="{{url('/takes/'.$take->idTake)}}" class="btn btn-light">รายละเอียด</a>
                                 <a href="{{url('/takes/'.$take->idTake.'/edit')}}" class="btn btn-light">แก้ไข</a>

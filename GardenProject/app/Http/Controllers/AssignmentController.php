@@ -41,11 +41,12 @@ class AssignmentController extends Controller
      */
     public function store(AssignmentRequest $request)
     {
-        DB::insert('insert into Assignment(amount_employee, date, time, idZone, idAssignmentType) values(?, ?, ?, ?, ?)', [
-            $request->input('amount'),
+        DB::insert('insert into Assignment(amount_employee, date, time, idZone, status, idAssignmentType) values(?, ?, ?, ?, ?, ?)', [
+            0,
             $request->input('date'),
             $request->input('time'),
             $request->input('zone'),
+            $request->input('status'),
             $request->input('type'),
         ]);
         session()->flash('added', 'เพิ่มการมอบหมายงาน เรียบร้อยแล้ว');
@@ -94,11 +95,11 @@ class AssignmentController extends Controller
      */
     public function update(AssignmentRequest $request, $id)
     {
-        DB::update('update Assignment set amount_employee = ?, date = ?, time = ?, idZone = ?, idAssignmentType = ? where idAssignment = ?', [
-            $request->input('amount'),
+        DB::update('update Assignment set date = ?, time = ?, idZone = ?, status = ?, idAssignmentType = ? where idAssignment = ?', [
             $request->input('date'),
             $request->input('time'),
             $request->input('zone'),
+            $request->input('status'),
             $request->input('type'),
             $id
         ]);

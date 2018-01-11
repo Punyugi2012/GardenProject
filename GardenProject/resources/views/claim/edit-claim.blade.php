@@ -62,8 +62,8 @@
                 <div class="form-group">
                     <label for="status">สถานะ:</label>
                     <select class="custom-select form-control" id="status" name="status" required>
-                        <option value="finished" {{$claim->status == 'finished' ? 'selected' : ''}}>เคลมเรียบร้อยแล้ว</option>
-                        <option value="unfinished" {{$claim->status == 'unfinished' ? 'selected' : ''}}>เคลมยังไม่เรียบร้อย</option>
+                        <option value="success" {{$claim->status == 'success' ? 'selected' : ''}}>เคลมเรียบร้อยแล้ว</option>
+                        <option value="unsuccess" {{$claim->status == 'unsuccess' ? 'selected' : ''}}>เคลมยังไม่เรียบร้อย</option>
                     </select>
                 </div>
                 <div class="text-center">

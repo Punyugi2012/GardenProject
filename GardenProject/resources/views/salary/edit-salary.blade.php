@@ -49,13 +49,13 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="amount_money">จำนวนเงิน:</label>
+                            <label for="amount_money">จำนวนเงิน (บาท):</label>
                             <input type="number" step=any id="amount_money" name="amount_money" class="form-control" value="{{$salary->amount_money}}"required>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="cost">ค่าเสียหาย:</label>
+                            <label for="cost">ค่าเสียหาย (บาท):</label>
                             <input type="number" step=any id="cost" name="cost" class="form-control" value="{{$salary->cost}}" required>
                         </div>
                     </div>

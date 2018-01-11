@@ -61,9 +61,8 @@
                 <div class="form-group">
                     <label for="status">สถานะ:</label>
                     <select class="custom-select form-control" id="status" name="status" required>
-                        <option value="">เลือกสถานะ</option>
-                        <option value="finished">เคลมเรียบร้อยแล้ว</option>
-                        <option value="unfinished">เคลมยังไม่เรียบร้อย</option>
+                        <option value="success">เคลมเรียบร้อยแล้ว</option>
+                        <option value="unsuccess" selected>เคลมยังไม่เรียบร้อย</option>
                     </select>
                 </div>
                 <div class="text-center">

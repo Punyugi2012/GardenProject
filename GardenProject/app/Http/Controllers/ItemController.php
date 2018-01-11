@@ -36,8 +36,9 @@ class ItemController extends Controller
      */
     public function store(ItemRequest $request)
     {
-        DB::insert('insert into item(name, type, price_per_item) values (?, ?, ?, ?)', [
+        DB::insert('insert into item(name, amount, type, price_per_item) values (?, ?, ?, ?)', [
             $request->input('name'),
+            0,
             $request->input('type'),
             $request->input('price_per_item')
         ]);

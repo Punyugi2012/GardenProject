@@ -19,6 +19,7 @@
                         <th>วันที่</th>
                         <th>เวลา</th>
                         <th>จำนวนพนักงาน</th>
+                        <th>สถานะ</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -31,6 +32,13 @@
                             <td>{{formatDateThai($assignment->date)}}</td>
                             <td>{{formatDateThai($assignment->time)}} น.</td>
                             <td>{{$assignment->amount_employee}} คน</td>
+                            <td>
+                                @if ($assignment->status == 'success')
+                                    เรียบร้อยแล้ว
+                                @elseif($assignment->status == 'unsuccess')
+                                    ยังไม่เรียบร้อย
+                                @endif
+                            </td>
                             <td>
                                 <a href="{{url('/assignments/'.$assignment->idAssignment)}}" class="btn btn-light">รายละเอียด</a>
                                 <a href="{{url('/assignments/'.$assignment->idAssignment.'/edit')}}" class="btn btn-light">แก้ไข</a>

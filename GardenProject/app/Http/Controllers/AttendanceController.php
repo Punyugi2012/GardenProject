@@ -16,14 +16,9 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        $today = Carbon::today();
-        $day = $today->day;
-        $month = $today->month;
-        $year = $today->year;
-        $today = $year.'-'.$month.'-'.$day;
         $employees = DB::select('select * from employee');
         $attendances = DB::select('select * from attendance natural join employee order by idattendance desc');
-        return view('attendance.attendance', ['today'=>$today, 'employees'=>$employees, 'attendances'=>$attendances]);
+        return view('attendance.attendance', ['employees'=>$employees, 'attendances'=>$attendances]);
     }
 
     /**
