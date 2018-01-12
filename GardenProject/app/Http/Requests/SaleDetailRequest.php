@@ -25,7 +25,6 @@ class SaleDetailRequest extends FormRequest
     {
         return [
             'amount'=>'required',
-            'price_per_product'=>'required',
             'product'=>'required'
         ];
     }
@@ -33,7 +32,6 @@ class SaleDetailRequest extends FormRequest
     {
         return [
             'amount.required'=>'กรุณากรอกจำนวน',
-            'price_per_product.required'=>'กรุณากรอกราคาต่อหน่วย',
             'product.required'=>'กรุณาเลือกผลผลิต'
         ];
     }

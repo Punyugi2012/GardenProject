@@ -12,11 +12,12 @@ class SaleDetailController extends Controller
         DB::update('update Sale set total_money = ? where idSale = ?', [$sum, $idSale]);
     }
     public function store(SaleDetailRequest $request, $idSale) {
-        $total = $request->input('price_per_product') * $request->input('amount');
+        $product = DB::table('Product')->where('idProduct', $request->input('product'))->first();
+        $total = $product->price_per_product * $request->input('amount');
         DB::insert('insert into SaleDetail(amount, total_price, price_per_product, idSale, idProduct) values(?, ?, ?, ?, ?)', [
             $request->input('amount'),
             $total,
-            $request->input('price_per_product'),
+            $product->price_per_product,
             $idSale,
             $request->input('product'),
         ]);

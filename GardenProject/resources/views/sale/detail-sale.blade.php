@@ -18,7 +18,7 @@
             <form action="{{url('/sales_detail/sale/'.$idSale)}}" method="POST" autocomplete="off">
                 {{ csrf_field() }}
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="product">ผลผลิต</label>
                             <select class="custom-select form-control" id="product" name="product" required>
@@ -29,16 +29,10 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="amount">จำนวน (กิโลกรัม):</label>
                             <input type="number" id="amount" name="amount" class="form-control" placeholder="จำนวน (กิโลกรัม)" required>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="price_per_product">ราคาต่อหน่วย (บาท):</label>
-                            <input type="number" step="any" id="price_per_product" name="price_per_product" class="form-control" placeholder="ราคาต่อหน่วย (บาท)" required>
                         </div>
                     </div>
                 </div>
