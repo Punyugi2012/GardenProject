@@ -7,6 +7,10 @@ use App\Http\Requests\PaymentDetailRequest;
 
 class PaymentDetailController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function store(PaymentDetailRequest $request, $idPayment) {
         DB::insert('insert into Paydetail(amount_money, idPay, idPurchase) values(?, ?, ?)', [
             $request->input('amount_money'),

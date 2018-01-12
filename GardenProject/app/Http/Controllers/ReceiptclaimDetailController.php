@@ -7,6 +7,10 @@ use App\Http\Requests\ReceiptclaimDetailRequest;
 
 class ReceiptclaimDetailController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function store(ReceiptclaimDetailRequest $request, $idReceiptClaim) {
         DB::insert('insert into ReceivingClaimDetail(amount, idReceivingClaim, idItem) values(?, ?, ?)', [
             $request->input('amount'),

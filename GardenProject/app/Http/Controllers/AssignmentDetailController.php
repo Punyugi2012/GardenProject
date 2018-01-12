@@ -7,6 +7,10 @@ use App\Http\Requests\AssignmentDetailRequest;
 
 class AssignmentDetailController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     private function setAmountEmployee($idAssignment) {
         $amount = DB::table('AssignmentDetail')->where('idAssignment', $idAssignment)->count('idAssignmentDetail');
         DB::update('update Assignment set amount_employee = ? where idAssignment = ?', [$amount, $idAssignment]);

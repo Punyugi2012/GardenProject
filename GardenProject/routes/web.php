@@ -10,6 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
+Route::get('/', 'HomeController@index');
 Route::resource('/employees', 'EmployeeController');
 Route::get('/employees/take_detail/take/{idTake}', 'EmployeeController@detailTake');
 Route::get('/employees/deduction_detail/deduction/{idDeduction}', 'EmployeeController@detailDeduction');
@@ -63,5 +65,4 @@ Route::resource('/harvests', 'HarvestController');
 Route::resource('/sales', 'SaleController');
 Route::post('/sales_detail/sale/{idSale}', 'SaleDetailController@store');
 Route::delete('/sales_detail/{idSaleDetail}/sale/{idSale}', 'SaleDetailController@destroy');
-Auth::routes();
 

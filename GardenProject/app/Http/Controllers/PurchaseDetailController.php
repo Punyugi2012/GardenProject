@@ -7,6 +7,10 @@ use App\Http\Requests\PurchaseDetailRequest;
 
 class PurchaseDetailController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     private function sumTotalMoney($idPurchase) {
         $sum = DB::table('PurchaseDetail')->where('idPurchase', $idPurchase)->sum('total_money');
         DB::update('update Purchase set total_money = ? where idPurchase = ?', [$sum, $idPurchase]);

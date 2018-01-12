@@ -7,6 +7,10 @@ use App\Http\Requests\DeductionDetailRequest;
 
 class DeductionDetailController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     private function setTotalMoney($idDeduction) {
         $sum = DB::table('DeductionDetail')->where('idDeduction', $idDeduction)->sum('price');
         DB::update('update Deduction set total_money = ? where idDeduction = ?', [$sum, $idDeduction]);

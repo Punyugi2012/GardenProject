@@ -7,6 +7,10 @@ use App\Http\Requests\ClaimDetailRequest;
 
 class ClaimDetailController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function store(ClaimDetailRequest $request, $idClaim) {
         DB::insert('insert into ClaimDetail(amount, cause, idClaim, idItem) values(?, ?, ?, ?)', [
             $request->input('amount'),

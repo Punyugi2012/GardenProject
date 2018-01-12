@@ -14,93 +14,105 @@
     <style>
         body {
             font-family: 'Prompt', sans-serif;
+            background-color: #f5f8fa;
         }
         .flex-column .nav-item {
             margin-top:10px;
         }
+        .card-header {
+            background-color: #31698A;
+            color:#fff;
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#"><h1>สวนลุงเด่น</h1></a>
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link btn btn-light" href="{{url('/employees')}}">พนักงาน</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link btn btn-light" href="{{url('/items')}}">วัตถุดิบ</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link btn btn-light" href="{{url('/shops')}}">ร้านค้า</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link btn btn-light" href="{{url('/zones')}}">โซน</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link btn btn-light" href="{{url('/products')}}">ผลผลิต</a>
-            </li>
+    <nav class="navbar navbar-expand-lg justify-content-between"  style="border: 1px solid #d3e0e9;background-color:#fff">
+        <span>
+            <a class="navbar-brand" href="{{url('/')}}" style="margin-right:50px"><h1>สวนลุงเด่น</h1></a>
+            <a class="btn btn-primary" href="{{url('/employees')}}">พนักงาน</a>
+            <a class="btn btn-primary" href="{{url('/items')}}">วัตถุดิบ</a>
+            <a class="btn btn-primary" href="{{url('/shops')}}">ร้านค้า</a>
+            <a class="btn btn-primary" href="{{url('/zones')}}">โซน</a>
+            <a class="btn btn-primary" href="{{url('/products')}}">ผลผลิต</a>
+            <div>
+                <div id="time"></div>
+            </div>
+        </span>
+        <ul class="navbar-nav">
+            @if (Auth::guest())
+                <li><a href="{{ route('login') }}">เข้าสู่ระบบ</a></li>
+            @else
+                <li class="dropdown nav-item">
+                    <a href="#" class="dropdown-toggle nav-link btn btn-warning" data-toggle="dropdown" role="button" aria-expanded="false">
+                        {{ Auth::user()->name }} <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                                ออกจากระบบ
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            @endif
         </ul>
     </nav>
     <div class="container-fluid" style="margin-top:20px;margin-bottom:20px">
+        @yield('breadcrumb')
         <div class="row">
             <div class="col-md-2">
                 <ul class="nav flex-column">
-                    <li>
-                        พนักงาน
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-info" href="{{url('/attendances')}}">การลงเวลาทำงาน</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-light" href="{{url('/attendances')}}">การลงเวลาทำงาน</a>
+                        <a class="nav-link btn btn-info" href="{{url('/salaries')}}">การจ่ายเงินเดือน</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-light" href="{{url('/salaries')}}">การจ่ายเงินเดือน</a>
+                        <a class="nav-link btn btn-info" href="{{url('/leaves')}}">การลางาน</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-light" href="{{url('/leaves')}}">การลางาน</a>
-                    </li>
-                    <li>
-                        การสั่งซื้อ
+                        <a class="nav-link btn btn-info" href="{{url('/purchases')}}">การสั่งซื้อ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-light" href="{{url('/purchases')}}">การสั่งซื้อ</a>
+                        <a class="nav-link btn btn-info" href="{{url('/receipts')}}">การรับวัตถุดิบ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-light" href="{{url('/receipts')}}">การรับวัตถุดิบ</a>
+                        <a class="nav-link btn btn-info" href="{{url('/payments')}}">การจ่ายเงิน</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-light" href="{{url('/payments')}}">การจ่ายเงิน</a>
+                        <a class="nav-link btn btn-info" href="{{url('/claims')}}">การเคลม</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-light" href="{{url('/claims')}}">การเคลม</a>
+                        <a class="nav-link btn btn-info" href="{{url('/receiptclaims')}}">รับวัตถุดิบจากการเคลม</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-light" href="{{url('/receiptclaims')}}">รับวัตถุดิบจากการเคลม</a>
-                    </li>
-                    <li>
-                        งาน
+                        <a class="nav-link btn btn-info" href="{{url('/assignments')}}">การมอบหมายงาน</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-light" href="{{url('/assignments')}}">การมอบหมายงาน</a>
+                        <a class="nav-link btn btn-info" href="{{url('/takes')}}">การเบิก</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-light" href="{{url('/takes')}}">การเบิก</a>
+                        <a class="nav-link btn btn-info" href="#">การรายงาน</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-light" href="{{url('/returnings')}}">การคืนจากการเบิก</a>
+                        <a class="nav-link btn btn-info" href="{{url('/returnings')}}">การคืนจากการเบิก</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-light" href="{{url('/deductions')}}">การหักเงิน</a>
-                    </li>
-                    <li>
-                        การเก็บเกี่ยว
+                        <a class="nav-link btn btn-info" href="{{url('/deductions')}}">การหักเงิน</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-light" href="{{url('/harvests')}}">การเก็บเกี่ยว</a>
-                    </li>
-                    <li>
-                        ขาย
+                        <a class="nav-link btn btn-info" href="{{url('/harvests')}}">การเก็บเกี่ยว</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-light" href="{{url('/sales')}}">การขาย</a>
+                        <a class="nav-link btn btn-info" href="{{url('/sales')}}">การขาย</a>
                     </li>
                 </ul>
             </div>
@@ -120,6 +132,23 @@
         $(document).ready(function() {
             $('.dataTables_filter input').addClass('rounded border border-secondary');
         });
+        (function () {
+            function checkTime(i) {
+                return (i < 10) ? "0" + i : i;
+            }
+        
+            function startTime() {
+                var today = new Date(),
+                    h = checkTime(today.getHours()),
+                    m = checkTime(today.getMinutes()),
+                    s = checkTime(today.getSeconds());
+                document.getElementById('time').innerHTML = h + ":" + m + ":" + s + " น.";
+                t = setTimeout(function () {
+                    startTime()
+                }, 500);
+            }
+            startTime();
+        })();
     </script>
 </body>
 </html>

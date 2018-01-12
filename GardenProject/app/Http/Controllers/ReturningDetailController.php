@@ -7,6 +7,10 @@ use App\Http\Requests\ReturningDetailRequest;
 
 class ReturningDetailController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function store(ReturningDetailRequest $request, $idReturning) {
         DB::insert('insert into RevertingDetail(amount, cause, idReverting, idItem) values(?, ?, ?, ?)', [
             $request->input('amount'),

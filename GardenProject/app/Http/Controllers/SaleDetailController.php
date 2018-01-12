@@ -7,6 +7,10 @@ use App\Http\Requests\SaleDetailRequest;
 
 class SaleDetailController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     private function setTotalMoney($idSale) {
         $sum = DB::table('SaleDetail')->where('idSale', $idSale)->sum('total_price');
         DB::update('update Sale set total_money = ? where idSale = ?', [$sum, $idSale]);

@@ -7,6 +7,10 @@ use App\Http\Requests\ReceiptClaimRequest;
 
 class ReceiptClaimController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *

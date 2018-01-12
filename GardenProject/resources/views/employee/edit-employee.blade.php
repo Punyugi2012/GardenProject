@@ -1,5 +1,13 @@
 @extends('layouts.app')
 @section('title', 'แก้ไขพนักงาน')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item"><a href="{{url('/employees')}}">พนักงาน</a></li>
+        <li class="breadcrumb-item active" aria-current="page">แก้ไขพนักงาน</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
 <div class="card" style="margin-top:10px">
     <div class="card-header">

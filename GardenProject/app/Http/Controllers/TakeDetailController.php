@@ -7,6 +7,10 @@ use App\Http\Requests\TakeDetailRequest;
 
 class TakeDetailController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function store(TakeDetailRequest $request, $idTake) {
         DB::insert('insert into TakeDetail(amount, idTake, idItem) values(?, ?, ?)', [
             $request->input('amount'),
