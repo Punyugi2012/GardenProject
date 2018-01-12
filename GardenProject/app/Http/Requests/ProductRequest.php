@@ -26,7 +26,6 @@ class ProductRequest extends FormRequest
         return [
             'name'=>'required',
             'price_per_product'=>'required',
-            'amount_stock'=>'required'
         ];
     }
     public function messsages()
@@ -34,7 +33,6 @@ class ProductRequest extends FormRequest
         return [
             'name.required'=>'กรุณากรอกชื่อ',
             'price_per_product.required'=>'กรุณากรอกราคาต่อหน่วย',
-            'amount_stock.required'=>'กรุณากรอกจำนวนในสต็อค'
         ];
     }
 }

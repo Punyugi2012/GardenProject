@@ -18,22 +18,16 @@
             <form action="{{url('/sales')}}" method="POST" autocomplete="off">
                 {{csrf_field()}}
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="date">วันที่:</label>
                             <input type="date" class="form-control" id="date" name="date" placeholder="วันที่" required>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="time">เวลา:</label>
                             <input type="time" class="form-control" id="time" name="time" placeholder="เวลา" required>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="total_money">จำนวนเงินรวม:</label>
-                            <input type="number" step="any" class="form-control" id="total_money" name="total_money" placeholder="จำนวนเงินรวม (บาท)" required>
                         </div>
                     </div>
                 </div>

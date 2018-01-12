@@ -26,7 +26,7 @@ class ReturningController extends Controller
      */
     public function create()
     {
-        $takes = DB::select('select * from Take');
+        $takes = DB::select('select * from Take where status_returning = "unfully"');
         $employees = DB::select('select * from Employee');
         return view('returning.add-returning', ['takes'=>$takes, 'employees'=>$employees]);
     }
@@ -59,8 +59,9 @@ class ReturningController extends Controller
     {
         $returningsDetail = DB::table('Item')->join('RevertingDetail', 'Item.idItem', '=', 'RevertingDetail.idItem')
         ->where('idReverting', $id)->get();
-        $items = DB::select('select * from Item where type = "equipment"');
-        return view('returning.detail-returning', ['returningsDetail'=>$returningsDetail, 'items'=>$items, 'idReturning'=>$id]);
+        $idTake = DB::table('Reverting')->where('idReverting', $id)->first()->idTake;
+        $takeDetails = DB::table('Item')->join('TakeDetail', 'Item.idItem', '=', 'TakeDetail.idItem')->where('idTake', $idTake)->get();
+        return view('returning.detail-returning', ['returningsDetail'=>$returningsDetail, 'takeDetails'=>$takeDetails, 'idReturning'=>$id]);
     }
 
     /**

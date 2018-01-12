@@ -41,7 +41,7 @@ class DeductionController extends Controller
     {
         DB::insert('insert into Deduction(date, total_money, idEmployee, idTake) values(?, ?, ?, ?)', [
             $request->input('date'),
-            $request->input('total_money'),
+            0,
             $request->input('employee'),
             $request->input('take'),
         ]);
@@ -87,9 +87,8 @@ class DeductionController extends Controller
      */
     public function update(DeductionRequest $request, $id)
     {
-        DB::update('update Deduction set date = ?, total_money = ?, idEmployee = ?, idTake = ? where idDeduction = ?', [
+        DB::update('update Deduction set date = ?, idEmployee = ?, idTake = ? where idDeduction = ?', [
             $request->input('date'),
-            $request->input('total_money'),
             $request->input('employee'),
             $request->input('take'),
             $id

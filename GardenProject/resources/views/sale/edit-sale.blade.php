@@ -19,22 +19,16 @@
                 {{csrf_field()}}
                 {{method_field('PUT')}}
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="date">วันที่:</label>
                             <input type="date" class="form-control" id="date" name="date" value="{{$sale->date}}" required>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="time">เวลา:</label>
                             <input type="time" class="form-control" id="time" name="time" value="{{$sale->time}}" required>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="total_money">จำนวนเงินรวม:</label>
-                            <input type="number" step="any" class="form-control" id="total_money" name="total_money" value="{{$sale->total_money}}" required>
                         </div>
                     </div>
                 </div>

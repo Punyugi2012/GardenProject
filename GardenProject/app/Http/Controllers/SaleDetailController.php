@@ -7,37 +7,35 @@ use App\Http\Requests\SaleDetailRequest;
 
 class SaleDetailController extends Controller
 {
+    private function setTotalMoney($idSale) {
+        $sum = DB::table('SaleDetail')->where('idSale', $idSale)->sum('total_price');
+        DB::update('update Sale set total_money = ? where idSale = ?', [$sum, $idSale]);
+    }
     public function store(SaleDetailRequest $request, $idSale) {
+        $total = $request->input('price_per_product') * $request->input('amount');
         DB::insert('insert into SaleDetail(amount, total_price, price_per_product, idSale, idProduct) values(?, ?, ?, ?, ?)', [
             $request->input('amount'),
-            $request->input('total_price'),
+            $total,
             $request->input('price_per_product'),
             $idSale,
             $request->input('product'),
         ]);
+        $amount_stock = DB::table('Product')->where('idProduct', $request->input('product'))->first()->amount_stock;
+        if($amount_stock >= $request->input('amount')) {
+            $amount_stock -= $request->input('amount');
+            DB::update('update Product set amount_stock = ? where idProduct = ?', [$amount_stock, $request->input('product')]);
+        }
+        $this->setTotalMoney($idSale);
         session()->flash('added', 'เพิ่ม เรียบร้อย');
         return redirect('/sales/'.$idSale);
-    }
-    public function edit($idSaleDetail, $idSale) {
-        $saleDetail = DB::table('Product')->join('SaleDetail', 'Product.idProduct', '=', 'SaleDetail.idProduct')
-            ->where('idSaleDetail', $idSaleDetail)->first();
-        $products = DB::select('select * from Product');
-        return view('sale.edit-saleDetail', ['saleDetail'=>$saleDetail, 'products'=>$products, 'idSale'=>$idSale]);
-    }
-    public function update(SaleDetailRequest $request, $idSaleDetail, $idSale) {
-        DB::update('update SaleDetail set amount = ?, total_price = ?, price_per_product = ?, idSale = ?, idProduct = ? where idSaleDetail = ?', [
-            $request->input('amount'),
-            $request->input('total_price'),
-            $request->input('price_per_product'),
-            $idSale,
-            $request->input('product'),
-            $idSaleDetail
-        ]);
-        session()->flash('edited', 'แก้ไข เรียบร้อย');
-        return redirect('/edit-sales_detail/'.$idSaleDetail.'/sale/'.$idSale);
-    }  
+    } 
     public function destroy($idSaleDetail, $idSale) {
+        $saleDetail = DB::table('SaleDetail')->where('idSaleDetail', $idSaleDetail)->first();
+        $amount_stock = DB::table('Product')->where('idProduct', $saleDetail->idProduct)->first()->amount_stock;
+        $amount_stock += $saleDetail->amount;
+        DB::update('update Product set amount_stock = ? where idProduct = ?', [$amount_stock, $saleDetail->idProduct]);
         DB::delete('delete from SaleDetail where idSaleDetail = ?', [$idSaleDetail]);
+        $this->setTotalMoney($idSale);
         session()->flash('deleted', 'ลบ เรียบร้อย');
         return redirect('/sales/'.$idSale);
     }

@@ -18,32 +18,24 @@
             <form action="{{url('/sales_detail/sale/'.$idSale)}}" method="POST" autocomplete="off">
                 {{ csrf_field() }}
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="product">ผลผลิต</label>
                             <select class="custom-select form-control" id="product" name="product" required>
                                 <option value="">เลือกผลผลิต</option>
                                 @foreach ($products as $product)
-                                    <option value="{{$product->idProduct}}">{{$product->name}}</option>
+                                    <option value="{{$product->idProduct}}">{{$product->name}}, จำนวนในสต็อค {{$product->amount_stock}} กิโลกรัม, ราคาต่อกิโลกรัม {{$product->price_per_product}} บาท</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="amount">จำนวน (กิโลกรัม):</label>
                             <input type="number" id="amount" name="amount" class="form-control" placeholder="จำนวน (กิโลกรัม)" required>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="total_price">ราคารวม (บาท):</label>
-                            <input type="number" step="any" id="total_price" name="total_price" class="form-control" placeholder="ราคารวม (บาท)" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="price_per_product">ราคาต่อหน่วย (บาท):</label>
                             <input type="number" step="any" id="price_per_product" name="price_per_product" class="form-control" placeholder="ราคาต่อหน่วย (บาท)" required>
@@ -76,7 +68,6 @@
                             <td>{{$detail->price_per_product}}</td>
                             <td>{{$detail->total_price}}</td>
                             <td>
-                                <a href="{{url('/edit-sales_detail/'.$detail->idSaleDetail.'/sale/'.$idSale)}}" class="btn btn-light">แก้ไข</a>   
                                 <button data-toggle="modal" data-target="#deleteSaleDetail{{$loop->index}}" class="btn btn-light">ลบ</button>
                                 <div class="modal fade" id="deleteSaleDetail{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">

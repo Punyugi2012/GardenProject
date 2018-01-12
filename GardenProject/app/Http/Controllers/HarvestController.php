@@ -30,7 +30,10 @@ class HarvestController extends Controller
         $products = DB::select('select * from Product');
         return view('harvest.add-harvest', ['assignments'=>$assignments, 'products'=>$products]);
     }
-
+    private function setAmountStock($idProduct) {
+        $sum = DB::table('Harvest')->where('idProduct', $idProduct)->sum('amount');
+        DB::update('update Product set amount_stock = ? where idProduct = ?', [$sum, $idProduct]);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -46,6 +49,7 @@ class HarvestController extends Controller
             $request->input('assignment'),
             $request->input('product'),
         ]);
+        $this->setAmountStock($request->input('product'));
         session()->flash('added', 'เพิ่มการเก็บเกี่ยว เรียบร้อยแล้ว');
         return redirect('/harvests');
     }
@@ -85,6 +89,7 @@ class HarvestController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $preIdProduct = DB::table('Harvest')->where('idHarvest', $id)->first()->idProduct;
         DB::update('update Harvest set amount = ?, date_harvest = ?, time_harvest = ?, idAssignment = ?, idProduct = ? where idHarvest = ?', [
             $request->input('amount'),
             $request->input('date'),
@@ -93,6 +98,8 @@ class HarvestController extends Controller
             $request->input('product'),
             $id
         ]);
+        $this->setAmountStock($preIdProduct);
+        $this->setAmountStock($request->input('product'));
         session()->flash('edited', 'แก้ไขการเก็บเกี่ยว เรียบร้อยแล้ว');
         return redirect('/harvests/'.$id.'/edit');
     }
@@ -105,7 +112,9 @@ class HarvestController extends Controller
      */
     public function destroy($id)
     {
+        $preIdProduct = DB::table('Harvest')->where('idHarvest', $id)->first()->idProduct;
         DB::delete('delete from Harvest where idHarvest = ?', [$id]);
+        $this->setAmountStock($preIdProduct);
         session()->flash('deleted', 'ลบการเก็บเกี่ยว เรียบร้อยแล้ว');
         return redirect('/harvests');
     }

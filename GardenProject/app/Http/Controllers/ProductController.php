@@ -39,7 +39,7 @@ class ProductController extends Controller
         DB::insert('insert into Product(name, price_per_product, amount_stock) values(?, ?, ?)', [
             $request->input('name'),
             $request->input('price_per_product'),
-            $request->input('amount_stock'),
+            0
         ]);
         session()->flash('added', 'เพิ่มผลผลิต เรียบร้อยแล้ว');
         return redirect('/products');
@@ -77,10 +77,9 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, $id)
     {
-        DB::update('update Product set name = ?, price_per_product = ?, amount_stock = ? where idProduct = ?', [
+        DB::update('update Product set name = ?, price_per_product = ?, where idProduct = ?', [
             $request->input('name'),
             $request->input('price_per_product'),
-            $request->input('amount_stock'),
             $id
         ]);
         session()->flash('edited', 'แก้ไขผลผลิต เรียบร้อยแล้ว');

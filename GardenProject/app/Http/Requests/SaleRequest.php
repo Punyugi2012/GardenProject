@@ -26,7 +26,6 @@ class SaleRequest extends FormRequest
         return [
             'date'=>'required',
             'time'=>'required',
-            'total_money'=>'required'
         ];
     }
     public function messages()
@@ -34,7 +33,6 @@ class SaleRequest extends FormRequest
         return [
             'date.required'=>'กรุณากรอกวันที่',
             'time.required'=>'กรุณากรอกเวลา',
-            'total_money.required'=>'กรุณากรอกจำนวนเงินทั้งหมด'
         ];
     }
 }

@@ -22,7 +22,7 @@
                     <select class="select-custom form-control" id="item" name="item" required>
                         <option value="">เลือกวัตถุดิบ</option>
                         @foreach ($items as $item)
-                            <option value="{{$item->idItem}}">{{$item->name}}</option>
+                            <option value="{{$item->idItem}}">{{$item->name}}, ราคา {{$item->price_per_item}} บาท</option>
                         @endforeach
                     </select>
                 </div>
@@ -35,14 +35,14 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="price">ราคาที่คิด:</label>
+                            <label for="price">ราคาที่คิด (บาท):</label>
                             <input type="number" step="any" id="price" name="price" class="form-control" placeholder="ราคาที่คิด" required>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="cause">สาเหตุ:</label>
-                    <textarea class="form-control" id="cause" name="cause" placeholder="สาเหตุ" required></textarea>
+                    <label for="cause">หมายเหตุ:</label>
+                    <textarea class="form-control" id="cause" name="cause" placeholder="หมายเหตุ" required></textarea>
                 </div>
                 <div class="text-right">
                     <button type="submit" class="btn btn-light">บันทึก</button>
@@ -56,8 +56,8 @@
                         <th>เลขที่รายละเอียด</th>
                         <th>ชื่อวัตถุดิบ</th>
                         <th>จำนวน</th>
-                        <th>ราคาที่คิด</th>
-                        <th>หมายเหตุ</th>
+                        <th>ราคาที่คิด (บาท)</th>
+                        <th>หมายเหตุุ</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>

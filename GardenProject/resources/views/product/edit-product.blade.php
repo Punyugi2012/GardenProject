@@ -19,22 +19,16 @@
             {{ csrf_field() }}
             {{ method_field('PUT') }}
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="name">ชื่อ:</label>
                         <input type="text" id="name" name="name" class="form-control" value="{{$product->name}}" required>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="form-group">
-                        <label for="price_per_product">ราคาต่อหน่วย:</label>
+                        <label for="price_per_product">ราคาต่อกิโลกรัม (บาท):</label>
                         <input type="number" step=any id="price_per_product" name="price_per_product" class="form-control" value="{{$product->price_per_product}}" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="amount_stock">จำนวนในสต็อค:</label>
-                        <input type="number" id="amount_stock" name="amount_stock" class="form-control" value="{{$product->amount_stock}}" required>
                     </div>
                 </div>
             </div>

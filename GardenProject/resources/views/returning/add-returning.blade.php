@@ -35,7 +35,7 @@
                             <select class="custom-select form-control" id="take" name="take" required>
                                 <option value="">เลือกการเบิก</option>
                                 @foreach ($takes as $take)
-                                    <option value="{{$take->idTake}}">เลขที่การเบิก {{$take->idTake}}</option>
+                                    <option value="{{$take->idTake}}">เลขที่การเบิก {{$take->idTake}}, เวลา {{formatDateThai($take->time_take)}} น. วันที่ {{formatDateThai($take->date_take)}}</option>
                                 @endforeach
                             </select>
                         </div>

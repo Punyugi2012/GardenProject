@@ -7,6 +7,10 @@ use App\Http\Requests\DeductionDetailRequest;
 
 class DeductionDetailController extends Controller
 {
+    private function setTotalMoney($idDeduction) {
+        $sum = DB::table('DeductionDetail')->where('idDeduction', $idDeduction)->sum('price');
+        DB::update('update Deduction set total_money = ? where idDeduction = ?', [$sum, $idDeduction]);
+    }
     public function store(DeductionDetailRequest $request, $idDeduction) {
         DB::insert('insert into DeductionDetail(price, cause, amount, idDeduction, idItem) values(?, ?, ?, ?, ?)', [
             $request->input('price'),
@@ -16,6 +20,7 @@ class DeductionDetailController extends Controller
             $request->input('item')
         ]);
         session()->flash('added', 'เพิ่ม เรียบร้อยแล้ว');
+        $this->setTotalMoney($idDeduction);
         return redirect('/deductions/'.$idDeduction);
     }
     public function edit($idDeductionDetail, $idDeduction) {
@@ -33,12 +38,14 @@ class DeductionDetailController extends Controller
             $request->input('item'),
             $idDeductionDetail
         ]);
+        $this->setTotalMoney($idDeduction);
         session()->flash('edited', 'แก้ไข เรียบร้อยแล้ว');
         return redirect('/edit-deductions_detail/'.$idDeductionDetail.'/deduction/'.$idDeduction);
     }
     public function destroy($idDeductionDetail, $idDeduction) {
         DB::delete('delete from DeductionDetail where idDeductionDetail = ?', [$idDeductionDetail]);
         session()->flash('deleted', 'ลบ เรียบร้อยแล้ว');
+        $this->setTotalMoney($idDeduction);
         return redirect('/deductions/'.$idDeduction);
     }
 }

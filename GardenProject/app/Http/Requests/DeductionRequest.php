@@ -25,7 +25,6 @@ class DeductionRequest extends FormRequest
     {
         return [
             'date'=>'required',
-            'total_money'=>'required',
             'employee'=>'required',
             'take'=>'required'
         ];
@@ -34,7 +33,6 @@ class DeductionRequest extends FormRequest
     {
         return [
             'date.required'=>'กรุณากรอกวันที่',
-            'total_money.required'=>'กรุณากรอกจำนวนเงินทั้งหมด',
             'employee.required'=>'กรุณาเลือกพนักงาน',
             'take.required'=>'กรุณาเลือกการเบิก'
         ];

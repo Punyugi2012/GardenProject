@@ -39,7 +39,7 @@ class SaleController extends Controller
         DB::insert('insert into Sale(date, time, total_money) values(?, ?, ?)', [
             $request->input('date'),
             $request->input('time'),
-            $request->input('total_money'),
+            0
         ]);
         session()->flash('added', 'เพิ่มการขาย เรียบร้อยแล้ว');
         return redirect('/sales');
@@ -80,10 +80,9 @@ class SaleController extends Controller
      */
     public function update(SaleRequest $request, $id)
     {
-        DB::update('update Sale set date = ?, time = ?, total_money = ? where idSale = ?', [
+        DB::update('update Sale set date = ?, time = ? where idSale = ?', [
             $request->input('date'),
             $request->input('time'),
-            $request->input('total_money'),
             $id
         ]);
         session()->flash('edited', 'แก้ไขการขาย เรียบร้อยแล้ว');

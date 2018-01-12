@@ -35,19 +35,13 @@
                             <select class="custom-select form-control" id="take" name="take" required>
                                 <option value="">เลือกการเบิก</option>
                                 @foreach ($takes as $take)
-                                    <option value="{{$take->idTake}}">{{$take->idTake}}</option>
+                                    <option value="{{$take->idTake}}">เลขที่การเบิก {{$take->idTake}}, เวลา {{formatDateThai($take->time_take)}} น. วันที่ {{formatDateThai($take->date_take)}} สถานะ {{$take->status_returning == 'fully' ? 'คืนครบแล้ว' : 'คืนยังไม่ครบ'}}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="total_money">จำนวนเงินทั้งหมด:</label>
-                            <input type="number" step="any" id="total_money" name="total_money" class="form-control" placeholder="จำนวนเงินทั้งหมด" required>
-                        </div>
-                    </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <div class="form-group">

@@ -24,7 +24,7 @@
                             <select class="custom-select form-control" id="assignment" name="assignment" required>
                                 <option value="">เลือกการมอบหมายงาน</option>
                                 @foreach ($assignments as $assignment)
-                                    <option value="{{$assignment->idAssignment}}">{{$assignment->idAssignment}}, {{$assignment->name}}</option>
+                                    <option value="{{$assignment->idAssignment}}">เลขที่การมอบหมายงาน {{$assignment->idAssignment}}, ประเภท {{$assignment->name}}, เวลา {{formatDateThai($assignment->time)}} น. วันที่ {{formatDateThai($assignment->date)}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -35,7 +35,7 @@
                             <select class="custom-select form-control" id="product" name="product" required>
                                 <option value="">เลือกผลผลิต</option>
                                 @foreach ($products as $product)
-                                    <option value="{{$product->idProduct}}">{{$product->name}}</option>
+                                    <option value="{{$product->idProduct}}">{{$product->name}}, จำนวนสต็อค {{$product->amount_stock}} กิโลกรัม</option>
                                 @endforeach
                             </select>
                         </div>

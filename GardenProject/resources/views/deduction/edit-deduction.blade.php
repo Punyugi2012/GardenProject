@@ -43,12 +43,6 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="total_money">จำนวนเงินทั้งหมด:</label>
-                            <input type="number" step="any" id="total_money" name="total_money" class="form-control" value="{{$deduction->total_money}}" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
                             <div class="form-group">
                                 <label for="date">วันที่:</label>
                                 <input type="date" id="date" name="date" class="form-control" value="{{$deduction->date}}" required>
