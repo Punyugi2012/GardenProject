@@ -3,7 +3,7 @@
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
-            <h3>รูปภาพการายงาน</h3>
+            <h3>รูปภาพการรายงาน</h3>
         </div>
         <div class="card-body">
             @if ($errors->any())

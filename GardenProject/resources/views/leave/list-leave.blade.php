@@ -1,5 +1,12 @@
 @extends('layouts.app')
 @section('title', 'รายการการลางาน')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item active" aria-current="page">การลางาน</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
  <div class="card" style="margin-top:10px">
      <div class="card-header">

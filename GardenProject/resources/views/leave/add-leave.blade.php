@@ -1,5 +1,13 @@
 @extends('layouts.app')
 @section('title', 'เพิ่มการลางาน')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item"><a href="{{url('/leaves')}}">การลางาน</a></li>
+        <li class="breadcrumb-item active" aria-current="page">เพิ่มการลางาน</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
@@ -27,13 +35,13 @@
                     </select>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="from_date">จากวันที่:</label>
                             <input type="date" id="from_date" name="from_date" class="form-control" required>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="to_date">ถึงวันที่:</label>
                             <input type="date" id="to_date" name="to_date" class="form-control" required>

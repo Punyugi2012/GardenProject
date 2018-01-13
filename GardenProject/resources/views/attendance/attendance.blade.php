@@ -1,5 +1,12 @@
 @extends('layouts.app')
 @section('title', 'การลงเวลาทำงาน')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item active" aria-current="page">การลงเวลาทำงาน</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
@@ -18,7 +25,7 @@
             <form action="{{url('/attendances')}}" method="POST" autocomplete="off"> 
                 {{ csrf_field() }}
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label for="employee">พนักงาน:</label>
                             <select class="custom-select form-control" name="employee" id="employee" required>

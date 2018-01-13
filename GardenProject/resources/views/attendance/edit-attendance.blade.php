@@ -1,5 +1,13 @@
 @extends('layouts.app')
 @section('title', 'แก้ไขการลงเวลาทำงาน')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item"><a href="{{url('/attendances')}}">การลงเวลาทำงาน</a></li>
+        <li class="breadcrumb-item active" aria-current="page">แก้ไขการลงเวลาทำงาน</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
@@ -19,7 +27,7 @@
                 {{ csrf_field() }}
                 {{ method_field('PUT')}}
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label for="date">วันที่:</label>
                             <input type="date" id="date" name="date" value="{{$attendance->date}}" class="form-control" required>
