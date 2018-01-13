@@ -69,7 +69,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label for="status_claim">สถานะการเคลม:</label>
                             <select class="custom-select form-control" name="status_claim" id="status_claim" required>
