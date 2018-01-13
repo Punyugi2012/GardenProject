@@ -100,7 +100,7 @@
                         <a class="nav-link btn btn-info" href="{{url('/takes')}}">การเบิก</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-info" href="#">การรายงาน</a>
+                        <a class="nav-link btn btn-info" href="{{url('/reports')}}">การรายงาน</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-info" href="{{url('/returnings')}}">การคืนจากการเบิก</a>

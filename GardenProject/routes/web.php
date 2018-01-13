@@ -65,4 +65,7 @@ Route::resource('/harvests', 'HarvestController');
 Route::resource('/sales', 'SaleController');
 Route::post('/sales_detail/sale/{idSale}', 'SaleDetailController@store');
 Route::delete('/sales_detail/{idSaleDetail}/sale/{idSale}', 'SaleDetailController@destroy');
+Route::resource('/reports', 'ReportController');
+Route::post('/reports/{idReport}/images', 'ReportController@storeImage');
+Route::delete('/image_report/{idImage}/report/{idZone}', 'ReportController@destroyImage');
 
