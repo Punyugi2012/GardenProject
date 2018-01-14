@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <div class="text-right">
-                    <button type="submit" class="btn btn-light">ยืนยัน</button>
+                    <button type="submit" class="btn btn-primary">ยืนยัน</button>
                 </div>
             </form>
             <br>
@@ -72,6 +72,11 @@
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
+                <tfoot>
+                    <tr>
+                        <th colspan="7" style="text-align:right"></th>
+                    </tr>
+                </tfoot>
                 <tbody>
                     @foreach ($attendances as $attendance)
                         <tr>
@@ -80,10 +85,10 @@
                             <td>{{$attendance->name}} {{$attendance->surname}}</td>
                             <td>{{formatDateThai($attendance->start_time)}} น.</td>
                             <td>{{formatDateThai($attendance->finish_time)}} น.</td>
-                            <td>{{$attendance->amount_time}} ชม.</td>
+                            <td>{{$attendance->amount_time}}</td>
                             <td>
-                                <a href="{{url('/attendances/'.$attendance->idAttendance.'/edit')}}" class="btn btn-light">แก้ไข</a>
-                                <button data-toggle="modal" data-target="#deleteAttendance{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <a href="{{url('/attendances/'.$attendance->idAttendance.'/edit')}}" class="btn btn-warning">แก้ไข</a>
+                                <button data-toggle="modal" data-target="#deleteAttendance{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteAttendance{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -98,7 +103,7 @@
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">ยืนยัน</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
                                             </div>
                                         </form>
                                         </div>
@@ -115,7 +120,40 @@
 @section('footer')
     <script type="text/javascript">
         $(document).ready( function () {
-            $('#table_id').DataTable();
+            $('#table_id').DataTable({
+                "footerCallback": function ( row, data, start, end, display ) {
+                    var api = this.api(), data;
+         
+                    // Remove the formatting to get integer data for summation
+                    var intVal = function ( i ) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '')*1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+         
+                    // Total over all pages
+                    total = api
+                        .column( 5 )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+         
+                    // Total over this page
+                    pageTotal = api
+                        .column( 5, { page: 'current'} )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+         
+                    // Update footer
+                    $( api.column( 5 ).footer() ).html(
+                       'รวมจำนวนเวลา: ' + pageTotal +' ชม. (ทั้งหมด '+ total +' ชม.)'
+                    );
+                }
+            });
         });
     </script>
     @if (session()->has('added'))

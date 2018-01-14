@@ -14,7 +14,7 @@
         </div>
         <div class="card-body">
             <div>
-                <a href="{{url('employees/create')}}" class="btn btn-light">เพิ่มพนักงาน</a>
+                <a href="{{url('employees/create')}}" class="btn btn-success">เพิ่มพนักงาน</a>
             </div>
             <br>
             <table id="table_id" data-order='[[ 0, "desc" ]]' class="display">
@@ -49,9 +49,9 @@
                             </td>
                             <td>{{$employee->salary}}</td>
                             <td>
-                                <a href="{{url('/employees/'.$employee->idEmployee)}}" class="btn btn-light">ดูรายละเอียด</a>
-                                <a href="{{url('/employees/'.$employee->idEmployee.'/edit')}}" class="btn btn-light">แก้ไข</a>
-                                <button data-toggle="modal" data-target="#deleteEmployee{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <a href="{{url('/employees/'.$employee->idEmployee)}}" class="btn btn-info">ดูรายละเอียด</a>
+                                <a href="{{url('/employees/'.$employee->idEmployee.'/edit')}}" class="btn btn-warning">แก้ไข</a>
+                                <button data-toggle="modal" data-target="#deleteEmployee{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteEmployee{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -66,7 +66,7 @@
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">ยืนยัน</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
                                             </div>
                                         </form>
                                         </div>

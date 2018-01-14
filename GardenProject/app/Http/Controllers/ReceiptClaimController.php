@@ -16,10 +16,11 @@ class ReceiptClaimController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $receiptclaims = DB::table('Claim')->join('ReceivingClaim', 'Claim.idClaim', '=', 'ReceivingClaim.idClaim')->get();
-        return view('receiptclaim.list-receiptclaim', ['receiptclaims'=>$receiptclaims]);
+
+        $receiptclaims = DB::table('ReceivingClaim')->where('idClaim', $request->input('claim'))->get();
+        return view('receiptclaim.list-receiptclaim', ['receiptclaims'=>$receiptclaims, 'claim'=>$request->input('claim'), 'purchase'=>$request->input('purchase')]);
     }
 
     /**
@@ -27,10 +28,10 @@ class ReceiptClaimController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()    
+    public function create(Request $request)    
     {
-        $claims = DB::select('select * from claim where status = "unsuccess"');
-        return view('receiptclaim.add-receiptclaim', ['claims'=>$claims]);
+        $claim = DB::table('Claim')->where('idClaim', $request->input('claim'))->first();
+        return view('receiptclaim.add-receiptclaim', ['claim'=>$claim, 'purchase'=>$request->input('purchase')]);
     }
 
     /**
@@ -47,7 +48,7 @@ class ReceiptClaimController extends Controller
             $request->input('claim'),
         ]);
         session()->flash('added', 'เพิ่มการรับจากการเคลม เรียบร้อยแล้ว');
-        return redirect('/receiptclaims');
+        return redirect("/receiptclaims?claim={$request->input('claim')}&purchase={$request->input('purchase')}");
     }
 
     /**
@@ -56,13 +57,27 @@ class ReceiptClaimController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $receiptclaimsDetail = DB::table('Item')->join('ReceivingClaimDetail', 'Item.idItem', '=', 'ReceivingClaimDetail.idItem')->where('idReceivingClaim', $id)->get();
-        $idClaim = DB::table('ReceivingClaim')->where('idReceivingClaim', $id)->first()->idClaim;
-        $claimsDetail = DB::table('Item')->join('ClaimDetail', 'Item.idItem', '=', 'ClaimDetail.idItem')->where('idClaim', $idClaim)->get();
-        return view('receiptclaim.detail-receiptclaim', ['receiptclaimsDetail'=>$receiptclaimsDetail, 'claimsDetail'=>$claimsDetail, 'idReceiptClaim'=>$id]);
-    
+        $itemClaims = DB::table('Item')->join('ClaimDetail', 'Item.idItem', 'ClaimDetail.idItem')->where('idClaim', $request->input('claim'))->get();
+        $itemReceipts = DB::table('ReceivingClaimDetail')->join('Item', 'ReceivingClaimDetail.idItem', '=', 'Item.idItem')
+            ->join('ReceivingClaim', 'ReceivingClaimDetail.idReceivingClaim', '=', 'ReceivingClaim.idReceivingClaim')
+            ->where('idClaim', $request->input('claim'))
+            ->groupBy('Item.name')->selectRaw('name, sum(ReceivingClaimDetail.amount) as amount')->get();
+        
+        $items = [];
+        foreach($itemClaims as $itemClaim) {
+            foreach($itemReceipts as $itemReceipt) {
+                if($itemClaim->name == $itemReceipt->name) {
+                    array_push($items, ['idItem'=>$itemClaim->idItem, 'name'=>$itemClaim->name, 'amount'=>$itemClaim->amount - $itemReceipt->amount]);
+                }
+                else {
+                    array_push($items, ['idItem'=>$itemClaim->idItem, 'name'=>$itemClaim->name, 'amount'=>$itemClaim->amount]);
+                }
+            }
+        }
+        return view('receiptclaim.detail-receiptclaim', ['receiptclaimsDetail'=>$receiptclaimsDetail, 'items'=>$items, 'idReceiptClaim'=>$id]);
     }
 
     /**
@@ -71,11 +86,11 @@ class ReceiptClaimController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        $receiptclaim = DB::table('ReceivingClaim')->join('Claim', 'ReceivingClaim.idClaim', '=', 'Claim.idClaim')->where('idReceivingClaim', $id)->first();
-        $claims = DB::select('select * from claim where status = "unsuccess"');
-        return view('receiptclaim.edit-receiptclaim', ['receiptclaim'=>$receiptclaim, 'claims'=>$claims]); 
+        $receiptclaim = DB::table('ReceivingClaim')->where('idReceivingClaim', $id)->first();
+        $claim =  DB::table('Claim')->where('idClaim', $request->input('claim'))->first();
+        return view('receiptclaim.edit-receiptclaim', ['receiptclaim'=>$receiptclaim, 'claim'=>$claim, 'purchase'=>$request->input('purchase')]); 
     }
 
     /**
@@ -94,7 +109,7 @@ class ReceiptClaimController extends Controller
             $id
         ]);
         session()->flash('edited', 'แก้ไขการรับจากการเคลม เรียบร้อยแล้ว');
-        return redirect('/receiptclaims/'.$id.'/edit');
+        return back();
     }
 
     /**
@@ -103,10 +118,10 @@ class ReceiptClaimController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         DB::delete('delete from ReceivingClaim where idReceivingClaim = ?', [$id]);
         session()->flash('deleted', 'ลบการรับจากการเคลม เรียบร้อยแล้ว');
-        return redirect('/receiptclaims');
+        return redirect("/receiptclaims?claim={$request->input('claim')}&purchase={$request->input('purchase')}");
     }
 }

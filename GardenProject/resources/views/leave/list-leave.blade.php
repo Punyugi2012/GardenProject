@@ -14,7 +14,7 @@
      </div>
      <div class="card-body">
             <div>
-                <a href="{{url('leaves/create')}}" class="btn btn-light">เพิ่มการลางาน</a>
+                <a href="{{url('leaves/create')}}" class="btn btn-success">เพิ่มการลางาน</a>
             </div>
             <br>
             <table id="table_id" data-order='[[ 0, "desc" ]]'>
@@ -25,7 +25,7 @@
                         <th>นามสกุล</th>
                         <th>จากวันที่</th>
                         <th>ถึงวันที่</th>
-                        <th>จำนวน(วัน)</th>
+                        <th>จำนวน (วัน)</th>
                         <th>ประเภท</th>
                         <th>สาเหตุ</th>
                         <th>เครื่องมือ</th>
@@ -39,12 +39,12 @@
                             <td>{{$leave->surname}}</td>
                             <td>{{formatDateThai($leave->from_date)}}</td>
                             <td>{{formatDateThai($leave->to_date)}}</td>
-                            <td>{{$leave->amount_day}} วัน</td>
+                            <td>{{$leave->amount_day}}</td>
                             <td>{{formatLeaveTypeThai($leave->type)}}</td>
                             <td>{{$leave->cause}}</td>
                             <td>
-                                <a href="{{url('/leaves/'.$leave->idTakeLeave.'/edit')}}" class="btn btn-light">แก้ไข</a>
-                                <button data-toggle="modal" data-target="#deleteLeave{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <a href="{{url('/leaves/'.$leave->idTakeLeave.'/edit')}}" class="btn btn-warning">แก้ไข</a>
+                                <button data-toggle="modal" data-target="#deleteLeave{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteLeave{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -59,7 +59,7 @@
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">ยืนยัน</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
                                             </div>
                                         </form>
                                         </div>

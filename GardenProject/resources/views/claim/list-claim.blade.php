@@ -7,7 +7,7 @@
         </div>
         <div class="card-body">
             <div>
-                <a href="{{url('claims/create')}}" class="btn btn-light">เพิ่มการเคลม</a>
+                <a href="{{url('claims/create?purchase='.$purchase)}}" class="btn btn-success">เพิ่มการเคลม</a>
             </div>
             <br>
             <table id="table_id" data-order='[[ 0, "desc" ]]' class="display">
@@ -19,7 +19,6 @@
                         <th>วันที่รับ</th>
                         <th>เวลารับ</th>
                         <th>สถานะ</th>
-                        <th>เลขที่การสั่งซื้อ</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -33,16 +32,15 @@
                             <td>{{formatDateThai($claim->time_get)}} น.</td>
                             <td>
                                 @if ($claim->status == 'success')
-                                    เคลมเรียบร้อยแล้ว
+                                    <a href='{{url("/receiptclaims?claim={$claim->idClaim}&purchase={$purchase}")}}' class="btn btn-success">เคลมเรียบร้อยแล้ว</a>
                                 @elseif($claim->status == 'unsuccess')
-                                    เคลมยังไม่เรียบร้อย
+                                    <a href='{{url("/receiptclaims?claim={$claim->idClaim}&purchase={$purchase}")}}' class="btn btn-danger">เคลมยังไม่เรียบร้อย</a>
                                 @endif
                             </td>
-                            <td>{{$claim->idPurchase}}</td>
                             <td>
-                                <a href="{{url('/claims/'.$claim->idClaim)}}" class="btn btn-light">รายละเอียด</a>
-                                <a href="{{url('/claims/'.$claim->idClaim.'/edit')}}" class="btn btn-light">แก้ไข</a>
-                                <button data-toggle="modal" data-target="#deleteClaim{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <a href="{{url('/claims/'.$claim->idClaim.'?purchase='.$purchase)}}" class="btn btn-primary">วัตถุดิบที่นำไปเคลม</a>
+                                <a href="{{url('/claims/'.$claim->idClaim.'/edit?purchase='.$purchase)}}" class="btn btn-warning">แก้ไข</a>
+                                <button data-toggle="modal" data-target="#deleteClaim{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteClaim{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -57,7 +55,7 @@
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">ยืนยัน</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
                                             </div>
                                         </form>
                                         </div>

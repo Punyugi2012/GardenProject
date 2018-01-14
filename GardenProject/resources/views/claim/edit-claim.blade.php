@@ -21,10 +21,9 @@
                 <div class="form-group">
                     <label for="purchase">การสั่งซื้อ:</label>
                     <select class="custom-select form-control" id="purchase" name="purchase" required>
-                        <option value="">เลือกการสั่งซื้อ</option>
-                        @foreach ($purchases as $purchase)
-                            <option value="{{$purchase->idPurchase}}" {{$claim->idPurchase == $purchase->idPurchase ? 'selected' : ''}}>{{$purchase->idPurchase}}</option>
-                        @endforeach
+                        <option value="{{$purchase->idPurchase}}">
+                            เลขที่การสั่งซื้อ {{$purchase->idPurchase}}, เวลาที่สั่ง {{formatDateThai($purchase->time_order)}} น., วันที่ซื้อ {{formatDateThai($purchase->date_order)}}
+                        </option>
                     </select>
                 </div>
                 <div class="row">

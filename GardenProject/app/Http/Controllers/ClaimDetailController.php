@@ -19,12 +19,12 @@ class ClaimDetailController extends Controller
             $request->input('item'),
         ]);
         session()->flash('added', 'เพิ่ม เรียบร้อยแล้ว');
-        return redirect('/claims/'.$idClaim);
+        return redirect("/claims/{$idClaim}?purchase={$request->input('purchase')}");
     }
-    public function destroy($idClaimDetail, $idClaim) {
+    public function destroy(Request $request, $idClaimDetail, $idClaim) {
         DB::delete('delete from ClaimDetail where idClaimDetail = ?', [$idClaimDetail]);
         session()->flash('deleted', 'ลบ เรียบร้อยแล้ว');
-        return redirect('/claims/'.$idClaim);
+        return redirect("/claims/{$idClaim}?purchase={$request->input('purchase')}");
     }
     public function edit($idClaimDetail, $idClaim) {
         $claimDetail = DB::table('Item')->join('ClaimDetail', 'Item.idItem', '=', 'ClaimDetail.idItem')->where('idClaimDetail', $idClaimDetail)->first();
@@ -39,6 +39,6 @@ class ClaimDetailController extends Controller
             $request->input('item'),
         ]);
         session()->flash('edited', 'แก้ไข เรียบร้อยแล้ว');
-        return redirect('/edit-claims_detail/'.$idClaimDetail.'/claim/'.$idClaim);
+        return back();
     }
 }

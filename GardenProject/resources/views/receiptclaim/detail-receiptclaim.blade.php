@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', 'รายละเอียดการรับวัตถุดิบจากการเคลม')
+@section('title', 'วัตถุดิบที่รับจากการเคลม')
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
-            <h3>รายละเอียดการรับวัตถุดิบจากการเคลม</h3>
+            <h3>วัตถุดิบที่รับจากการเคลม</h3>
         </div>
         <div class="card-body">
             @if ($errors->any())
@@ -28,8 +28,8 @@
                         <label for="item">วัตถุดิบ</label>
                         <select class="custom-select form-control" id="item" name="item" required>
                             <option value="">เลือกวัตถุดิบ</option>
-                            @foreach ($claimsDetail as $detail)
-                                <option value="{{$detail->idItem}}">{{$detail->name}}, จำนวนที่นำไปเคลม {{$detail->amount}}</option>
+                            @foreach ($items as $item)
+                                <option value="{{$item['idItem']}}">{{$item['name']}}, จำนวนที่ต้องรับ {{$item['amount']}}</option>
                             @endforeach
                         </select>
                     </div>

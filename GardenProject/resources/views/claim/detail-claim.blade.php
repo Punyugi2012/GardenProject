@@ -15,7 +15,7 @@
                 </ul>
             </div>
             @endif
-            <form action="{{url('/claims_detail/claim/'.$idClaim)}}" method="POST" autocomplete="off">
+            <form action="{{url('/claims_detail/claim/'.$idClaim.'?purchase='.$purchase)}}" method="POST" autocomplete="off">
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-md-6">
@@ -23,8 +23,8 @@
                             <label for="item">วัตถุดิบ:</label>
                             <select class="select-custom form-control" id="item" name="item" required>
                                 <option value="">เลือกวัตถุดิบ</option>
-                                @foreach ($purchasesDetail as $detail)
-                                    <option value="{{$detail->idItem}}">{{$detail->name}}, จำนวนที่สั่งซื้อ {{$detail->amount}}</option>
+                                @foreach ($items as $item)
+                                    <option value="{{$item->idItem}}">{{$item->name}}, จำนวนที่สั่งซื้อไป {{$item->amount}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -41,8 +41,8 @@
                     <textarea class="form-control" id="cause" name="cause" placeholder="สาเหตุ" required></textarea>
                 </div>
                 <div class="text-right">
-                    <button type="submit" class="btn btn-light">บันทึก</button>
-                    <button type="reset" class="btn btn-light">ล้าง</button>
+                    <button type="submit" class="btn btn-primary">บันทึก</button>
+                    <button type="reset" class="btn btn-warning">ล้าง</button>
                 </div>
             </form>
             <br>
@@ -64,8 +64,8 @@
                             <td>{{$claimDetail->amount}}</td>
                             <td>{{$claimDetail->cause}}</td>
                             <td>
-                                <a href="{{url('/edit-claims_detail/'.$claimDetail->idClaimDetail.'/claim/'.$idClaim)}}" class="btn btn-light">แก้ไข</a>
-                                <button data-toggle="modal" data-target="#deleteClaimDetail{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <a href='{{url("/edit-claims_detail/{$claimDetail->idClaimDetail}/claim/{$idClaim}?purchase={$purchase}")}}' class="btn btn-warning">แก้ไข</a>
+                                <button data-toggle="modal" data-target="#deleteClaimDetail{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteClaimDetail{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -75,12 +75,12 @@
                                             <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="{{url('/claims_detail/'.$claimDetail->idClaimDetail.'/claim/'.$idClaim)}}" method="POST">
+                                        <form action='{{url("/claims_detail/{$claimDetail->idClaimDetail}/claim/{$idClaim}?purchase={$purchase}")}}' method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">ยืนยัน</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
                                             </div>
                                         </form>
                                         </div>

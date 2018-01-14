@@ -15,7 +15,7 @@
                 </ul>
             </div>
             @endif
-            <form action="{{url('/receiptclaims/'.$receiptclaim->idReceivingClaim)}}" method="POST" autocomplete="off">
+            <form action='{{url("/receiptclaims/{$receiptclaim->idReceivingClaim}?purchase={$purchase}")}}' method="POST" autocomplete="off">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
                 <div class="row">
@@ -35,9 +35,7 @@
                         <div class="form-group">
                             <label for="claim">การเคลม:</label>
                             <select class="custom-select form-control" id="claim" name="claim" required>
-                                @foreach ($claims as $claim)
-                                    <option value="{{$claim->idClaim}}" {{$receiptclaim->idClaim == $claim->idClaim ? 'selected' : ''}}>{{$claim->idClaim}}</option>
-                                @endforeach
+                                <option value="{{$claim->idClaim}}">เลขที่การเคลม {{$claim->idClaim}}, เวลาเคลม {{formatDateThai($claim->time_claim)}} น. วันที่เคลม {{formatDateThai($claim->date_claim)}}</option>
                             </select>
                         </div>
                     </div>

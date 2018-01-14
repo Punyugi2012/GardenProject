@@ -16,11 +16,10 @@ class ClaimController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $claims = DB::table('purchase')->join('claim', 'purchase.idPurchase', '=', 'claim.idPurchase')->get();
-        return view('claim.list-claim', ['claims'=>$claims]);
-
+    public function index(Request $request)
+    {   
+        $claims = DB::table('Claim')->where('idPurchase', $request->input('purchase'))->get();
+        return view('claim.list-claim', ['claims'=>$claims, 'purchase'=>$request->input('purchase')]);
     }
 
     /**
@@ -28,10 +27,10 @@ class ClaimController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $purchases = DB::select('select * from purchase where status_claim = "hasClaim"');
-        return view('claim.add-claim', ['purchases'=>$purchases]);
+        $purchase = DB::table('Purchase')->where('idPurchase', $request->input('purchase'))->first();
+        return view('claim.add-claim', ['purchase'=>$purchase]);
     }
 
     /**
@@ -51,7 +50,7 @@ class ClaimController extends Controller
             $request->input('purchase'),
         ]);
         session()->flash('added', 'เพิ่มการเคลม เรียบร้อยแล้ว');
-        return redirect('/claims');
+        return redirect('/claims?purchase='.$request->input('purchase'));
     }
 
     /**
@@ -60,14 +59,13 @@ class ClaimController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $claimsDetail = DB::table('item')->join('claimdetail', 'item.idItem', '=', 'claimdetail.idItem')->where('idClaim', $id)->get();
-        $idPurchase = DB::table('Claim')->where('idClaim',$id)->first()->idPurchase;
-        $purchasesDetail = DB::table('Item')->join('PurchaseDetail', 'Item.idItem', '=','PurchaseDetail.idItem')
+        $items = DB::table('Item')->join('PurchaseDetail', 'Item.idItem', '=','PurchaseDetail.idItem')
         ->where('type', 'equipment')
-        ->where('idPurchase', $idPurchase)->get();
-        return view('claim.detail-claim', ['claimsDetail'=>$claimsDetail, 'purchasesDetail'=>$purchasesDetail, 'idClaim'=>$id]);
+        ->where('idPurchase', $request->input('purchase'))->get();
+        return view('claim.detail-claim', ['claimsDetail'=>$claimsDetail, 'items'=>$items, 'idClaim'=>$id, 'purchase'=>$request->input('purchase')]);
     }
 
     /**
@@ -76,11 +74,11 @@ class ClaimController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        $claim = DB::table('purchase')->join('claim', 'purchase.idPurchase', '=', 'claim.idPurchase')->where('idClaim', $id)->first();
-        $purchases = DB::select('select * from purchase');
-        return view('claim.edit-claim', ['claim'=>$claim, 'purchases'=>$purchases]);
+        $claim = DB::table('Claim')->where('idClaim', $id)->first();
+        $purchase = DB::table('Purchase')->where('idPurchase', $request->input('purchase'))->first();
+        return view('claim.edit-claim', ['claim'=>$claim, 'purchase'=>$purchase]);
     }
 
     /**
@@ -102,7 +100,7 @@ class ClaimController extends Controller
             $id
         ]);
         session()->flash('edited', 'แก้ไขการเคลม เรียบร้อยแล้ว');
-        return redirect('/claims/'.$id.'/edit');
+        return back();
     }
 
     /**
@@ -115,6 +113,6 @@ class ClaimController extends Controller
     {
         DB::delete('delete from claim where idClaim = ?', [$id]);
         session()->flash('deleted', 'ลบการเคลม เรียบร้อยแล้ว');
-        return redirect('/claims');
+        return back();
     }
 }

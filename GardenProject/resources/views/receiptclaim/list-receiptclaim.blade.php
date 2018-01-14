@@ -7,7 +7,7 @@
         </div>
         <div class="card-body">
             <div>
-                <a href="{{url('receiptclaims/create')}}" class="btn btn-light">เพิ่มการรับจากการเคลม</a>
+                <a href='{{url("receiptclaims/create?claim={$claim}&purchase={$purchase}")}}' class="btn btn-success">เพิ่มการรับจากการเคลม</a>
             </div>
             <br>
             <table id="table_id" data-order='[[ 0, "desc" ]]' class="display">
@@ -16,7 +16,6 @@
                         <th>เลขที่การรับ</th>
                         <th>วันที่รับ</th>
                         <th>เวลารับ</th>
-                        <th>เลขที่การเคลม</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -26,11 +25,10 @@
                             <td>{{$receiptclaim->idReceivingClaim}}</td>
                             <td>{{formatDateThai($receiptclaim->date)}}</td>
                             <td>{{formatDateThai($receiptclaim->time)}} น.</td>
-                            <td>{{$receiptclaim->idClaim}}</td>
                             <td>
-                                <a href="{{url('/receiptclaims/'.$receiptclaim->idReceivingClaim)}}" class="btn btn-light">รายละเอียด</a>
-                                <a href="{{url('/receiptclaims/'.$receiptclaim->idReceivingClaim.'/edit')}}" class="btn btn-light">แก้ไข</a>
-                                <button data-toggle="modal" data-target="#deleteReceiptclaim{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <a href='{{url("/receiptclaims/{$receiptclaim->idReceivingClaim}?claim={$claim}&purchase={$purchase}")}}' class="btn btn-info">วัตถุดิบที่รับ</a>
+                                <a href='{{url("/receiptclaims/{$receiptclaim->idReceivingClaim}/edit?claim={$claim}&purchase={$purchase}")}}' class="btn btn-warning">แก้ไข</a>
+                                <button data-toggle="modal" data-target="#deleteReceiptclaim{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteReceiptclaim{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -40,12 +38,12 @@
                                             <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="{{url('/receiptclaims/'.$receiptclaim->idReceivingClaim)}}" method="POST">
+                                        <form action='{{url("/receiptclaims/{$receiptclaim->idReceivingClaim}?claim={$claim}&purchase={$purchase}")}}' method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">ยืนยัน</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
                                             </div>
                                         </form>
                                         </div>

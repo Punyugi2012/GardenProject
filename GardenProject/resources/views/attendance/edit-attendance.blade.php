@@ -58,7 +58,8 @@
                     </div>
                 </div>
                 <div class="text-right">
-                    <button type="submit" class="btn btn-light">ยืนยัน</button>
+                    <button type="submit" class="btn btn-primary">ยืนยัน</button>
+                    <button type="reset" class="btn btn-warning">รีเซ็ต</button>
                 </div>
             </form>
         </div>

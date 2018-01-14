@@ -26,9 +26,9 @@
             <form action="{{url('/leaves')}}" method="POST" autocomplete="off">
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <label for="employee">ชื่อ-นามสกุล:</label>
+                    <label for="employee">พนักงาน</label>
                     <select class="custom-select form-control" name="employee" id="employee" required>
-                        <option value="" selected>เลือกชื่อ-นามสกุล</option>
+                        <option value="" selected>เลือกพนักงาน</option>
                         @foreach ($employees as $employee)
                             <option value="{{$employee->idEmployee}}">{{$employee->name}}-{{$employee->surname}}</option>
                         @endforeach
@@ -63,8 +63,8 @@
                     <textarea class="form-control" id="cause" rows="3" name="cause" placeholder="สาเหตุ" required></textarea>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-light">บันทึก</button>
-                    <button type="reset" class="btn btn-light">ล้าง</button>
+                    <button type="submit" class="btn btn-primary">บันทึก</button>
+                    <button type="reset" class="btn btn-warning">รีเซ็ต</button>
                 </div>
             </form>
         </div>

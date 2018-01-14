@@ -14,7 +14,7 @@
      </div>
      <div class="card-body">
             <div>
-                <a href="{{url('salaries/create')}}" class="btn btn-light">เพิ่มการจ่ายเงินเดือน</a>
+                <a href="{{url('salaries/create')}}" class="btn btn-success">เพิ่มการจ่ายเงินเดือน</a>
             </div>
             <br>
             <table id="table_id" data-order='[[ 0, "desc" ]]' class="display">
@@ -32,6 +32,11 @@
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
+                <tfoot>
+                    <tr>
+                        <th colspan="10" style="text-align:right"></th>
+                    </tr>
+                </tfoot>
                 <tbody>
                     @foreach ($salaries as $salary)
                         <tr>
@@ -45,8 +50,8 @@
                             <td>{{$salary->rest_money}}</td>
                             <td>{{$salary->round}}</td>
                             <td>
-                                <a href="{{url('/salaries/'.$salary->idSalary.'/edit')}}" class="btn btn-light">แก้ไข</a>   
-                                <button data-toggle="modal" data-target="#deleteSalary{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <a href="{{url('/salaries/'.$salary->idSalary.'/edit')}}" class="btn btn-warning">แก้ไข</a>   
+                                <button data-toggle="modal" data-target="#deleteSalary{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteSalary{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -61,7 +66,7 @@
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">ยืนยัน</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
                                             </div>
                                         </form>
                                         </div>
@@ -78,7 +83,40 @@
 @section('footer')
     <script type="text/javascript">
         $(document).ready( function () {
-            $('#table_id').DataTable();
+            $('#table_id').DataTable({
+                "footerCallback": function ( row, data, start, end, display ) {
+                    var api = this.api(), data;
+         
+                    // Remove the formatting to get integer data for summation
+                    var intVal = function ( i ) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '')*1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+         
+                    // Total over all pages
+                    total = api
+                        .column( 7 )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+         
+                    // Total over this page
+                    pageTotal = api
+                        .column( 7, { page: 'current'} )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+         
+                    // Update footer
+                    $( api.column( 7 ).footer() ).html(
+                       'รวมจำนวนเงินสุทธิ: ' + pageTotal +' บาท (ทั้งหมด '+ total +' บาท)'
+                    );
+                }
+            });
         });
     </script>
     @if (session()->has('added'))
