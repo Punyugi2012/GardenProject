@@ -1,5 +1,13 @@
 @extends('layouts.app')
 @section('title', 'เพิ่มร้านค้า')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item"><a href="{{url('/shops')}}">ร้านค้า</a></li>
+        <li class="breadcrumb-item active" aria-current="page">เพิ่มร้านค้า</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
@@ -48,8 +56,8 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-light">ยืนยัน</button>
-                    <button type="reset" class="btn btn-light">ล้าง</button>
+                    <button type="submit" class="btn btn-primary">ยืนยัน</button>
+                    <button type="reset" class="btn btn-warning">รีเซ็ต</button>
                 </div>
             </form>
         </div>

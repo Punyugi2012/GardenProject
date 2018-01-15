@@ -18,11 +18,11 @@ class ReceiptDetailController extends Controller
             $request->input('item')
         ]);
         session()->flash('added', 'เพิ่ม เรียบร้อยแล้ว');
-        return redirect('/receipts/'.$idReceipt);
+        return redirect("/receipts/{$idReceipt}?purchase={$request->input('purchase')}");
     }
-    public function destroy($idReceiptDetail, $idReceipt) {
+    public function destroy(Request $request, $idReceiptDetail, $idReceipt) {
         DB::delete('delete from ReceivingDetail where idReceivingDetail = ?', [$idReceiptDetail]);
         session()->flash('deleted', 'ลบ เรียบร้อยแล้ว');
-        return redirect('/receipts/'.$idReceipt);
+        return redirect("/receipts/{$idReceipt}?purchase={$request->input('purchase')}");
     }
 }

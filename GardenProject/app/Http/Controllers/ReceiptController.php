@@ -16,10 +16,10 @@ class ReceiptController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $receipts = DB::table('receiving')->join('purchase', 'receiving.idPurchase', '=', 'purchase.idPurchase')->get();
-        return view('receipt.list-receipt', ['receipts'=>$receipts]);
+        $receipts = DB::table('receiving')->where('idPurchase', $request->input('purchase'))->get();
+        return view('receipt.list-receipt', ['receipts'=>$receipts, 'purchase'=>$request->input('purchase')]);
     }
 
     /**
@@ -27,10 +27,10 @@ class ReceiptController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $purchases = DB::select('select * from purchase where status_receipt = "unreceipted"');
-        return view('receipt.add-receipt', ['purchases'=>$purchases]);
+        $purchase = DB::table('Purchase')->where('idPurchase', $request->input('purchase'))->first();
+        return view('receipt.add-receipt', ['purchase'=>$purchase]);
     }
 
     /**
@@ -48,7 +48,7 @@ class ReceiptController extends Controller
         ]);
         DB::update('update Purchase set status_receipt = "receipted" where idPurchase = ?', [$request->input('purchase')]);
         session()->flash('added', 'เพิ่มการรับวัตถุดิบ เรียบร้อยแล้ว');
-        return redirect('/receipts');
+        return redirect("/receipts?purchase={$request->input('purchase')}");
     }
 
     /**
@@ -57,14 +57,13 @@ class ReceiptController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $receiptsDetail = DB::table('Item')->join('ReceivingDetail', 'Item.idItem', '=', 'ReceivingDetail.idItem')
                         ->where('idReceiving', $id)->get();
         $idPurchase = DB::table('Receiving')->where('idReceiving',$id)->first()->idPurchase;
         $purchasesDetail = DB::table('Item')->join('PurchaseDetail', 'Item.idItem', '=','PurchaseDetail.idItem')->where('idPurchase', $idPurchase)->get();
-        return view('receipt.detail-receipt', ['receiptsDetail'=>$receiptsDetail, 'purchasesDetail'=>$purchasesDetail, 'idReceipt'=>$id]);
-        print_r($purchasesDetail);
+        return view('receipt.detail-receipt', ['receiptsDetail'=>$receiptsDetail, 'purchasesDetail'=>$purchasesDetail, 'idReceipt'=>$id, 'purchase'=>$request->input('purchase')]);
     }
 
     /**
@@ -73,12 +72,12 @@ class ReceiptController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $receipt = DB::table('receiving')->join('purchase', 'receiving.idPurchase', '=', 'purchase.idPurchase')
                 ->where('idReceiving', $id)->first();
-        $purchases = DB::select('select * from purchase');
-        return view('receipt.edit-receipt', ['receipt'=>$receipt, 'purchases'=>$purchases]);
+        $purchase = DB::table('Purchase')->where('idPurchase', $request->input('purchase'))->first();
+        return view('receipt.edit-receipt', ['receipt'=>$receipt, 'purchase'=>$purchase]);
     }
 
     /**
@@ -97,7 +96,7 @@ class ReceiptController extends Controller
             $id
         ]);
         session()->flash('edited', 'แก้ไขการรับวัตถุดิบ เรียบร้อยแล้ว');
-        return redirect('/receipts/'.$id.'/edit');
+        return back();
     }
 
     /**

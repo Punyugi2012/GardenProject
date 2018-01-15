@@ -56,16 +56,16 @@
                             </td>
                             <td>
                                 @if ($purchase->status_payment == 'paid')
-                                    <a href="#" class="btn btn-success">จ่ายเงินแล้ว</a>
+                                    <button class="btn btn-success">จ่ายเงินแล้ว</button>
                                 @elseif ($purchase->status_payment == 'notpaid')    
-                                    <a href="#" class="btn btn-danger">ยังไม่จ่ายเงิน</a>
+                                    <button class="btn btn-danger">ยังไม่จ่ายเงิน</button>
                                 @endif
                             </td>
                             <td>
                                 @if ($purchase->status_receipt == 'receipted')
-                                    <a href="#" class="btn btn-success">รับวัตถุดิบแล้ว</a>
+                                    <a href='{{url("/receipts?purchase={$purchase->idPurchase}")}}' class="btn btn-success">รับวัตถุดิบแล้ว</a>
                                 @elseif ($purchase->status_receipt == 'unreceipted')    
-                                    <a href="#" class="btn btn-danger">ยังไม่รับ</a>
+                                    <a href='{{url("/receipts?purchase={$purchase->idPurchase}")}}' class="btn btn-danger">ยังไม่รับ</a>
                                 @endif
                             </td>
                             <td>

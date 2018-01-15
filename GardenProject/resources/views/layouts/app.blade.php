@@ -30,8 +30,8 @@
         <span>
             <a class="navbar-brand" href="{{url('/')}}" style="margin-right:50px"><h1>สวนลุงเด่น</h1></a>
             <a class="btn btn-primary {{Request::segment(1) == 'employees' ? 'active' : ''}}" href="{{url('/employees')}}">พนักงาน</a>
-            <a class="btn btn-primary" href="{{url('/items')}}">วัตถุดิบ</a>
-            <a class="btn btn-primary" href="{{url('/shops')}}">ร้านค้า</a>
+            <a class="btn btn-primary {{Request::segment(1) == 'items' ? 'active' : ''}}" href="{{url('/items')}}">วัตถุดิบ</a>
+            <a class="btn btn-primary {{Request::segment(1) == 'shops' ? 'active' : ''}}" href="{{url('/shops')}}">ร้านค้า</a>
             <a class="btn btn-primary" href="{{url('/zones')}}">โซน</a>
             <a class="btn btn-primary" href="{{url('/products')}}">ผลผลิต</a>
             <div>
@@ -79,7 +79,7 @@
                         <a class="nav-link btn btn-info {{Request::segment(1) == 'leaves' ? 'active' : ''}}" href="{{url('/leaves')}}">การลางาน</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-info {{Request::segment(1) == 'purchases' || Request::segment(1) == 'claims' ? 'active' : '' || Request::segment(1) == 'receiptclaims' ? 'active' : '' || Request::segment(1) == 'edit-claims_detail' ? 'active' : ''}}" href="{{url('/purchases')}}">การสั่งซื้อ</a>
+                        <a class="nav-link btn btn-info {{Request::segment(1) == 'purchases' || Request::segment(1) == 'claims' || Request::segment(1) == 'receiptclaims' || Request::segment(1) == 'edit-claims_detail' || Request::segment(1) == 'receipts' ? 'active' : ''}}" href="{{url('/purchases')}}">การสั่งซื้อ</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-info {{Request::segment(1) == 'payments' ? 'active' : ''}}" href="{{url('/payments')}}">การจ่ายเงิน</a>
