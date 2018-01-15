@@ -32,8 +32,8 @@
             <a class="btn btn-primary {{Request::segment(1) == 'employees' ? 'active' : ''}}" href="{{url('/employees')}}">พนักงาน</a>
             <a class="btn btn-primary {{Request::segment(1) == 'items' ? 'active' : ''}}" href="{{url('/items')}}">วัตถุดิบ</a>
             <a class="btn btn-primary {{Request::segment(1) == 'shops' ? 'active' : ''}}" href="{{url('/shops')}}">ร้านค้า</a>
-            <a class="btn btn-primary" href="{{url('/zones')}}">โซน</a>
-            <a class="btn btn-primary" href="{{url('/products')}}">ผลผลิต</a>
+            <a class="btn btn-primary {{Request::segment(1) == 'zones' ? 'active' : ''}}" href="{{url('/zones')}}">โซน</a>
+            <a class="btn btn-primary {{Request::segment(1) == 'products' ? 'active' : ''}}" href="{{url('/products')}}">ผลผลิต</a>
             <div>
                 <div id="time"></div>
             </div>

@@ -1,5 +1,13 @@
 @extends('layouts.app')
 @section('title', 'รูปภาพโซน')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item"><a href="{{url('/zones')}}">โซน</a></li>
+        <li class="breadcrumb-item active" aria-current="page">รูปภาพโซน</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
@@ -23,7 +31,7 @@
                     </label>
                     <input type="file" id="zone_image" name="zone_image" class="form-control"  accept="image/*" style="width:30%"required>
                 </div>
-                <button type="submit" class="btn btn-light">บันทึก</button>
+                <button type="submit" class="btn btn-primary">บันทึก</button>
             </form>
             @foreach ($zone->images as $image)
                 <div class="text-center" style="margin-top:10px"> 
