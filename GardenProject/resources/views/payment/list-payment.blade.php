@@ -1,5 +1,12 @@
 @extends('layouts.app')
 @section('title', 'รายการการจ่ายเงิน')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item active" aria-current="page">การจ่ายเงิน</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
@@ -7,7 +14,7 @@
         </div>
         <div class="card-body">
             <div>
-                <a href="{{url('payments/create')}}" class="btn btn-light">เพิ่ม การจ่ายเงิน</a>
+                <a href="{{url('payments/create')}}" class="btn btn-success">เพิ่มการจ่ายเงิน</a>
             </div>
             <br>
             <table id="table_id" data-order='[[ 0, "desc" ]]' class="display">
@@ -36,9 +43,9 @@
                             </td>
                             <td>{{$payment->name}}</td>
                             <td>
-                                <a href="{{url('/payments/'.$payment->idPay)}}" class="btn btn-light">รายละเอียด</a>
-                                <a href="{{url('/payments/'.$payment->idPay.'/edit')}}" class="btn btn-light">แก้ไข</a>
-                                <button data-toggle="modal" data-target="#deletePayment{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <a href="{{url('/payments/'.$payment->idPay)}}" class="btn btn-info">รายละเอียด</a>
+                                <a href="{{url('/payments/'.$payment->idPay.'/edit')}}" class="btn btn-warning">แก้ไข</a>
+                                <button data-toggle="modal" data-target="#deletePayment{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deletePayment{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -53,7 +60,7 @@
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">ยืนยัน</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
                                             </div>
                                         </form>
                                         </div>

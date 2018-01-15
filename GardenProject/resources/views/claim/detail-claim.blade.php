@@ -1,9 +1,18 @@
 @extends('layouts.app')
-@section('title', 'รายละเอียดการเคลม')
+@section('title', 'วัตถุดิบที่นำไปเคลม')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item"><a href="{{url('/purchases')}}">การสั่งซื้อ</a></li>
+        <li class="breadcrumb-item"><a href='{{url("/claims?purchase={$purchase}")}}'>การเคลม</a></li>
+        <li class="breadcrumb-item active" aria-current="page">วัตถุดิบที่นำไปเคลม</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
-            <h3>รายละเอียดการเคลม</h3>
+            <h3>วัตถุดิบที่นำไปเคลม</h3>
         </div>
         <div class="card-body">
             @if ($errors->any())
@@ -37,8 +46,8 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="cause">สาเหตุ:</label>
-                    <textarea class="form-control" id="cause" name="cause" placeholder="สาเหตุ" required></textarea>
+                    <label for="cause">หมายเหตุ:</label>
+                    <textarea class="form-control" id="cause" name="cause" placeholder="หมายเหตุ" required></textarea>
                 </div>
                 <div class="text-right">
                     <button type="submit" class="btn btn-primary">บันทึก</button>

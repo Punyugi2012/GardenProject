@@ -1,5 +1,13 @@
 @extends('layouts.app')
 @section('title', 'รายการการเคลม')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item"><a href="{{url('/purchases')}}">การสั่งซื้อ</a></li>
+        <li class="breadcrumb-item active" aria-current="page">การเคลม</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
@@ -32,9 +40,9 @@
                             <td>{{formatDateThai($claim->time_get)}} น.</td>
                             <td>
                                 @if ($claim->status == 'success')
-                                    <a href='{{url("/receiptclaims?claim={$claim->idClaim}&purchase={$purchase}")}}' class="btn btn-success">เคลมเรียบร้อยแล้ว</a>
+                                    <a href='{{url("/receiptclaims?claim={$claim->idClaim}&purchase={$purchase}")}}' class="btn btn-success">รับจากเคลมครบแล้ว</a>
                                 @elseif($claim->status == 'unsuccess')
-                                    <a href='{{url("/receiptclaims?claim={$claim->idClaim}&purchase={$purchase}")}}' class="btn btn-danger">เคลมยังไม่เรียบร้อย</a>
+                                    <a href='{{url("/receiptclaims?claim={$claim->idClaim}&purchase={$purchase}")}}' class="btn btn-danger">รับจากเคลมยังไม่ครบ</a>
                                 @endif
                             </td>
                             <td>

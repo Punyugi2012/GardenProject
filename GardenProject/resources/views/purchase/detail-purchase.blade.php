@@ -1,5 +1,13 @@
 @extends('layouts.app')
 @section('title', 'วัตถุดิบที่สั่งซื้อ')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item"><a href="{{url('/purchases')}}">การสั่งซื้อ</a></li>
+        <li class="breadcrumb-item active" aria-current="page">วัตถุดิบที่สั่งซื้อ</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
@@ -37,8 +45,8 @@
                     </div>
                 </div>
                 <div class="text-right">
-                    <button type="submit" class="btn btn-light">บันทึก</button>
-                    <button type="reset" class="btn btn-light">ล้าง</button>
+                    <button type="submit" class="btn btn-primary">บันทึก</button>
+                    <button type="reset" class="btn btn-warning">รีเซ็ต</button>
                 </div>
             </form>
             <br>
@@ -70,8 +78,8 @@
                             <td>{{$purchaseDetail->amount}}</td>
                             <td>{{$purchaseDetail->total_money}}</td>
                             <td>
-                                <a href="{{url('/edit-purchases_detail/'.$purchaseDetail->idPurchaseDetail.'/purchase/'.$idPurchase)}}" class="btn btn-light">แก้ไข</a>
-                                <button data-toggle="modal" data-target="#deletePurchaseDetail{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <a href="{{url('/edit-purchases_detail/'.$purchaseDetail->idPurchaseDetail.'/purchase/'.$idPurchase)}}" class="btn btn-warning">แก้ไข</a>
+                                <button data-toggle="modal" data-target="#deletePurchaseDetail{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deletePurchaseDetail{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -86,7 +94,7 @@
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">ยืนยัน</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
                                             </div>
                                         </form>
                                         </div>

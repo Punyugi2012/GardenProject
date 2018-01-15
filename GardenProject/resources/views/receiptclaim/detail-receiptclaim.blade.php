@@ -1,5 +1,15 @@
 @extends('layouts.app')
 @section('title', 'วัตถุดิบที่รับจากการเคลม')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item"><a href="{{url('/purchases')}}">การสั่งซื้อ</a></li>
+        <li class="breadcrumb-item"><a href='{{url("/claims?purchase={$purchase}")}}'>การเคลม</a></li>
+        <li class="breadcrumb-item"><a href='{{url("/receiptclaims?claim={$claim}&purchase={$purchase}")}}'>รับวัตถุดิบจากการเคลม</a></li>
+        <li class="breadcrumb-item active" aria-current="page">วัตถุดิบที่รับจากการเคลม</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
@@ -15,7 +25,7 @@
                 </ul>
             </div>
             @endif
-            <form action="{{url('/receiptclaims_detail/receiptclaim/'.$idReceiptClaim)}}" method="POST" autocomplete="off">
+            <form action='{{url("/receiptclaims_detail/receiptclaim/{$idReceiptClaim}?claim={$claim}&purchase={$purchase}")}}' method="POST" autocomplete="off">
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-md-6">
@@ -35,8 +45,8 @@
                     </div>
                 </div>
                 <div class="text-right">
-                    <button type="submit" class="btn btn-light">บันทึก</button>
-                    <button type="reset" class="btn btn-light">ล้าง</button>
+                    <button type="submit" class="btn btn-primary">บันทึก</button>
+                    <button type="reset" class="btn btn-warning">ล้าง</button>
                 </div>
             </form>
             <br>
@@ -56,7 +66,7 @@
                             <td>{{$receiptclaimDetail->name}}</td>
                             <td>{{$receiptclaimDetail->amount}}</td>
                             <td>
-                                <button data-toggle="modal" data-target="#deleteReceiptclaimDetail{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <button data-toggle="modal" data-target="#deleteReceiptclaimDetail{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteReceiptclaimDetail{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -66,7 +76,7 @@
                                             <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="{{url('/receiptclaims_detail/'.$receiptclaimDetail->idReceivingClaimDetail.'/receiptclaim/'.$idReceiptClaim)}}" method="POST">
+                                        <form action='{{url("/receiptclaims_detail/{$receiptclaimDetail->idReceivingClaimDetail}/receiptclaim/{$idReceiptClaim}?claim={$claim}&purchase={$purchase}")}}' method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">

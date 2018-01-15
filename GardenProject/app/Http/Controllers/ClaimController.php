@@ -46,7 +46,7 @@ class ClaimController extends Controller
             $request->input('date_get'),
             $request->input('time_claim'),
             $request->input('time_get'),
-            $request->input('status'),
+            "unsuccess",
             $request->input('purchase'),
         ]);
         session()->flash('added', 'เพิ่มการเคลม เรียบร้อยแล้ว');
@@ -90,12 +90,11 @@ class ClaimController extends Controller
      */
     public function update(ClaimRequest $request, $id)
     {
-        DB::update('update claim set date_claim = ?, date_get = ?, time_claim = ?, time_get = ?, status = ?, idPurchase = ? where idClaim = ?', [
+        DB::update('update claim set date_claim = ?, date_get = ?, time_claim = ?, time_get = ?, idPurchase = ? where idClaim = ?', [
             $request->input('date_claim'),
             $request->input('date_get'),
             $request->input('time_claim'),
             $request->input('time_get'),
-            $request->input('status'),
             $request->input('purchase'),
             $id
         ]);

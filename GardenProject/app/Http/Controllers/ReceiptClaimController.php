@@ -50,7 +50,14 @@ class ReceiptClaimController extends Controller
         session()->flash('added', 'เพิ่มการรับจากการเคลม เรียบร้อยแล้ว');
         return redirect("/receiptclaims?claim={$request->input('claim')}&purchase={$request->input('purchase')}");
     }
-
+    private function isClaimSuccess($items) {
+        foreach($items as $item) {
+            if($item['amount'] > 0) {
+                return false;
+            }
+        }
+        return true;
+    }
     /**
      * Display the specified resource.
      *
@@ -68,16 +75,25 @@ class ReceiptClaimController extends Controller
         
         $items = [];
         foreach($itemClaims as $itemClaim) {
+            $found = false;
             foreach($itemReceipts as $itemReceipt) {
                 if($itemClaim->name == $itemReceipt->name) {
                     array_push($items, ['idItem'=>$itemClaim->idItem, 'name'=>$itemClaim->name, 'amount'=>$itemClaim->amount - $itemReceipt->amount]);
-                }
-                else {
-                    array_push($items, ['idItem'=>$itemClaim->idItem, 'name'=>$itemClaim->name, 'amount'=>$itemClaim->amount]);
+                    $found = true;
+                    break;
                 }
             }
+            if(!$found) {
+                array_push($items, ['idItem'=>$itemClaim->idItem, 'name'=>$itemClaim->name, 'amount'=>$itemClaim->amount]);
+            }
         }
-        return view('receiptclaim.detail-receiptclaim', ['receiptclaimsDetail'=>$receiptclaimsDetail, 'items'=>$items, 'idReceiptClaim'=>$id]);
+        if($this->isClaimSuccess($items)) {
+            DB::update('update Claim set status = "success" where idClaim = ?', [$request->input('claim')]);
+        }
+        else {
+            DB::update('update Claim set status = "unsuccess" where idClaim = ?', [$request->input('claim')]);
+        }
+        return view('receiptclaim.detail-receiptclaim', ['receiptclaimsDetail'=>$receiptclaimsDetail, 'items'=>$items, 'idReceiptClaim'=>$id, 'claim'=>$request->input('claim'), 'purchase'=>$request->input('purchase')]);
     }
 
     /**

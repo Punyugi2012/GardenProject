@@ -107,6 +107,10 @@ class PaymentController extends Controller
      */
     public function destroy($id)
     {
+        $paymentDetails = DB::table('PayDetail')->where('idPay', $id)->get();
+        foreach($paymentDetails as $detail) {
+            DB::update('update Purchase set status_payment = "notpaid" where idPurchase = ?', [$detail->idPurchase]);
+        }
         DB::delete('delete from pay where idPay = ?', [$id]);
         session()->flash('deleted', 'ลบการจ่ายเงิน เรียบร้อยแล้ว');
         return redirect('/payments');

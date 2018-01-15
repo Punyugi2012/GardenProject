@@ -1,5 +1,14 @@
 @extends('layouts.app')
 @section('title', 'เพิ่มการเคลม')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item"><a href="{{url('/purchases')}}">การสั่งซื้อ</a></li>
+        <li class="breadcrumb-item"><a href='{{url("/claims?purchase={$purchase->idPurchase}")}}'>การเคลม</a></li>
+        <li class="breadcrumb-item active" aria-current="page">เพิ่มการเคลม</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
@@ -57,16 +66,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="status">สถานะ:</label>
-                    <select class="custom-select form-control" id="status" name="status" required>
-                        <option value="success">เคลมเรียบร้อยแล้ว</option>
-                        <option value="unsuccess" selected>เคลมยังไม่เรียบร้อย</option>
-                    </select>
-                </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-light">บันทึก</button>
-                    <button type="reset" class="btn btn-light">ล้าง</button>
+                    <button type="submit" class="btn btn-primary">บันทึก</button>
+                    <button type="reset" class="btn btn-warning">รีเซ็ต</button>
                 </div>
             </form>
         </div>

@@ -26,17 +26,18 @@ class ClaimDetailController extends Controller
         session()->flash('deleted', 'ลบ เรียบร้อยแล้ว');
         return redirect("/claims/{$idClaim}?purchase={$request->input('purchase')}");
     }
-    public function edit($idClaimDetail, $idClaim) {
+    public function edit(Request $request, $idClaimDetail, $idClaim) {
         $claimDetail = DB::table('Item')->join('ClaimDetail', 'Item.idItem', '=', 'ClaimDetail.idItem')->where('idClaimDetail', $idClaimDetail)->first();
         $items = DB::select('select * from item');
-        return view('claim.edit-claimDetail', ['claimDetail'=>$claimDetail, 'items'=>$items, 'idClaim'=>$idClaim]);
+        return view('claim.edit-claimDetail', ['claimDetail'=>$claimDetail, 'items'=>$items, 'idClaim'=>$idClaim, 'purchase'=>$request->input('purchase')]);
     }
     public function update(ClaimDetailRequest $request, $idClaimDetail,  $idClaim) {
-        DB::update('update ClaimDetail set amount = ?, cause = ?, idClaim = ?, idItem = ?', [
+        DB::update('update ClaimDetail set amount = ?, cause = ?, idClaim = ?, idItem = ? where idClaimDetail = ?', [
             $request->input('amount'),
             $request->input('cause'),
             $idClaim,
             $request->input('item'),
+            $idClaimDetail
         ]);
         session()->flash('edited', 'แก้ไข เรียบร้อยแล้ว');
         return back();

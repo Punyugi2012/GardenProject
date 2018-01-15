@@ -29,7 +29,7 @@
     <nav class="navbar navbar-expand-lg justify-content-between"  style="border: 1px solid #d3e0e9;background-color:#fff">
         <span>
             <a class="navbar-brand" href="{{url('/')}}" style="margin-right:50px"><h1>สวนลุงเด่น</h1></a>
-            <a class="btn btn-primary" href="{{url('/employees')}}">พนักงาน</a>
+            <a class="btn btn-primary {{Request::segment(1) == 'employees' ? 'active' : ''}}" href="{{url('/employees')}}">พนักงาน</a>
             <a class="btn btn-primary" href="{{url('/items')}}">วัตถุดิบ</a>
             <a class="btn btn-primary" href="{{url('/shops')}}">ร้านค้า</a>
             <a class="btn btn-primary" href="{{url('/zones')}}">โซน</a>
@@ -70,28 +70,19 @@
             <div class="col-md-2">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link btn btn-info" href="{{url('/attendances')}}">การลงเวลาทำงาน</a>
+                        <a class="nav-link btn btn-info {{Request::segment(1) == 'attendances' ? 'active' : ''}}" href="{{url('/attendances')}}">การลงเวลาทำงาน</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-info" href="{{url('/salaries')}}">การจ่ายเงินเดือน</a>
+                        <a class="nav-link btn btn-info {{Request::segment(1) == 'salaries' ? 'active' : ''}}" href="{{url('/salaries')}}">การจ่ายเงินเดือน</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-info" href="{{url('/leaves')}}">การลางาน</a>
+                        <a class="nav-link btn btn-info {{Request::segment(1) == 'leaves' ? 'active' : ''}}" href="{{url('/leaves')}}">การลางาน</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-info" href="{{url('/purchases')}}">การสั่งซื้อ</a>
+                        <a class="nav-link btn btn-info {{Request::segment(1) == 'purchases' || Request::segment(1) == 'claims' ? 'active' : '' || Request::segment(1) == 'receiptclaims' ? 'active' : '' || Request::segment(1) == 'edit-claims_detail' ? 'active' : ''}}" href="{{url('/purchases')}}">การสั่งซื้อ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-info" href="{{url('/receipts')}}">การรับวัตถุดิบ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-info" href="{{url('/payments')}}">การจ่ายเงิน</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-info" href="{{url('/claims')}}">การเคลม</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-info" href="{{url('/receiptclaims')}}">รับวัตถุดิบจากการเคลม</a>
+                        <a class="nav-link btn btn-info {{Request::segment(1) == 'payments' ? 'active' : ''}}" href="{{url('/payments')}}">การจ่ายเงิน</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-info" href="{{url('/assignments')}}">การมอบหมายงาน</a>
