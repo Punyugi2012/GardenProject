@@ -107,6 +107,17 @@ class ReceiptController extends Controller
      */
     public function destroy($id)
     {
+        $receiptDetails = DB::table('ReceivingDetail')->where('idReceiving', $id)->get();
+        foreach($receiptDetails as $receiptDetail) {
+            $currentAmount = DB::table('Item')->where('idItem', $receiptDetail->idItem)->first()->amount;
+            if($receiptDetail->amount >= $currentAmount) {
+                $currentAmount = 0;
+            }
+            else {
+                $currentAmount -= $receiptDetail->amount;
+            }
+            DB::update('update Item set amount = ? where idItem = ?', [$currentAmount, $receiptDetail->idItem]);
+        }
         $idPurchase = DB::table('Receiving')->where('idReceiving', $id)->first()->idPurchase;
         DB::update('update Purchase set status_receipt = "unreceipted" where idPurchase = ?', [$idPurchase]);
         DB::delete('delete from receiving where idReceiving = ?', [$id]);

@@ -39,7 +39,9 @@
                         <select class="custom-select form-control" id="item" name="item" required>
                             <option value="">เลือกวัตถุดิบ</option>
                             @foreach ($items as $item)
-                                <option value="{{$item['idItem']}}">{{$item['name']}}, จำนวนที่ต้องรับ {{$item['amount']}}</option>
+                                @if ($item['amount'])
+                                    <option value="{{$item['idItem']}}">{{$item['name']}}, จำนวนที่ต้องรับ {{$item['amount']}}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>

@@ -19,12 +19,12 @@ class ReturningDetailController extends Controller
             $request->input('item')
         ]);
         session()->flash('added', 'เพิ่ม เรียบร้อยแล้ว');
-        return redirect('/returnings/'.$idReturning);
+        return redirect("/returnings/{$idReturning}?take={$request->input('take')}");
     }
-    public function destroy($idReturningDetail, $idReturning) {
+    public function destroy(Request $request, $idReturningDetail, $idReturning) {
         DB::delete('delete from RevertingDetail where idRevertingDetail = ?', [$idReturningDetail]);
         session()->flash('added', 'ลบ เรียบร้อยแล้ว');
-        return redirect('/returnings/'.$idReturning);
+        return redirect("/returnings/{$idReturning}?take={$request->input('take')}");
     }
     public function edit($idReturningDetail, $idReturning) {
         $returningDetail = DB::table('Item')->join('RevertingDetail', 'Item.idItem', '=', 'RevertingDetail.idItem')

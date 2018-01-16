@@ -85,16 +85,13 @@
                         <a class="nav-link btn btn-info {{Request::segment(1) == 'payments' ? 'active' : ''}}" href="{{url('/payments')}}">การจ่ายเงิน</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-info" href="{{url('/assignments')}}">การมอบหมายงาน</a>
+                        <a class="nav-link btn btn-info {{Request::segment(1) == 'assignments' ? 'active' : ''}}" href="{{url('/assignments')}}">การมอบหมายงาน</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-info" href="{{url('/takes')}}">การเบิก</a>
+                        <a class="nav-link btn btn-info {{Request::segment(1) == 'takes' ? 'active' : ''}}" href="{{url('/takes')}}">การเบิก</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-info" href="{{url('/reports')}}">การรายงาน</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-info" href="{{url('/returnings')}}">การคืนจากการเบิก</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-info" href="{{url('/deductions')}}">การหักเงิน</a>

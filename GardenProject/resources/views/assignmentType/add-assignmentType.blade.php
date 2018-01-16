@@ -22,8 +22,8 @@
                     <input type="text" id="name" name="name" class="form-control" placeholder="ชื่อประเภท" required>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-light">บันทึก</button>
-                    <button type="reset" class="btn btn-light">ล้าง</button>
+                    <button type="submit" class="btn btn-primary">บันทึก</button>
+                    <button type="reset" class="btn btn-warning">รีเซ็ต</button>
                 </div>
             </form>
             <br>
@@ -41,8 +41,8 @@
                             <td>{{$type->idAssignmentType}}</td>
                             <td>{{$type->name}}</td>
                             <td>
-                                <a href="{{url('/assignmentTypes/'.$type->idAssignmentType.'/edit')}}" class="btn btn-light">แก้ไข</a>
-                                <button data-toggle="modal" data-target="#deleteAssignmentType{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <a href="{{url('/assignmentTypes/'.$type->idAssignmentType.'/edit')}}" class="btn btn-warning">แก้ไข</a>
+                                <button data-toggle="modal" data-target="#deleteAssignmentType{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteAssignmentType{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -57,7 +57,7 @@
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">ยืนยัน</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
                                             </div>
                                         </form>
                                         </div>

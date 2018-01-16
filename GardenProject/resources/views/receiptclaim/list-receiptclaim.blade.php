@@ -15,10 +15,12 @@
             <h3>รายการรับวัตถุดิบจากการเคลม</h3>
         </div>
         <div class="card-body">
-            <div>
-                <a href='{{url("receiptclaims/create?claim={$claim}&purchase={$purchase}")}}' class="btn btn-success">เพิ่มการรับจากการเคลม</a>
-            </div>
-            <br>
+            @if ($status == 'unsuccess')
+                <div>
+                    <a href='{{url("receiptclaims/create?claim={$claim}&purchase={$purchase}")}}' class="btn btn-success">เพิ่มการรับจากการเคลม</a>
+                </div>
+                <br>
+            @endif
             <table id="table_id" data-order='[[ 0, "desc" ]]' class="display">
                 <thead>
                     <tr>

@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', 'รายละเอียดการคืน')
+@section('title', 'อุปกรณ์ที่คืน')
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
-            <h3>รายละเอียดการคืน</h3>
+            <h3>อุปกรณ์ที่คืน</h3>
         </div>
         <div class="card-body">
             @if ($errors->any())
@@ -15,7 +15,7 @@
                 </ul>
             </div>
             @endif
-            <form action="{{url('/returnings_detail/returning/'.$idReturning)}}" method="POST" autocomplete="off">
+            <form action='{{url("/returnings_detail/returning/{$idReturning}?take={$take}")}}' method="POST" autocomplete="off">
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-md-6">
@@ -28,11 +28,13 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="item">วัตถุดิบ</label>
+                            <label for="item">อุปกรณ์</label>
                             <select class="custom-select form-control" id="item" name="item" required>
-                                <option value="">เลือกวัตถุดิบ</option>
-                                @foreach ($takeDetails as $detail)
-                                    <option value="{{$detail->idItem}}">{{$detail->name}}, จำนวนที่เบิก {{$detail->amount}}</option>
+                                <option value="">เลือกอุปกรณ์</option>
+                                @foreach ($items as $item)
+                                    @if ($item['amount'])
+                                        <option value="{{$item['idItem']}}">{{$item['name']}}, จำนวนที่ต้องคืน {{$item['amount']}}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
@@ -43,8 +45,8 @@
                     <textarea class="form-control" id="cause" name="cause" placeholder="หมายเหตุ" required></textarea>
                 </div>
                 <div class="text-right">
-                    <button type="submit" class="btn btn-light">บันทึก</button>
-                    <button type="reset" class="btn btn-light">ล้าง</button>
+                    <button type="submit" class="btn btn-primary">บันทึก</button>
+                    <button type="reset" class="btn btn-warning">รีเซ็ต</button>
                 </div>
             </form>
             <br>
@@ -66,8 +68,7 @@
                             <td>{{$detail->amount}}</td>
                             <td>{{$detail->cause}}</td>
                             <td>
-                                <a href="{{url('/edit-returnings_detail/'.$detail->idRevertingDetail.'/returning/'.$idReturning)}}" class="btn btn-light">แก้ไข</a>
-                                <button data-toggle="modal" data-target="#deleteReturning{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <button data-toggle="modal" data-target="#deleteReturning{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteReturning{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -77,12 +78,12 @@
                                             <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="{{url('/returnings_detail/'.$detail->idRevertingDetail.'/returning/'.$idReturning)}}" method="POST">
+                                        <form action='{{url("/returnings_detail/{$detail->idRevertingDetail}/returning/{$idReturning}?take={$take}")}}' method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">ยืนยัน</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
                                             </div>
                                         </form>
                                         </div>

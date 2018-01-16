@@ -7,7 +7,7 @@
      </div>
      <div class="card-body">
             <div>
-                <a href="{{url('takes/create')}}" class="btn btn-light">เพิ่มการเบิก</a>
+                <a href="{{url('takes/create')}}" class="btn btn-success">เพิ่มการเบิก</a>
             </div>
             <br>
             <table id="table_id" data-order='[[ 0, "desc" ]]' class="display">
@@ -32,15 +32,15 @@
                             <td>{{formatDateThai($take->time_take)}} น.</td>
                             <td>
                                 @if ($take->status_returning == 'fully')
-                                    คืนครบแล้ว
+                                    <a href='{{url("/returnings?take={$take->idTake}")}}' class="btn btn-success">คืนครบแล้ว</a>
                                 @elseif($take->status_returning == 'unfully')
-                                    ยังคืนไม่ครบ
+                                    <a href='{{url("/returnings?take={$take->idTake}")}}' class="btn btn-danger">ยังคืนไม่ครบ</a>
                                 @endif
                             </td>
                             <td>
-                                <a href="{{url('/takes/'.$take->idTake)}}" class="btn btn-light">รายละเอียด</a>
-                                <a href="{{url('/takes/'.$take->idTake.'/edit')}}" class="btn btn-light">แก้ไข</a>
-                                <button data-toggle="modal" data-target="#deleteTake{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <a href="{{url('/takes/'.$take->idTake)}}" class="btn btn-info">อุปกรณ์ที่เบิก</a>
+                                <a href="{{url('/takes/'.$take->idTake.'/edit')}}" class="btn btn-warning">แก้ไข</a>
+                                <button data-toggle="modal" data-target="#deleteTake{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteTake{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">

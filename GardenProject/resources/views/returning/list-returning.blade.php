@@ -6,10 +6,12 @@
          <h3>รายการการคืน</h3>
      </div>
      <div class="card-body">
-            <div>
-                <a href="{{url('returnings/create')}}" class="btn btn-light">เพิ่มการคืน</a>
-            </div>
-            <br>
+            @if ($status == 'unfully')
+                <div>
+                    <a href='{{url("returnings/create?take={$take}")}}' class="btn btn-success">เพิ่มการคืน</a>
+                </div>
+                <br>
+            @endif
             <table id="table_id" data-order='[[ 0, "desc" ]]' class="display">
                 <thead>
                     <tr>
@@ -17,7 +19,6 @@
                         <th>ชื่อ-สกุลพนักงาน</th>
                         <th>วันที่</th>
                         <th>เวลา</th>
-                        <td>เลขที่การเบิก</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -28,11 +29,10 @@
                             <td>{{$returning->name}} {{$returning->surname}}</td>
                             <td>{{formatDateThai($returning->date)}}</td>
                             <td>{{formatDateThai($returning->time)}} น.</td>
-                            <td>{{$returning->idTake}}</td>
                             <td>
-                                <a href="{{url('/returnings/'.$returning->idReverting)}}" class="btn btn-light">รายละเอียด</a>
-                                <a href="{{url('/returnings/'.$returning->idReverting.'/edit')}}" class="btn btn-light">แก้ไข</a>
-                                <button data-toggle="modal" data-target="#deleteReturning{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <a href='{{url("/returnings/$returning->idReverting?take={$take}")}}' class="btn btn-info">อุปกรณ์ที่คืน</a>
+                                <a href='{{url("/returnings/{$returning->idReverting}/edit?take={$take}")}}' class="btn btn-warning">แก้ไข</a>
+                                <button data-toggle="modal" data-target="#deleteReturning{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteReturning{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -42,12 +42,12 @@
                                             <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="{{url('/returnings/'.$returning->idReverting)}}" method="POST">
+                                        <form action='{{url("/returnings/{$returning->idReverting}?take={$take}")}}' method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">ยืนยัน</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
                                             </div>
                                         </form>
                                         </div>

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'รายการการรับวัตถุดิบ')
+@section('title', 'การรับวัตถุดิบ')
 @section('breadcrumb')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb"  style="margin-bottom:0px!important">
@@ -11,12 +11,14 @@
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
-            <h3>รายการการรับวัตถุดิบ</h3>
+            <h3>การรับวัตถุดิบ</h3>
         </div>
         <div class="card-body">
-            <div>
-                <a href='{{url("receipts/create?purchase={$purchase}")}}' class="btn btn-success">เพิ่มการรับวัตถุดิบ</a>
-            </div>
+            @if (count($receipts) == 0)
+                <div>
+                    <a href='{{url("receipts/create?purchase={$purchase}")}}' class="btn btn-success">เพิ่มการรับวัตถุดิบ</a>
+                </div>
+            @endif
             <br>
             <table id="table_id" data-order='[[ 0, "desc" ]]' class="display">
                 <thead>

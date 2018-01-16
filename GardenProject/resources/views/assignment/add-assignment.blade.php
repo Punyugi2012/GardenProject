@@ -15,7 +15,7 @@
                 </ul>
             </div>
             @endif
-            <a href="{{url('/assignmentTypes')}}" class="btn btn-light">เพิ่มประเภทมอบหมายงาน</a>
+            <a href="{{url('/assignmentTypes')}}" class="btn btn-success">เพิ่มประเภทมอบหมายงาน</a>
             <br><br>
             <form action="{{url('/assignments')}}" method="POST" autocomplete="off">
                 {{csrf_field()}}
@@ -67,8 +67,8 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-light">บันทึก</button>
-                    <button type="reset" class="btn btn-light">ล้าง</button>
+                    <button type="submit" class="btn btn-primary">บันทึก</button>
+                    <button type="reset" class="btn btn-warning">รีเซ็ต</button>
                 </div>
             </form>
         </div>

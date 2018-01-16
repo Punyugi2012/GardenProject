@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', 'รายละเอียดการมอบหมายงาน')
+@section('title', 'พนักงาน')
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
-            <h3>รายละเอียดการมอบหมายงาน</h3>
+            <h3>พนักงาน</h3>
         </div>
         <div class="card-body">
             @if ($errors->any())
@@ -27,8 +27,8 @@
                     </select>
                 </div>
                 <div class="text-right">
-                    <button type="submit" class="btn btn-light">บันทึก</button>
-                    <button type="reset" class="btn btn-light">ล้าง</button>
+                    <button type="submit" class="btn btn-primary">บันทึก</button>
+                    <button type="reset" class="btn btn-warning">รีเซ็ต</button>
                 </div>
             </form>
             <br>
@@ -46,7 +46,7 @@
                             <td>{{$detail->idAssignmentDetail}}</td>
                             <td>{{$detail->name}} {{$detail->surname}}</td>
                             <td>
-                                <button data-toggle="modal" data-target="#deleteAssignmentDetail{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <button data-toggle="modal" data-target="#deleteAssignmentDetail{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteAssignmentDetail{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -61,7 +61,7 @@
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">ยืนยัน</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
                                             </div>
                                         </form>
                                         </div>

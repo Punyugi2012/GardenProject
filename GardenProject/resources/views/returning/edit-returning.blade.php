@@ -15,7 +15,7 @@
                 </ul>
             </div>
             @endif
-            <form action="{{url('/returnings/'.$returning->idReverting)}}" method="POST" autocomplete="off">
+            <form action='{{url("/returnings/$returning->idReverting")}}' method="POST" autocomplete="off">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
                 <div class="row">
@@ -33,9 +33,7 @@
                         <div class="form-group">
                             <label for="take">การเบิก:</label>
                             <select class="custom-select form-control" id="take" name="take" required>
-                                @foreach ($takes as $take)
-                                    <option value="{{$take->idTake}}" {{$returning->idTake == $take->idTake ? 'selected' : ''}}>{{$take->idTake}}</option>
-                                @endforeach
+                                <option value="{{$take->idTake}}">เลขที่การเบิก {{$take->idTake}}, เวลา {{formatDateThai($take->time_take)}} น. วันที่ {{formatDateThai($take->date_take)}}</option>
                             </select>
                         </div>
                     </div>
@@ -57,8 +55,8 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-light">ยืนยัน</button>
-                    <button type="reset" class="btn btn-light">ล้าง</button>
+                    <button type="submit" class="btn btn-primary">ยืนยัน</button>
+                    <button type="reset" class="btn btn-warning">รีเซ็ต</button>
                 </div>
             </form>
         </div>

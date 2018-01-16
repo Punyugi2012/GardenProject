@@ -20,7 +20,8 @@ class ReceiptClaimController extends Controller
     {
 
         $receiptclaims = DB::table('ReceivingClaim')->where('idClaim', $request->input('claim'))->get();
-        return view('receiptclaim.list-receiptclaim', ['receiptclaims'=>$receiptclaims, 'claim'=>$request->input('claim'), 'purchase'=>$request->input('purchase')]);
+        $status = DB::table('claim')->where('idClaim', $request->input('claim'))->first()->status;
+        return view('receiptclaim.list-receiptclaim', ['receiptclaims'=>$receiptclaims, 'claim'=>$request->input('claim'), 'purchase'=>$request->input('purchase'), 'status'=>$status]);
     }
 
     /**
@@ -137,6 +138,32 @@ class ReceiptClaimController extends Controller
     public function destroy(Request $request, $id)
     {
         DB::delete('delete from ReceivingClaim where idReceivingClaim = ?', [$id]);
+        $itemClaims = DB::table('Item')->join('ClaimDetail', 'Item.idItem', 'ClaimDetail.idItem')->where('idClaim', $request->input('claim'))->get();
+        $itemReceipts = DB::table('ReceivingClaimDetail')->join('Item', 'ReceivingClaimDetail.idItem', '=', 'Item.idItem')
+            ->join('ReceivingClaim', 'ReceivingClaimDetail.idReceivingClaim', '=', 'ReceivingClaim.idReceivingClaim')
+            ->where('idClaim', $request->input('claim'))
+            ->groupBy('Item.name')->selectRaw('name, sum(ReceivingClaimDetail.amount) as amount')->get();
+        
+        $items = [];
+        foreach($itemClaims as $itemClaim) {
+            $found = false;
+            foreach($itemReceipts as $itemReceipt) {
+                if($itemClaim->name == $itemReceipt->name) {
+                    array_push($items, ['idItem'=>$itemClaim->idItem, 'name'=>$itemClaim->name, 'amount'=>$itemClaim->amount - $itemReceipt->amount]);
+                    $found = true;
+                    break;
+                }
+            }
+            if(!$found) {
+                array_push($items, ['idItem'=>$itemClaim->idItem, 'name'=>$itemClaim->name, 'amount'=>$itemClaim->amount]);
+            }
+        }
+        if($this->isClaimSuccess($items)) {
+            DB::update('update Claim set status = "success" where idClaim = ?', [$request->input('claim')]);
+        }
+        else {
+            DB::update('update Claim set status = "unsuccess" where idClaim = ?', [$request->input('claim')]);
+        }
         session()->flash('deleted', 'ลบการรับจากการเคลม เรียบร้อยแล้ว');
         return redirect("/receiptclaims?claim={$request->input('claim')}&purchase={$request->input('purchase')}");
     }

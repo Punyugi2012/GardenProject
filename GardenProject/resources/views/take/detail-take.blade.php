@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', 'รายละเอียดการเบิก')
+@section('title', 'อุปกรณ์ที่เบิก')
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
-            <h3>รายละเอียดการเบิก</h3>
+            <h3>อุปกรณ์ที่เบิก</h3>
         </div>
         <div class="card-body">
             @if ($errors->any())
@@ -25,9 +25,9 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="item">วัตถุดิบ</label>
+                        <label for="item">อุปกรณ์</label>
                         <select class="custom-select form-control" id="item" name="item" required>
-                            <option value="">เลือกวัตถุดิบ</option>
+                            <option value="">อุปกรณ์</option>
                             @foreach ($items as $item)
                                 <option value="{{$item->idItem}}">{{$item->name}}, จำนวนที่มีอยู่ {{$item->amount}}</option>
                             @endforeach
@@ -35,8 +35,8 @@
                     </div>
                 </div>
                 <div class="text-right">
-                    <button type="submit" class="btn btn-light">บันทึก</button>
-                    <button type="reset" class="btn btn-light">ล้าง</button>
+                    <button type="submit" class="btn btn-primary">บันทึก</button>
+                    <button type="reset" class="btn btn-warning">รีเซ็ต</button>
                 </div>
             </form>
             <br>
@@ -56,7 +56,7 @@
                             <td>{{$detail->name}}</td>
                             <td>{{$detail->amount}}</td>
                             <td>
-                                <button data-toggle="modal" data-target="#deleteTakeDetail{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <button data-toggle="modal" data-target="#deleteTakeDetail{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteTakeDetail{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -71,7 +71,7 @@
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">ยืนยัน</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
                                             </div>
                                         </form>
                                         </div>

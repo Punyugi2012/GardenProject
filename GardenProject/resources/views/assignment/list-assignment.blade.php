@@ -7,7 +7,7 @@
         </div>
         <div class="card-body">
             <div>
-                <a href="{{url('assignments/create')}}" class="btn btn-light">เพิ่มการมอบหมายงาน</a>
+                <a href="{{url('assignments/create')}}" class="btn btn-success">เพิ่มการมอบหมายงาน</a>
             </div>
             <br>
             <table id="table_id" data-order='[[ 0, "desc" ]]' class="display">
@@ -27,22 +27,22 @@
                     @foreach ($assignments as $assignment)
                         <tr>
                             <td>{{$assignment->idAssignment}}</td>
-                            <td>{{$assignment->name}}</td>
+                            <td class="text-primary"><b>{{$assignment->name}}</b></td>
                             <td>{{$assignment->idZone}}</td>
                             <td>{{formatDateThai($assignment->date)}}</td>
                             <td>{{formatDateThai($assignment->time)}} น.</td>
                             <td>{{$assignment->amount_employee}} คน</td>
                             <td>
                                 @if ($assignment->status == 'success')
-                                    เรียบร้อยแล้ว
+                                    <span class="text-success">เรียบร้อยแล้ว</span>
                                 @elseif($assignment->status == 'unsuccess')
-                                    ยังไม่เรียบร้อย
+                                    <span class="text-warning">ยังไม่เรียบร้อย</span>
                                 @endif
                             </td>
                             <td>
-                                <a href="{{url('/assignments/'.$assignment->idAssignment)}}" class="btn btn-light">รายละเอียด</a>
-                                <a href="{{url('/assignments/'.$assignment->idAssignment.'/edit')}}" class="btn btn-light">แก้ไข</a>
-                                <button data-toggle="modal" data-target="#deleteAssignment{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <a href="{{url('/assignments/'.$assignment->idAssignment)}}" class="btn btn-info">พนักงาน</a>
+                                <a href="{{url('/assignments/'.$assignment->idAssignment.'/edit')}}" class="btn btn-warning">แก้ไข</a>
+                                <button data-toggle="modal" data-target="#deleteAssignment{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteAssignment{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">

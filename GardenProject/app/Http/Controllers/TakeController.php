@@ -32,8 +32,7 @@ class TakeController extends Controller
     public function create()
     {
         $employees = DB::select('select * from Employee');
-        $assignments = DB::table('Assignment')->join('AssignmentType', 'Assignment.idAssignmentType', '=', 'AssignmentType.idAssignmentType')
-            ->where('status', 'unsuccess')->get();
+        $assignments = DB::table('Assignment')->join('AssignmentType', 'Assignment.idAssignmentType', '=', 'AssignmentType.idAssignmentType')->get();
         return view('take.add-take', ['employees'=>$employees, 'assignments'=>$assignments]);
     }
 
@@ -48,7 +47,7 @@ class TakeController extends Controller
         DB::insert('insert into Take(date_take, time_take, status_returning, idEmployee, idAssignment) values(?, ?, ?, ?, ?)', [
             $request->input('date'),
             $request->input('time'),
-            $request->input('status'),
+            "unfully",
             $request->input('employee'),
             $request->input('assignment'),
         ]);
@@ -94,10 +93,9 @@ class TakeController extends Controller
      */
     public function update(TakeRequest $request, $id)
     {
-        DB::update('update Take set date_take = ?, time_take = ?, status_returning = ?, idEmployee = ?, idAssignment = ? where idTake = ?', [
+        DB::update('update Take set date_take = ?, time_take = ?, idEmployee = ?, idAssignment = ? where idTake = ?', [
             $request->input('date'),
             $request->input('time'),
-            $request->input('status'),
             $request->input('employee'),
             $request->input('assignment'),
             $id

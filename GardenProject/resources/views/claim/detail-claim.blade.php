@@ -73,7 +73,6 @@
                             <td>{{$claimDetail->amount}}</td>
                             <td>{{$claimDetail->cause}}</td>
                             <td>
-                                <a href='{{url("/edit-claims_detail/{$claimDetail->idClaimDetail}/claim/{$idClaim}?purchase={$purchase}")}}' class="btn btn-warning">แก้ไข</a>
                                 <button data-toggle="modal" data-target="#deleteClaimDetail{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteClaimDetail{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">

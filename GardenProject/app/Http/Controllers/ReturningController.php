@@ -16,11 +16,11 @@ class ReturningController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $returnings = DB::table('Reverting')->join('Take', 'Reverting.idTake', '=', 'Take.idTake')
-            ->join('Employee', 'Reverting.idEmployee', '=', 'Employee.idEmployee')->get();
-        return view('returning.list-returning', ['returnings'=>$returnings]);
+        $returnings = DB::table('Reverting')->join('Employee', 'Reverting.idEmployee', '=', 'Employee.idEmployee')->where('idTake', $request->input('take'))->get();
+        $status = DB::table('Take')->where('idTake', $request->input('take'))->first()->status_returning;
+        return view('returning.list-returning', ['returnings'=>$returnings, 'take'=>$request->input('take'), 'status'=>$status]);
     }
 
     /**
@@ -28,11 +28,11 @@ class ReturningController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $takes = DB::select('select * from Take where status_returning = "unfully"');
+        $take = DB::table('Take')->where('idTake', $request->input('take'))->first();
         $employees = DB::select('select * from Employee');
-        return view('returning.add-returning', ['takes'=>$takes, 'employees'=>$employees]);
+        return view('returning.add-returning', ['take'=>$take, 'employees'=>$employees]);
     }
 
     /**
@@ -50,7 +50,15 @@ class ReturningController extends Controller
             $request->input('employee'),
         ]);
         session()->flash('added', 'เพิ่มการคืน เรียบร้อยแล้ว');
-        return redirect('/returnings');
+        return redirect("/returnings?take={$request->input('take')}");
+    }
+    private function isFullyReturn($items) {
+        foreach($items as $item) {
+            if($item['amount'] > 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -59,13 +67,34 @@ class ReturningController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $returningsDetail = DB::table('Item')->join('RevertingDetail', 'Item.idItem', '=', 'RevertingDetail.idItem')
         ->where('idReverting', $id)->get();
-        $idTake = DB::table('Reverting')->where('idReverting', $id)->first()->idTake;
-        $takeDetails = DB::table('Item')->join('TakeDetail', 'Item.idItem', '=', 'TakeDetail.idItem')->where('idTake', $idTake)->get();
-        return view('returning.detail-returning', ['returningsDetail'=>$returningsDetail, 'takeDetails'=>$takeDetails, 'idReturning'=>$id]);
+        $itemTakes = DB::table('Item')->join('TakeDetail', 'Item.idItem', '=', 'TakeDetail.idItem')->where('idTake', $request->input('take'))->get();
+        $itemReceipts = DB::table('RevertingDetail')->join('Reverting', 'RevertingDetail.idReverting', '=', 'Reverting.idReverting')
+            ->join('Item', 'RevertingDetail.idItem', '=', 'Item.idItem')->where('Reverting.idTake', $request->input('take'))->groupBy('Item.name')->selectRaw('name, sum(RevertingDetail.amount) as amount')->get();
+        $items = [];
+        foreach($itemTakes as $itemTake) {
+            $found = false;
+            foreach($itemReceipts as $itemReceipt) {
+                if($itemTake->name == $itemReceipt->name) {
+                    array_push($items, ['idItem'=>$itemTake->idItem, 'name'=>$itemTake->name, 'amount'=>$itemTake->amount - $itemReceipt->amount]);
+                    $found = true;
+                    break;
+                }
+            }
+            if(!$found) {
+                array_push($items, ['idItem'=>$itemTake->idItem, 'name'=>$itemTake->name, 'amount'=>$itemTake->amount]);
+            }
+        }
+        if($this->isFullyReturn($items)) {
+            DB::update('update Take set status_returning = "fully" where idTake = ?', [$request->input('take')]);
+        }
+        else {
+            DB::update('update Take set status_returning = "unfully" where idTake = ?', [$request->input('take')]);
+        }
+        return view('returning.detail-returning', ['returningsDetail'=>$returningsDetail, 'items'=>$items, 'take'=>$request->input('take'), 'idReturning'=>$id]);
     }
 
     /**
@@ -74,13 +103,12 @@ class ReturningController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        $returning = DB::table('Reverting')->join('Take', 'Reverting.idTake', '=', 'Take.idTake')
-        ->join('Employee', 'Reverting.idEmployee', '=', 'Employee.idEmployee')->where('idReverting', $id)->first();
-        $takes = DB::select('select * from Take');
+        $returning = DB::table('Reverting')->join('Employee', 'Reverting.idEmployee', '=', 'Employee.idEmployee')->where('idReverting', $id)->first();
+        $take = DB::table('Take')->where('idTake', $request->input('take'))->first();
         $employees = DB::select('select * from Employee');
-        return view('returning.edit-returning', ['returning'=>$returning, 'takes'=>$takes, 'employees'=>$employees]);
+        return view('returning.edit-returning', ['returning'=>$returning, 'take'=>$take, 'employees'=>$employees]);
     }
 
     /**
@@ -100,7 +128,7 @@ class ReturningController extends Controller
             $id
         ]);
         session()->flash('edited', 'แก้ไขการคืน เรียบร้อยแล้ว');
-        return redirect('/returnings/'.$id.'/edit');
+        return back();
     }
 
     /**
@@ -109,11 +137,34 @@ class ReturningController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         DB::delete('delete from Reverting where idReverting = ?', [$id]);
+        $itemTakes = DB::table('Item')->join('TakeDetail', 'Item.idItem', '=', 'TakeDetail.idItem')->where('idTake', $request->input('take'))->get();
+        $itemReceipts = DB::table('RevertingDetail')->join('Reverting', 'RevertingDetail.idReverting', '=', 'Reverting.idReverting')
+            ->join('Item', 'RevertingDetail.idItem', '=', 'Item.idItem')->where('Reverting.idTake', $request->input('take'))->groupBy('Item.name')->selectRaw('name, sum(RevertingDetail.amount) as amount')->get();
+        $items = [];
+        foreach($itemTakes as $itemTake) {
+            $found = false;
+            foreach($itemReceipts as $itemReceipt) {
+                if($itemTake->name == $itemReceipt->name) {
+                    array_push($items, ['idItem'=>$itemTake->idItem, 'name'=>$itemTake->name, 'amount'=>$itemTake->amount - $itemReceipt->amount]);
+                    $found = true;
+                    break;
+                }
+            }
+            if(!$found) {
+                array_push($items, ['idItem'=>$itemTake->idItem, 'name'=>$itemTake->name, 'amount'=>$itemTake->amount]);
+            }
+        }
+        if($this->isFullyReturn($items)) {
+            DB::update('update Take set status_returning = "fully" where idTake = ?', [$request->input('take')]);
+        }
+        else {
+            DB::update('update Take set status_returning = "unfully" where idTake = ?', [$request->input('take')]);
+        }
         session()->flash('deleted', 'ลบการคืน เรียบร้อยแล้ว');
-        return redirect('/returnings');
+        return redirect("/returnings?take={$request->input('take')}");
 
     }
 }
