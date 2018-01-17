@@ -1,5 +1,13 @@
 @extends('layouts.app')
 @section('title', 'รายละเอียดการหักเงิน')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item"><a href="{{url('/deductions')}}">การหักเงิน</a></li>
+        <li class="breadcrumb-item active" aria-current="page">รายละเอียดการหักเงิน</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
@@ -18,9 +26,9 @@
             <form action="{{url('/deductions_detail/deduction/'.$idDeduction)}}" method="POST" autocomplete="off">
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <label for="item">วัตถุดิบ:</label>
+                    <label for="item">อุปกรณ์:</label>
                     <select class="select-custom form-control" id="item" name="item" required>
-                        <option value="">เลือกวัตถุดิบ</option>
+                        <option value="">เลือกอุปกรณ์</option>
                         @foreach ($items as $item)
                             <option value="{{$item->idItem}}">{{$item->name}}, ราคา {{$item->price_per_item}} บาท</option>
                         @endforeach
@@ -29,8 +37,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="amount">จำนวน:</label>
-                            <input type="number" id="amount" name="amount" class="form-control" placeholder="จำนวนวัตถุดิบ" required>
+                            <label for="amount">จำนวนอุปกรณ์:</label>
+                            <input type="number" id="amount" name="amount" class="form-control" placeholder="จำนวนอุปกรณ์" required>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -45,8 +53,8 @@
                     <textarea class="form-control" id="cause" name="cause" placeholder="หมายเหตุ" required></textarea>
                 </div>
                 <div class="text-right">
-                    <button type="submit" class="btn btn-light">บันทึก</button>
-                    <button type="reset" class="btn btn-light">ล้าง</button>
+                    <button type="submit" class="btn btn-primary">บันทึก</button>
+                    <button type="reset" class="btn btn-warning">รีเซ็ต</button>
                 </div>
             </form>
             <br>
@@ -54,7 +62,7 @@
                 <thead>
                     <tr>
                         <th>เลขที่รายละเอียด</th>
-                        <th>ชื่อวัตถุดิบ</th>
+                        <th>ชื่ออุปกรณ์</th>
                         <th>จำนวน</th>
                         <th>ราคาที่คิด (บาท)</th>
                         <th>หมายเหตุุ</th>
@@ -70,8 +78,8 @@
                             <td>{{$detail->price}}</td>
                             <td>{{$detail->cause}}</td>
                             <td>
-                                <a href="{{url('/edit-deductions_detail/'.$detail->idDeductionDetail.'/deduction/'.$idDeduction)}}" class="btn btn-light">แก้ไข</a>
-                                <button data-toggle="modal" data-target="#deleteDeductionDetail{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <a href="{{url('/edit-deductions_detail/'.$detail->idDeductionDetail.'/deduction/'.$idDeduction)}}" class="btn btn-warning">แก้ไข</a>
+                                <button data-toggle="modal" data-target="#deleteDeductionDetail{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteDeductionDetail{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -86,7 +94,7 @@
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">ยืนยัน</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
                                             </div>
                                         </form>
                                         </div>

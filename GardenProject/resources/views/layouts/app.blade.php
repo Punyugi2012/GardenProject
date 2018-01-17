@@ -88,19 +88,19 @@
                         <a class="nav-link btn btn-info {{Request::segment(1) == 'assignments' ? 'active' : ''}}" href="{{url('/assignments')}}">การมอบหมายงาน</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-info {{Request::segment(1) == 'takes' ? 'active' : ''}}" href="{{url('/takes')}}">การเบิก</a>
+                        <a class="nav-link btn btn-info {{Request::segment(1) == 'takes' || Request::segment(1) == 'returnings' ? 'active' : ''}}" href="{{url('/takes')}}">การเบิกอุปกรณ์</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-info" href="{{url('/reports')}}">การรายงาน</a>
+                        <a class="nav-link btn btn-info {{Request::segment(1) == 'reports' ? 'active' : ''}}" href="{{url('/reports')}}">การรายงาน</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-info" href="{{url('/deductions')}}">การหักเงิน</a>
+                        <a class="nav-link btn btn-info {{Request::segment(1) == 'deductions' || Request::segment(1) == 'edit-deductions_detail' ? 'active' : ''}}" href="{{url('/deductions')}}">การหักเงิน</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-info" href="{{url('/harvests')}}">การเก็บเกี่ยว</a>
+                        <a class="nav-link btn btn-info {{Request::segment(1) == 'harvests' ? 'active' : ''}}" href="{{url('/harvests')}}">การเก็บเกี่ยว</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-info" href="{{url('/sales')}}">การขาย</a>
+                        <a class="nav-link btn btn-info {{Request::segment(1) == 'sales' ? 'active' : ''}}" href="{{url('/sales')}}">การขาย</a>
                     </li>
                 </ul>
             </div>

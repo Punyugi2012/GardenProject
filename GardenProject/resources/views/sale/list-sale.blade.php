@@ -7,7 +7,7 @@
      </div>
      <div class="card-body">
             <div>
-                <a href="{{url('sales/create')}}" class="btn btn-light">เพิ่มการขาย</a>
+                <a href="{{url('sales/create')}}" class="btn btn-success">เพิ่มการขาย</a>
             </div>
             <br>
             <table id="table_id" data-order='[[ 0, "desc" ]]' class="display">
@@ -28,9 +28,9 @@
                             <td>{{formatDateThai($sale->time)}} น.</td>
                             <td>{{$sale->total_money}}</td>
                             <td>
-                                <a href="{{url('/sales/'.$sale->idSale)}}" class="btn btn-light">รายละเอียด</a> 
-                                <a href="{{url('/sales/'.$sale->idSale.'/edit')}}" class="btn btn-light">แก้ไข</a>   
-                                <button data-toggle="modal" data-target="#deleteSale{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <a href="{{url('/sales/'.$sale->idSale)}}" class="btn btn-info">รายละเอียด</a> 
+                                <a href="{{url('/sales/'.$sale->idSale.'/edit')}}" class="btn btn-warning">แก้ไข</a>   
+                                <button data-toggle="modal" data-target="#deleteSale{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteSale{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -45,7 +45,7 @@
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">ยืนยัน</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
                                             </div>
                                         </form>
                                         </div>

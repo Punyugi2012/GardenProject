@@ -1,5 +1,13 @@
 @extends('layouts.app')
 @section('title', 'แก้ไขการเก็บเกี่ยว')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item"><a href="{{url('/harvests')}}">การเก็บเกี่ยว</a></li>
+        <li class="breadcrumb-item active" aria-current="page">แก้ไขการเก็บเกี่ยว</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
@@ -61,8 +69,8 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-light">บันทึก</button>
-                    <button type="reset" class="btn btn-light">ล้าง</button>
+                    <button type="submit" class="btn btn-primary">บันทึก</button>
+                    <button type="reset" class="btn btn-warning">รีเซ็ต</button>
                 </div>
             </form>
         </div>

@@ -1,5 +1,13 @@
 @extends('layouts.app')
 @section('title', 'รูปภาพการายงาน')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item" aria-current="page"><a href="{{url('/reports')}}">การรายงาน</a></li>
+        <li class="breadcrumb-item active" aria-current="page">รูปภาพการรายงาน</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
@@ -23,7 +31,7 @@
                     </label>
                     <input type="file" id="report_image" name="report_image" class="form-control"  accept="image/*" style="width:30%"required>
                 </div>
-                <button type="submit" class="btn btn-light">บันทึก</button>
+                <button type="submit" class="btn btn-primary">บันทึก</button>
             </form>
             @foreach ($images as $image)
                 <div class="text-center" style="margin-top:10px"> 
@@ -34,7 +42,7 @@
                         <form action="{{url('/image_report/'.$image->idReportImage.'/report/'.$idReport)}}" method="POST">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
-                            <button type="submit" class="btn btn-light">ลบ</button>
+                            <button type="submit" class="btn btn-warning">ลบ</button>
                         </form>
                     </div>
                 </div>

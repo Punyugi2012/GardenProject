@@ -1,9 +1,17 @@
 @extends('layouts.app')
-@section('title', 'รายการการคืน')
+@section('title', 'รายการการคืนอุปกรณ์')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item"><a href='{{url("/takes")}}'>เบิกอุปกรณ์</a></li>
+        <li class="breadcrumb-item active" aria-current="page">การคืนอุปกรณ์</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
  <div class="card" style="margin-top:10px">
      <div class="card-header">
-         <h3>รายการการคืน</h3>
+         <h3>รายการการคืนอุปกรณ์</h3>
      </div>
      <div class="card-body">
             @if ($status == 'unfully')

@@ -1,5 +1,14 @@
 @extends('layouts.app')
 @section('title', 'แก้ไขการคืน')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item"><a href='{{url("/takes")}}'>เบิกอุปกรณ์</a></li>
+        <li class="breadcrumb-item"><a href='{{url("/returnings?take={$take->idTake}")}}'>การคืนอุปกรณ์</a></li>
+        <li class="breadcrumb-item active" aria-current="page">แก้ไขการคืนอุปกรณ์</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">

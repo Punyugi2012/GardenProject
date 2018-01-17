@@ -1,5 +1,12 @@
 @extends('layouts.app')
 @section('title', 'รายการการรายงาน')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item active" aria-current="page">การรายงาน</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
@@ -7,7 +14,7 @@
         </div>
         <div class="card-body">
             <div>
-                <a href="{{url('reports/create')}}" class="btn btn-light">เพิ่มการรายงาน</a>
+                <a href="{{url('reports/create')}}" class="btn btn-success">เพิ่มการรายงาน</a>
             </div>
             <br>
             <table id="table_id" data-order='[[ 0, "desc" ]]' class="display">
@@ -34,15 +41,15 @@
                             <td>{{$report->detail}}</td>
                             <td>
                                 @if ($report->type == 'permission')
-                                    ขออนุญาติเบิกเครื่องตัดหญ้า
+                                    <span class="text-primary"><b>ขออนุญาติเบิกเครื่องตัดหญ้า</b></span>
                                 @elseif($report->type == 'report')
-                                    รายงาน
+                                    <span class="text-primary"><b>รายงาน</b></span>
                                 @endif
                             </td>
                             <td>
-                                <a href="{{url('/reports/'.$report->idReport)}}" class="btn btn-light">รายละเอียด</a>
-                                <a href="{{url('/reports/'.$report->idReport.'/edit')}}" class="btn btn-light">แก้ไข</a>
-                                <button data-toggle="modal" data-target="#deleteReport{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <a href="{{url('/reports/'.$report->idReport)}}" class="btn btn-info">รูปภาพ</a>
+                                <a href="{{url('/reports/'.$report->idReport.'/edit')}}" class="btn btn-warning">แก้ไข</a>
+                                <button data-toggle="modal" data-target="#deleteReport{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteReport{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -57,7 +64,7 @@
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">ยืนยัน</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
                                             </div>
                                         </form>
                                         </div>

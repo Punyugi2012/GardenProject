@@ -1,9 +1,16 @@
 @extends('layouts.app')
-@section('title', 'รายการการเบิก')
+@section('title', 'รายการการเบิกอุปกรณ์')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item active" aria-current="page">เบิกอุปกรณ์</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
  <div class="card" style="margin-top:10px">
      <div class="card-header">
-         <h3>รายการการเบิก</h3>
+         <h3>รายการการเบิกอุปกรณ์</h3>
      </div>
      <div class="card-body">
             <div>

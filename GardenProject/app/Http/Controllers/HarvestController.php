@@ -30,13 +30,25 @@ class HarvestController extends Controller
      */
     public function create()
     {
-        $assignments = DB::table('Assignment')->join('AssignmentType', 'Assignment.idAssignmentType', '=', 'AssignmentType.idAssignmentType')->get();
+        $assignments = DB::table('Assignment')->join('AssignmentType', 'Assignment.idAssignmentType', '=', 'AssignmentType.idAssignmentType')
+            ->where('AssignmentType.name', 'like', 'เก็บเกี่ยว%')->get();
         $products = DB::select('select * from Product');
         return view('harvest.add-harvest', ['assignments'=>$assignments, 'products'=>$products]);
     }
-    private function setAmountStock($idProduct) {
-        $sum = DB::table('Harvest')->where('idProduct', $idProduct)->sum('amount');
-        DB::update('update Product set amount_stock = ? where idProduct = ?', [$sum, $idProduct]);
+    private function addAmountStock($idProduct, $amount) {
+        $currentAmount = DB::table('Product')->where('idProduct', $idProduct)->first()->amount_stock;
+        $currentAmount += $amount;
+        DB::update('update Product set amount_stock = ? where idProduct = ?', [$currentAmount, $idProduct]);
+    }
+    private function deleteAmountStock($idProduct, $amount) {
+        $currentAmount = DB::table('Product')->where('idProduct', $idProduct)->first()->amount_stock;
+        if($currentAmount >= $amount) {
+            $currentAmount -= $amount;
+        }
+        else {
+            $currentAmount = 0;
+        }
+        DB::update('update Product set amount_stock = ? where idProduct = ?', [$currentAmount, $idProduct]);
     }
     /**
      * Store a newly created resource in storage.
@@ -53,7 +65,7 @@ class HarvestController extends Controller
             $request->input('assignment'),
             $request->input('product'),
         ]);
-        $this->setAmountStock($request->input('product'));
+        $this->addAmountStock($request->input('product'), $request->input('amount'));
         session()->flash('added', 'เพิ่มการเก็บเกี่ยว เรียบร้อยแล้ว');
         return redirect('/harvests');
     }
@@ -77,11 +89,7 @@ class HarvestController extends Controller
      */
     public function edit($id)
     {
-        $harvest = DB::table('Harvest')->join('Assignment', 'Harvest.idAssignment', '=', 'Assignment.idAssignment')
-            ->join('Product', 'Harvest.idProduct', '=', 'Product.idProduct')->where('idHarvest', $id)->first();
-        $assignments = DB::table('Assignment')->join('AssignmentType', 'Assignment.idAssignmentType', '=', 'AssignmentType.idAssignmentType')->get();
-        $products = DB::select('select * from Product');
-        return view('harvest.edit-harvest', ['harvest'=>$harvest, 'assignments'=>$assignments, 'products'=>$products]);
+       
     }
 
     /**
@@ -93,19 +101,7 @@ class HarvestController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $preIdProduct = DB::table('Harvest')->where('idHarvest', $id)->first()->idProduct;
-        DB::update('update Harvest set amount = ?, date_harvest = ?, time_harvest = ?, idAssignment = ?, idProduct = ? where idHarvest = ?', [
-            $request->input('amount'),
-            $request->input('date'),
-            $request->input('time'),
-            $request->input('assignment'),
-            $request->input('product'),
-            $id
-        ]);
-        $this->setAmountStock($preIdProduct);
-        $this->setAmountStock($request->input('product'));
-        session()->flash('edited', 'แก้ไขการเก็บเกี่ยว เรียบร้อยแล้ว');
-        return redirect('/harvests/'.$id.'/edit');
+    
     }
 
     /**
@@ -116,9 +112,9 @@ class HarvestController extends Controller
      */
     public function destroy($id)
     {
-        $preIdProduct = DB::table('Harvest')->where('idHarvest', $id)->first()->idProduct;
+        $harvest = DB::table('Harvest')->where('idHarvest', $id)->first();
+        $this->deleteAmountStock($harvest->idProduct, $harvest->amount);
         DB::delete('delete from Harvest where idHarvest = ?', [$id]);
-        $this->setAmountStock($preIdProduct);
         session()->flash('deleted', 'ลบการเก็บเกี่ยว เรียบร้อยแล้ว');
         return redirect('/harvests');
     }

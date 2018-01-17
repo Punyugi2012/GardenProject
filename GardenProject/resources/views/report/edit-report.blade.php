@@ -1,5 +1,13 @@
 @extends('layouts.app')
 @section('title', 'แก้ไขการรายงาน')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item" aria-current="page"><a href="{{url('/reports')}}">การรายงาน</a></li>
+        <li class="breadcrumb-item active" aria-current="page">แก้ไขการรายงาน</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         @if ($errors->any())
@@ -68,8 +76,8 @@
                     <textarea class="form-control" id="detail" name="detail" placeholder="รายละเอียด" required>{{$report->detail}}</textarea>
                 </div>
                 <div class="text-right">
-                    <button type="submit" class="btn btn-light">บันทึก</button>
-                    <button type="reset" class="btn btn-light">ล้าง</button>
+                    <button type="submit" class="btn btn-primary">บันทึก</button>
+                    <button type="reset" class="btn btn-warning">รีเซ็ต</button>
                 </div>
             </form>
         </div>

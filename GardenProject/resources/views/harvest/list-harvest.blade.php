@@ -1,5 +1,12 @@
 @extends('layouts.app')
 @section('title', 'รายการการเก็บเกี่ยว')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item active" aria-current="page">การเก็บเกี่ยว</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
@@ -7,7 +14,7 @@
         </div>
         <div class="card-body">
             <div>
-                <a href="{{url('/harvests/create')}}" class="btn btn-light">เพิ่มการเก็บเกี่ยว</a>
+                <a href="{{url('/harvests/create')}}" class="btn btn-success">เพิ่มการเก็บเกี่ยว</a>
             </div>
             <br>
             <table id="table_id" data-order='[[ 0, "desc" ]]' class="display">
@@ -26,14 +33,13 @@
                     @foreach ($harvests as $harvest)
                         <tr>
                             <td>{{$harvest->idHarvest}}</td>
-                            <td>{{formatDateThai($harvest->date)}}</td>
-                            <td>{{formatDateThai($harvest->time)}} น.</td>
+                            <td>{{formatDateThai($harvest->date_harvest)}}</td>
+                            <td>{{formatDateThai($harvest->time_harvest)}} น.</td>
                             <td>{{$harvest->name}}</td>
                             <td>{{$harvest->amount}}</td>
                             <td>{{$harvest->idAssignment}}</td>
                             <td>
-                                <a href="{{url('/harvests/'.$harvest->idHarvest.'/edit')}}" class="btn btn-light">แก้ไข</a>
-                                <button data-toggle="modal" data-target="#deleteHarvest{{$loop->index}}" class="btn btn-light">ลบ</button>
+                                <button data-toggle="modal" data-target="#deleteHarvest{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteHarvest{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -48,7 +54,7 @@
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">ยืนยัน</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
                                             </div>
                                         </form>
                                         </div>
