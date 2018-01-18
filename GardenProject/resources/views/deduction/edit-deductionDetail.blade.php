@@ -28,10 +28,10 @@
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
                 <div class="form-group">
-                    <label for="item">วัตถุดิบ:</label>
+                    <label for="item">อุปกรณ์:</label>
                     <select class="select-custom form-control" id="item" name="item" required>
                         @foreach ($items as $item)
-                            <option value="{{$item->idItem}}" {{$deductionDetail->idItem == $item->idItem ? 'selected' : ''}}>{{$item->name}}</option>
+                            <option value="{{$item->idItem}}" {{$deductionDetail->idItem == $item->idItem ? 'selected' : ''}}>{{$item->name}}, ราคา {{$item->price_per_item}} บาท</option>
                         @endforeach
                     </select>
                 </div>

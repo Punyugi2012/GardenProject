@@ -21,6 +21,16 @@ class TakeController extends Controller
         $takes = DB::table('Take')->join('Employee', 'Take.idEmployee', '=', 'Employee.idEmployee')
             ->join('Assignment', 'Take.idAssignment', '=', 'Assignment.idAssignment')
             ->get();
+        foreach($takes as $take) {
+            $hasReturning = DB::table('Reverting')->where('idTake', $take->idTake)->first();
+            $hasDeduction = DB::table('Deduction')->where('idTake', $take->idTake)->first();
+            if($hasReturning || $hasDeduction) {
+                $take->canDelete = false;
+            }
+            else {
+                $take->canDelete = true;
+            }
+        }
         return view('take.list-take', ['takes'=>$takes]);
     }
 

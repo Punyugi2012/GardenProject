@@ -19,6 +19,15 @@ class AssignmentTypeController extends Controller
     public function index()
     {
         $assignmentTypes = DB::select('select * from AssignmentType');
+        foreach($assignmentTypes as $type) {
+            $hasAssignment = DB::Table('Assignment')->where('idAssignmentType', $type->idAssignmentType)->first();
+            if($hasAssignment) {
+                $type->canDelete = false;
+            }
+            else {
+                $type->canDelete = true;
+            }
+        }
         return view('assignmentType.add-assignmentType', ['assignmentTypes'=>$assignmentTypes]);
     }
 

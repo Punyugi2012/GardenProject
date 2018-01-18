@@ -22,6 +22,16 @@ class AssignmentController extends Controller
             ->join('AssignmentType', 'Assignment.idAssignmentType', '=', 'AssignmentType.idAssignmentType')
             ->join('Zone', 'Assignment.idZone', '=', 'Zone.idZone')
             ->get();
+        foreach($assignments as $assignment) {
+            $hasTake = DB::table('Take')->where('idAssignment', $assignment->idAssignment)->first();
+            $hasReport = DB::table('Report')->where('idAssignment', $assignment->idAssignment)->first();
+            if($hasTake ||  $hasReport ) {
+                $assignment->canDelete = false;
+            }
+            else {
+                $assignment->canDelete = true;
+            }
+        }
         return view('assignment.list-assignment', ['assignments'=>$assignments]);
     }
 

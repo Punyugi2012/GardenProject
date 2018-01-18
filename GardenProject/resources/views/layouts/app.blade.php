@@ -85,7 +85,7 @@
                         <a class="nav-link btn btn-info {{Request::segment(1) == 'payments' ? 'active' : ''}}" href="{{url('/payments')}}">การจ่ายเงิน</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-info {{Request::segment(1) == 'assignments' ? 'active' : ''}}" href="{{url('/assignments')}}">การมอบหมายงาน</a>
+                        <a class="nav-link btn btn-info {{Request::segment(1) == 'assignments' || Request::segment(1) == 'assignmentTypes' ? 'active' : ''}}" href="{{url('/assignments')}}">การมอบหมายงาน</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-info {{Request::segment(1) == 'takes' || Request::segment(1) == 'returnings' ? 'active' : ''}}" href="{{url('/takes')}}">การเบิกอุปกรณ์</a>

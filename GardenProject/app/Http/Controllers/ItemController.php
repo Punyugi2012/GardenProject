@@ -24,7 +24,10 @@ class ItemController extends Controller
             $hasReceiptDetail = DB::table('ReceivingDetail')->where('idItem', $item->idItem)->first();
             $hasClaimDetail = DB::table('ClaimDetail')->where('idItem', $item->idItem)->first();
             $hasReceiptClaimDetail = DB::table('ReceivingClaimDetail')->where('idItem', $item->idItem)->first();
-            if( $hasPurchaseDetail || $hasReceiptDetail || $hasClaimDetail || $hasReceiptClaimDetail) {
+            $hasTakeDetail = DB::table('TakeDetail')->where('idItem', $item->idItem)->first();
+            $hasReturningDetail = DB::table('RevertingDetail')->where('idItem', $item->idItem)->first();
+            $hasDeductionDetail = DB::table('DeductionDetail')->where('idItem', $item->idItem)->first();
+            if( $hasPurchaseDetail || $hasReceiptDetail || $hasClaimDetail || $hasReceiptClaimDetail || $hasTakeDetail || $hasReturningDetail || $hasDeductionDetail) {
                 $item->canDelete = false;
             }
             else {

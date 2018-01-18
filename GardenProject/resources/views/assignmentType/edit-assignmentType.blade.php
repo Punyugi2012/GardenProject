@@ -1,5 +1,15 @@
 @extends('layouts.app')
 @section('title', 'แก้ไขประเภทมอบหมายงาน')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item"><a href="{{url('/assignments')}}">การมอบหมายงาน</a></li>
+        <li class="breadcrumb-item"><a href="{{url('/assignments/create')}}">เพิ่มการมอบหมายงาน</a></li>
+        <li class="breadcrumb-item"><a href="{{url('/assignmentTypes')}}">เพิ่มประเภทมอบหมายงาน</a></li>
+        <li class="breadcrumb-item active" aria-current="page">แก้ไขประเภทมอบหมายงาน</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">

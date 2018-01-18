@@ -1,5 +1,14 @@
 @extends('layouts.app')
 @section('title', 'เพิ่มประเภทมอบหมายงาน')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item"><a href="{{url('/assignments')}}">การมอบหมายงาน</a></li>
+        <li class="breadcrumb-item"><a href="{{url('/assignments/create')}}">เพิ่มการมอบหมายงาน</a></li>
+        <li class="breadcrumb-item active" aria-current="page">เพิ่มประเภทมอบหมายงาน</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
@@ -42,27 +51,29 @@
                             <td>{{$type->name}}</td>
                             <td>
                                 <a href="{{url('/assignmentTypes/'.$type->idAssignmentType.'/edit')}}" class="btn btn-warning">แก้ไข</a>
-                                <button data-toggle="modal" data-target="#deleteAssignmentType{{$loop->index}}" class="btn btn-danger">ลบ</button>
-                                <div class="modal fade" id="deleteAssignmentType{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h2 class="modal-title">ยืนยันการลบ</h2>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <form action="{{url('/assignmentTypes/'.$type->idAssignmentType)}}" method="POST">
-                                            {{ csrf_field() }}
-                                            {{ method_field('DELETE') }}
-                                            <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary">ยืนยัน</button>
-                                                <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
+                                @if ($type->canDelete)
+                                    <button data-toggle="modal" data-target="#deleteAssignmentType{{$loop->index}}" class="btn btn-danger">ลบ</button>
+                                    <div class="modal fade" id="deleteAssignmentType{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h2 class="modal-title">ยืนยันการลบ</h2>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
                                             </div>
-                                        </form>
+                                            <form action="{{url('/assignmentTypes/'.$type->idAssignmentType)}}" method="POST">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary">ยืนยัน</button>
+                                                    <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
+                                                </div>
+                                            </form>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
