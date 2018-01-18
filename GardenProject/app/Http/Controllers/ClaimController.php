@@ -19,6 +19,12 @@ class ClaimController extends Controller
     public function index(Request $request)
     {   
         $claims = DB::table('Claim')->where('idPurchase', $request->input('purchase'))->get();
+        foreach($claims as $claim) {
+            $countReceipt = DB::table('ReceivingClaim')->where('idClaim', $claim->idClaim)->count('idReceivingClaim');
+            if($countReceipt == 0) {
+                DB::update('update Claim set status = "unsuccess" where idClaim = ?', [$claim->idClaim]);
+            }
+        }
         return view('claim.list-claim', ['claims'=>$claims, 'purchase'=>$request->input('purchase')]);
     }
 
