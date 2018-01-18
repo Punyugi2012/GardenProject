@@ -1,19 +1,19 @@
 @extends('layouts.app')
-@section('title', 'วัตถุดิบที่รับจากการเคลม')
+@section('title', 'อุปกรณ์ที่รับจากการเคลม')
 @section('breadcrumb')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb"  style="margin-bottom:0px!important">
         <li class="breadcrumb-item"><a href="{{url('/purchases')}}">การสั่งซื้อ</a></li>
         <li class="breadcrumb-item"><a href='{{url("/claims?purchase={$purchase}")}}'>การเคลม</a></li>
         <li class="breadcrumb-item"><a href='{{url("/receiptclaims?claim={$claim}&purchase={$purchase}")}}'>รับวัตถุดิบจากการเคลม</a></li>
-        <li class="breadcrumb-item active" aria-current="page">วัตถุดิบที่รับจากการเคลม</li>
+        <li class="breadcrumb-item active" aria-current="page">อุปกรณ์ที่รับจากการเคลม</li>
     </ol>
 </nav>
 @endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
-            <h3>วัตถุดิบที่รับจากการเคลม</h3>
+            <h3>อุปกรณ์ที่รับจากการเคลม</h3>
         </div>
         <div class="card-body">
             @if ($errors->any())
@@ -35,9 +35,9 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="item">วัตถุดิบ</label>
+                        <label for="item">อุปกรณ์</label>
                         <select class="custom-select form-control" id="item" name="item" required>
-                            <option value="">เลือกวัตถุดิบ</option>
+                            <option value="">เลือกอุปกรณ์</option>
                             @foreach ($items as $item)
                                 @if ($item['amount'])
                                     <option value="{{$item['idItem']}}">{{$item['name']}}, จำนวนที่ต้องรับ {{$item['amount']}}</option>
@@ -56,7 +56,7 @@
                 <thead>
                     <tr>
                         <th>เลขที่รายละเอียด</th>
-                        <th>ชื่อวัตถุดิบ</th>
+                        <th>ชื่ออุปกรณ์</th>
                         <th>จำนวนที่รับ</th>
                         <th>เครื่องมือ</th>
                     </tr>

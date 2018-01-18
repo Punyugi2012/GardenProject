@@ -105,7 +105,7 @@ class ReceiptController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $receiptDetails = DB::table('ReceivingDetail')->where('idReceiving', $id)->get();
         foreach($receiptDetails as $receiptDetail) {
@@ -122,6 +122,6 @@ class ReceiptController extends Controller
         DB::update('update Purchase set status_receipt = "unreceipted" where idPurchase = ?', [$idPurchase]);
         DB::delete('delete from receiving where idReceiving = ?', [$id]);
         session()->flash('deleted', 'ลบการรับวัตถุดิบ เรียบร้อยแล้ว');
-        return redirect('/receipts');
+        return redirect("/receipts?purchase={$request->input('purchase')}");
     }
 }

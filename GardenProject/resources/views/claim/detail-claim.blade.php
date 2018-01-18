@@ -1,18 +1,18 @@
 @extends('layouts.app')
-@section('title', 'วัตถุดิบที่นำไปเคลม')
+@section('title', 'อุปกรณ์ที่นำไปเคลม')
 @section('breadcrumb')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb"  style="margin-bottom:0px!important">
         <li class="breadcrumb-item"><a href="{{url('/purchases')}}">การสั่งซื้อ</a></li>
         <li class="breadcrumb-item"><a href='{{url("/claims?purchase={$purchase}")}}'>การเคลม</a></li>
-        <li class="breadcrumb-item active" aria-current="page">วัตถุดิบที่นำไปเคลม</li>
+        <li class="breadcrumb-item active" aria-current="page">อุปกรณ์ที่นำไปเคลม</li>
     </ol>
 </nav>
 @endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
-            <h3>วัตถุดิบที่นำไปเคลม</h3>
+            <h3>อุปกรณ์ที่นำไปเคลม</h3>
         </div>
         <div class="card-body">
             @if ($errors->any())
@@ -29,9 +29,9 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="item">วัตถุดิบ:</label>
+                            <label for="item">อุปกรณ์:</label>
                             <select class="select-custom form-control" id="item" name="item" required>
-                                <option value="">เลือกวัตถุดิบ</option>
+                                <option value="">เลือกอุปกรณ์</option>
                                 @foreach ($items as $item)
                                     <option value="{{$item->idItem}}">{{$item->name}}, จำนวนที่สั่งซื้อไป {{$item->amount}}</option>
                                 @endforeach
@@ -59,9 +59,9 @@
                 <thead>
                     <tr>
                         <th>เลขที่รายละเอียด</th>
-                        <th>ชื่อวัตถุดิบ</th>
+                        <th>ชื่ออุปกรณ์</th>
                         <th>จำนวน</th>
-                        <th>สาเหตุ</th>
+                        <th>หมายเหตุ</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>

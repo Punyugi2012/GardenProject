@@ -46,29 +46,31 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{url('/claims/'.$claim->idClaim.'?purchase='.$purchase)}}" class="btn btn-primary">วัตถุดิบที่นำไปเคลม</a>
+                                <a href="{{url('/claims/'.$claim->idClaim.'?purchase='.$purchase)}}" class="btn btn-primary">อุปกรณ์ที่นำไปเคลม</a>
                                 <a href="{{url('/claims/'.$claim->idClaim.'/edit?purchase='.$purchase)}}" class="btn btn-warning">แก้ไข</a>
-                                <button data-toggle="modal" data-target="#deleteClaim{{$loop->index}}" class="btn btn-danger">ลบ</button>
-                                <div class="modal fade" id="deleteClaim{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h2 class="modal-title">ยืนยันการลบ</h2>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <form action="{{url('/claims/'.$claim->idClaim)}}" method="POST">
-                                            {{ csrf_field() }}
-                                            {{ method_field('DELETE') }}
-                                            <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary">ยืนยัน</button>
-                                                <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
+                                @if ($claim->canDelete)
+                                    <button data-toggle="modal" data-target="#deleteClaim{{$loop->index}}" class="btn btn-danger">ลบ</button>
+                                    <div class="modal fade" id="deleteClaim{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h2 class="modal-title">ยืนยันการลบ</h2>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
                                             </div>
-                                        </form>
+                                            <form action="{{url('/claims/'.$claim->idClaim)}}" method="POST">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary">ยืนยัน</button>
+                                                    <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
+                                                </div>
+                                            </form>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

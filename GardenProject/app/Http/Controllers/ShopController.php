@@ -18,7 +18,16 @@ class ShopController extends Controller
      */
     public function index()
     {
-        $shops = DB::select('select * from shop order by idShop desc');
+        $shops = DB::select('select * from shop');
+        foreach($shops as $shop) {
+            $hasPurchase = DB::table('Purchase')->where('idShop', $shop->idShop)->first();
+            if($hasPurchase) {
+                $shop->canDelete = false;
+            }
+            else {
+                $shop->canDelete = true;
+            }
+        }
         return view('shop.list-shop', ['shops'=>$shops]);
     }
 

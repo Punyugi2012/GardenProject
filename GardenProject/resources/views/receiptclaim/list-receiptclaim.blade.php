@@ -1,18 +1,18 @@
 @extends('layouts.app')
-@section('title', 'รายการรับวัตถุดิบจากการเคลม')
+@section('title', 'รายการรับอุปกรณ์จากการเคลม')
 @section('breadcrumb')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb"  style="margin-bottom:0px!important">
         <li class="breadcrumb-item"><a href="{{url('/purchases')}}">การสั่งซื้อ</a></li>
         <li class="breadcrumb-item"><a href='{{url("/claims?purchase={$purchase}")}}'>การเคลม</a></li>
-        <li class="breadcrumb-item active" aria-current="page">รับวัตถุดิบจากการเคลม</li>
+        <li class="breadcrumb-item active" aria-current="page">รับอุปกรณ์จากการเคลม</li>
     </ol>
 </nav>
 @endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
-            <h3>รายการรับวัตถุดิบจากการเคลม</h3>
+            <h3>รายการรับอุปกรณ์จากการเคลม</h3>
         </div>
         <div class="card-body">
             @if ($status == 'unsuccess')
@@ -37,7 +37,7 @@
                             <td>{{formatDateThai($receiptclaim->date)}}</td>
                             <td>{{formatDateThai($receiptclaim->time)}} น.</td>
                             <td>
-                                <a href='{{url("/receiptclaims/{$receiptclaim->idReceivingClaim}?claim={$claim}&purchase={$purchase}")}}' class="btn btn-info">วัตถุดิบที่รับ</a>
+                                <a href='{{url("/receiptclaims/{$receiptclaim->idReceivingClaim}?claim={$claim}&purchase={$purchase}")}}' class="btn btn-info">อุปกรณ์ที่รับ</a>
                                 <a href='{{url("/receiptclaims/{$receiptclaim->idReceivingClaim}/edit?claim={$claim}&purchase={$purchase}")}}' class="btn btn-warning">แก้ไข</a>
                                 <button data-toggle="modal" data-target="#deleteReceiptclaim{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteReceiptclaim{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

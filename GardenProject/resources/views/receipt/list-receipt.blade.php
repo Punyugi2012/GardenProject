@@ -48,7 +48,7 @@
                                             <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="{{url('/receipts/'.$receipt->idReceiving)}}" method="POST">
+                                        <form action='{{url("/receipts/{$receipt->idReceiving}?purchase={$purchase}")}}' method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
                                             <div class="modal-footer">

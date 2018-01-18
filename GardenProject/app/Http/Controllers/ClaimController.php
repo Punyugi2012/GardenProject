@@ -20,9 +20,13 @@ class ClaimController extends Controller
     {   
         $claims = DB::table('Claim')->where('idPurchase', $request->input('purchase'))->get();
         foreach($claims as $claim) {
-            $countReceipt = DB::table('ReceivingClaim')->where('idClaim', $claim->idClaim)->count('idReceivingClaim');
-            if($countReceipt == 0) {
+            $hasReceipt = DB::table('ReceivingClaim')->where('idClaim', $claim->idClaim)->first();
+            if($hasReceipt) {
+               $claim->canDelete = false;
+            }
+            else {
                 DB::update('update Claim set status = "unsuccess" where idClaim = ?', [$claim->idClaim]);
+                $claim->canDelete = true;
             }
         }
         return view('claim.list-claim', ['claims'=>$claims, 'purchase'=>$request->input('purchase')]);

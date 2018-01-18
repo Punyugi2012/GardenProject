@@ -78,7 +78,6 @@
                             <td>{{$purchaseDetail->amount}}</td>
                             <td>{{$purchaseDetail->total_money}}</td>
                             <td>
-                                <a href="{{url('/edit-purchases_detail/'.$purchaseDetail->idPurchaseDetail.'/purchase/'.$idPurchase)}}" class="btn btn-warning">แก้ไข</a>
                                 <button data-toggle="modal" data-target="#deletePurchaseDetail{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deletePurchaseDetail{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">

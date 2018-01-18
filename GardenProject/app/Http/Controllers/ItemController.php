@@ -18,7 +18,19 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = DB::select('select * from item order by iditem desc');
+        $items = DB::select('select * from item');
+        foreach($items as $item) {
+            $hasPurchaseDetail = DB::table('PurchaseDetail')->where('idItem', $item->idItem)->first();
+            $hasReceiptDetail = DB::table('ReceivingDetail')->where('idItem', $item->idItem)->first();
+            $hasClaimDetail = DB::table('ClaimDetail')->where('idItem', $item->idItem)->first();
+            $hasReceiptClaimDetail = DB::table('ReceivingClaimDetail')->where('idItem', $item->idItem)->first();
+            if( $hasPurchaseDetail || $hasReceiptDetail || $hasClaimDetail || $hasReceiptClaimDetail) {
+                $item->canDelete = false;
+            }
+            else {
+                $item->canDelete = true;
+            }
+        }
         return view('item.list-item', ['items'=>$items]);
     }
 

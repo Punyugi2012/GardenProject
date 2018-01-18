@@ -71,27 +71,29 @@
                             <td>
                                 <a href="{{url('/purchases/'.$purchase->idPurchase)}}" class="btn btn-info">วัตถุดิบที่สั่งซื้อ</a>
                                 <a href="{{url('/purchases/'.$purchase->idPurchase.'/edit')}}" class="btn btn-warning">แก้ไข</a>
-                                <button data-toggle="modal" data-target="#deletePurchase{{$loop->index}}" class="btn btn-danger">ลบ</button>
-                                <div class="modal fade" id="deletePurchase{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h2 class="modal-title">ยืนยันการลบ</h2>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <form action="{{url('/purchases/'.$purchase->idPurchase)}}" method="POST">
-                                            {{ csrf_field() }}
-                                            {{ method_field('DELETE') }}
-                                            <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary">ยืนยัน</button>
-                                                <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
+                                @if ($purchase->canDelete)
+                                    <button data-toggle="modal" data-target="#deletePurchase{{$loop->index}}" class="btn btn-danger">ลบ</button>
+                                    <div class="modal fade" id="deletePurchase{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h2 class="modal-title">ยืนยันการลบ</h2>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
                                             </div>
-                                        </form>
+                                            <form action="{{url('/purchases/'.$purchase->idPurchase)}}" method="POST">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary">ยืนยัน</button>
+                                                    <button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
+                                                </div>
+                                            </form>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

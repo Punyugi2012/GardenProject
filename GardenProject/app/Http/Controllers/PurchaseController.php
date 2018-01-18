@@ -18,7 +18,18 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        $purchases = DB::select('select * from purchase natural join shop order by idPurchase desc');
+        $purchases = DB::select('select * from purchase natural join shop');
+        foreach($purchases as $purchase) {
+            $hasClaim = DB::table('Claim')->where('idPurchase', $purchase->idPurchase)->first();
+            $hasPay = DB::table('PayDetail')->where('idPurchase', $purchase->idPurchase)->first();
+            $hasReceipt = DB::table('Receiving')->where('idPurchase', $purchase->idPurchase)->first();
+            if($hasClaim || $hasPay || $hasReceipt) {
+                $purchase->canDelete = false;
+            }
+            else {
+                $purchase->canDelete = true;
+            }
+        }
         return view('purchase.list-purchase', ['purchases'=>$purchases]);
     }
 
