@@ -21,6 +21,15 @@ class ZoneController extends Controller
     public function index()
     {
         $zones = DB::select('select * from zone');
+        foreach($zones as $zone) {
+            $hasAssignment = DB::table('Assignment')->where('idZone', $zone->idZone)->first();
+            if( $hasAssignment ) {
+                $zone->canDelete = false;
+            }
+            else {
+                $zone->canDelete = true;
+            }
+        }
         return view('zone.list-zone', ['zones'=>$zones]);
     }
 
