@@ -39,6 +39,7 @@
                             <td>{{$harvest->amount}}</td>
                             <td>{{$harvest->idAssignment}}</td>
                             <td>
+                                <a href="{{url('/harvests/'.$harvest->idHarvest.'/edit')}}" class="btn btn-warning">แก้ไข</a>
                                 <button data-toggle="modal" data-target="#deleteHarvest{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteHarvest{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">

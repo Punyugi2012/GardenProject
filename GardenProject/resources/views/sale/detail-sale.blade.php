@@ -1,5 +1,13 @@
 @extends('layouts.app')
 @section('title', 'รายละเอียดการขาย')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item"><a href="{{url('/sales')}}">การขาย</a></li>
+        <li class="breadcrumb-item active" aria-current="page">รายละเอียดการขาย</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
@@ -24,7 +32,9 @@
                             <select class="custom-select form-control" id="product" name="product" required>
                                 <option value="">เลือกผลผลิต</option>
                                 @foreach ($products as $product)
-                                    <option value="{{$product->idProduct}}">{{$product->name}}, จำนวนในสต็อค {{$product->amount_stock}} กิโลกรัม, ราคาต่อกิโลกรัม {{$product->price_per_product}} บาท</option>
+                                    @if ($product->amount_stock > 0)
+                                        <option value="{{$product->idProduct}}">{{$product->name}}, จำนวนในสต็อค {{$product->amount_stock}} กิโลกรัม, ราคาต่อกิโลกรัม {{$product->price_per_product}} บาท</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>

@@ -11,9 +11,16 @@ class SaleDetailController extends Controller
     {
         $this->middleware('auth');
     }
-    private function setTotalMoney($idSale) {
-        $sum = DB::table('SaleDetail')->where('idSale', $idSale)->sum('total_price');
-        DB::update('update Sale set total_money = ? where idSale = ?', [$sum, $idSale]);
+    private function calculateAmountStock($productId) {
+        $sumSaleDetail = DB::table('SaleDetail')->where('idProduct', $productId)->groupBy('idProduct')->sum('SaleDetail.amount');
+        $sumHarvest = DB::table('Harvest')->where('idProduct', $productId)->groupBy('idProduct')->sum('Harvest.amount');
+        if($sumHarvest >= $sumSaleDetail) {
+            $sumHarvest -= $sumSaleDetail;
+        }
+        else {
+            $sumHarvest = 0; 
+        }
+        DB::update('update Product set amount_stock = ? where idProduct = ?', [$sumHarvest, $productId]);
     }
     public function store(SaleDetailRequest $request, $idSale) {
         $product = DB::table('Product')->where('idProduct', $request->input('product'))->first();
@@ -25,23 +32,15 @@ class SaleDetailController extends Controller
             $idSale,
             $request->input('product'),
         ]);
-        $amount_stock = DB::table('Product')->where('idProduct', $request->input('product'))->first()->amount_stock;
-        if($amount_stock >= $request->input('amount')) {
-            $amount_stock -= $request->input('amount');
-            DB::update('update Product set amount_stock = ? where idProduct = ?', [$amount_stock, $request->input('product')]);
-        }
-        $this->setTotalMoney($idSale);
+        $this->calculateAmountStock($request->input('product'));
         session()->flash('added', 'เพิ่ม เรียบร้อย');
         return redirect('/sales/'.$idSale);
     } 
     public function destroy($idSaleDetail, $idSale) {
-        $saleDetail = DB::table('SaleDetail')->where('idSaleDetail', $idSaleDetail)->first();
-        $amount_stock = DB::table('Product')->where('idProduct', $saleDetail->idProduct)->first()->amount_stock;
-        $amount_stock += $saleDetail->amount;
-        DB::update('update Product set amount_stock = ? where idProduct = ?', [$amount_stock, $saleDetail->idProduct]);
+        $idProduct = DB::table('SaleDetail')->where('idSaleDetail', $idSaleDetail)->first()->idProduct;
         DB::delete('delete from SaleDetail where idSaleDetail = ?', [$idSaleDetail]);
-        $this->setTotalMoney($idSale);
         session()->flash('deleted', 'ลบ เรียบร้อย');
+        $this->calculateAmountStock($idProduct);
         return redirect('/sales/'.$idSale);
     }
 }

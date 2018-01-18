@@ -11,6 +11,17 @@ class ProductController extends Controller
     {
         $this->middleware('auth');
     }
+    private function calculateAmountStock($productId) {
+        $sumSaleDetail = DB::table('SaleDetail')->where('idProduct', $productId)->groupBy('idProduct')->sum('SaleDetail.amount');
+        $sumHarvest = DB::table('Harvest')->where('idProduct', $productId)->groupBy('idProduct')->sum('Harvest.amount');
+        if($sumHarvest >= $sumSaleDetail) {
+            $sumHarvest -= $sumSaleDetail;
+        }
+        else {
+            $sumHarvest = 0; 
+        }
+        DB::update('update Product set amount_stock = ? where idProduct = ?', [$sumHarvest, $productId]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +29,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = DB::select('select * from Product');
+        $products = DB::select('select * from Product'); 
+        foreach($products as $product) {
+            $this->calculateAmountStock($product->idProduct);
+        }
         return view('product.list-product', ['products'=>$products]);
     }
 
@@ -81,7 +95,7 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, $id)
     {
-        DB::update('update Product set name = ?, price_per_product = ?, where idProduct = ?', [
+        DB::update('update Product set name = ?, price_per_product = ? where idProduct = ?', [
             $request->input('name'),
             $request->input('price_per_product'),
             $id

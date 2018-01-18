@@ -32,7 +32,7 @@
                             <label for="assignment">การมอบหมายงาน:</label>
                             <select class="custom-select form-control" id="assignment" name="assignment" required>
                                 @foreach ($assignments as $assignment)
-                                    <option value="{{$assignment->idAssignment}}" {{$harvest->idAssignment == $assignment->idAssignment ? 'selected' : ''}}>{{$assignment->idAssignment}}, {{$assignment->name}}</option>
+                                    <option value="{{$assignment->idAssignment}}">เลขที่การมอบหมายงาน {{$assignment->idAssignment}}, ประเภท {{$assignment->name}}, เวลา {{formatDateThai($assignment->time)}} น. วันที่ {{formatDateThai($assignment->date)}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -42,7 +42,7 @@
                             <label for="product">ผลผลิต:</label>
                             <select class="custom-select form-control" id="product" name="product" required>
                                 @foreach ($products as $product)
-                                    <option value="{{$product->idProduct}}" {{$harvest->idProduct == $product->idProduct ? 'selected' : ''}}>{{$product->name}}</option>
+                                    <option value="{{$product->idProduct}}">{{$product->name}}, จำนวนสต็อค {{$product->amount_stock}} กิโลกรัม</option>
                                 @endforeach
                             </select>
                         </div>

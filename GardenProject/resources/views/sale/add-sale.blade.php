@@ -1,9 +1,17 @@
 @extends('layouts.app')
-@section('title', 'เพิ่มการเก็บเกี่ยว')
+@section('title', 'เพิ่มการขาย')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb"  style="margin-bottom:0px!important">
+        <li class="breadcrumb-item"><a href="{{url('/sales')}}">การขาย</a></li>
+        <li class="breadcrumb-item active" aria-current="page">เพิ่มการขาย</li>
+    </ol>
+</nav>
+@endsection
 @section('content')
     <div class="card" style="margin-top:10px">
         <div class="card-header">
-            <h3>เพิ่มการเก็บเกี่ยว</h3>
+            <h3>เพิ่มการขาย</h3>
         </div>
         <div class="card-body">
             @if ($errors->any())
