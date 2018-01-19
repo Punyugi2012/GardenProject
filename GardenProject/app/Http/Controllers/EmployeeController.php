@@ -84,7 +84,9 @@ class EmployeeController extends Controller
         $deductions = DB::table('Deduction')->join('Take', 'Deduction.idTake', '=', 'Take.idTake')->where('Deduction.idEmployee', $id)->get();
         $returnings = DB::table('Reverting')->join('Take', 'Reverting.idTake', '=', 'Take.idTake')
             ->where('Reverting.idEmployee', $id)->get();
-        return view('employee.detail-employee', ['leaves'=>$leaves, 'employee'=>$employee, 'salaries'=>$salaries, 'attendances'=>$attendances, 'takes'=>$takes, 'deductions'=>$deductions, 'returnings'=>$returnings]);
+        $assignments = DB::table('Assignment')->join('AssignmentDetail', 'Assignment.idAssignment', '=', 'AssignmentDetail.idAssignment')
+            ->join('AssignmentType', 'Assignment.idAssignmentType', '=', 'AssignmentType.idAssignmentType')->where('idEmployee', $id)->get();
+        return view('employee.detail-employee', ['leaves'=>$leaves, 'employee'=>$employee, 'salaries'=>$salaries, 'attendances'=>$attendances, 'takes'=>$takes, 'deductions'=>$deductions, 'returnings'=>$returnings, 'assignments'=>$assignments]);
     }
     public function detailTake($idTake) {
         $takesDetail = DB::table('Item')->join('TakeDetail', 'Item.idItem', '=', 'TakeDetail.idiTem')->where('idTake', $idTake)->get();

@@ -66,10 +66,10 @@
                     <tr>
                         <th>เลขที่การลงเวลา</th>
                         <th>วันที่</th>
-                        <th>ชื่อ-สกุลพนักงาน</th>
+                        <th class="bg-info text-light">ชื่อ-สกุลพนักงาน</th>
                         <th>เวลาเข้าทำงาน</th>
                         <th>เวลาออกงาน</th>
-                        <th>จำนวนเวลา(ชม.)</th>
+                        <th class="bg-primary text-light">จำนวนเวลา(ชม.)</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -83,10 +83,10 @@
                         <tr>
                             <td>{{$attendance->idAttendance}}</td>
                             <td>{{formatDateThai($attendance->date)}}</td>
-                            <td>{{$attendance->name}} {{$attendance->surname}}</td>
+                            <td class="text-info">{{$attendance->name}} {{$attendance->surname}}</td>
                             <td>{{formatDateThai($attendance->start_time)}} น.</td>
                             <td>{{formatDateThai($attendance->finish_time)}} น.</td>
-                            <td>{{$attendance->amount_time}}</td>
+                            <td class="text-primary">{{$attendance->amount_time}}</td>
                             <td>
                                 <a href="{{url('/attendances/'.$attendance->idAttendance.'/edit')}}" class="btn btn-warning">แก้ไข</a>
                                 <button data-toggle="modal" data-target="#deleteAttendance{{$loop->index}}" class="btn btn-danger">ลบ</button>

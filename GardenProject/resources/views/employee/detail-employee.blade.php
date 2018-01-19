@@ -109,6 +109,35 @@
                 </tbody>
             </table>
             <hr>
+            <h4>ประวัติการมอบหมายงาน</h4>
+            <table id="table_idSeven" data-order='[[ 0, "desc" ]]'>
+                <thead>
+                    <tr>
+                        <th>เลขที่มอบหมายงาน</th>
+                        <th>วันที่</th>
+                        <th>เวลา</th>
+                        <th>งาน</th>
+                        <th>สถานะ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($assignments as $assignment)
+                        <tr>
+                            <td>{{$assignment->idAssignment}}</td>
+                            <td>{{formatDateTime($assignment->date)}}</td>
+                            <td>{{formatDateTime($assignment->time)}}</td>
+                            <td>
+                                @if ($assignment->status == 'success')
+                                    เรียบร้อยแล้ว
+                                @else
+                                    ยังไม่เรียบร้อย
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <hr>
             <h4>ประวัติการเบิก</h4>
             <table id="table_idFour" data-order='[[ 0, "desc" ]]'>
                 <thead>
@@ -212,6 +241,7 @@
             $('#table_idFour').DataTable();
             $('#table_idFive').DataTable();
             $('#table_idSix').DataTable();
+            $('#table_idSeven').DataTable();
         });
     </script>
 @endsection

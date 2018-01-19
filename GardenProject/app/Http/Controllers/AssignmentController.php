@@ -26,6 +26,7 @@ class AssignmentController extends Controller
             $hasTake = DB::table('Take')->where('idAssignment', $assignment->idAssignment)->first();
             $hasReport = DB::table('Report')->where('idAssignment', $assignment->idAssignment)->first();
             $hasHarvest = DB::table('Harvest')->where('idAssignment', $assignment->idAssignment)->first();
+            $assignment->amount_employee = DB::table('AssignmentDetail')->where('idAssignment', $assignment->idAssignment)->count('idAssignment');
             if($hasTake ||  $hasReport || $hasHarvest) {
                 $assignment->canDelete = false;
             }

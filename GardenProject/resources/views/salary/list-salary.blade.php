@@ -21,33 +21,31 @@
                 <thead>
                     <tr>
                         <th>เลขที่การจ่ายเงินเดือน</th>
-                        <th>ชื่อ</th>
-                        <th>นามสกุล</th>
+                        <th class="bg-info text-light">ชื่อ-สกุลพนักงาน</th>
                         <th>วันที่</th>
                         <th>เวลา</th>
                         <th>จำนวนเงิน(บาท)</th>
                         <th>ค่าเสียหาย(บาท)</th>
-                        <th>จำนวนเงินสุทธิ(บาท)</th>
+                        <th class="bg-primary text-light">จำนวนเงินสุทธิ(บาท)</th>
                         <th>รอบ</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
-                        <th colspan="10" style="text-align:right"></th>
+                        <th colspan="9" style="text-align:right"></th>
                     </tr>
                 </tfoot>
                 <tbody>
                     @foreach ($salaries as $salary)
                         <tr>
                             <td>{{$salary->idSalary}}</td>
-                            <td>{{$salary->name}}</td>
-                            <td>{{$salary->surname}}</td>
+                            <td class="text-info">{{$salary->name}} {{$salary->surname}}</td>
                             <td>{{formatDateThai($salary->date)}}</td>
                             <td>{{formatDateThai($salary->time)}} น.</td>
                             <td>{{$salary->amount_money}}</td>
                             <td>{{$salary->cost}}</td>
-                            <td>{{$salary->rest_money}}</td>
+                            <td class="text-primary">{{$salary->rest_money}}</td>
                             <td>{{$salary->round}}</td>
                             <td>
                                 <a href="{{url('/salaries/'.$salary->idSalary.'/edit')}}" class="btn btn-warning">แก้ไข</a>   
@@ -97,7 +95,7 @@
          
                     // Total over all pages
                     total = api
-                        .column( 7 )
+                        .column( 6 )
                         .data()
                         .reduce( function (a, b) {
                             return intVal(a) + intVal(b);
@@ -105,14 +103,14 @@
          
                     // Total over this page
                     pageTotal = api
-                        .column( 7, { page: 'current'} )
+                        .column( 6, { page: 'current'} )
                         .data()
                         .reduce( function (a, b) {
                             return intVal(a) + intVal(b);
                         }, 0 );
          
                     // Update footer
-                    $( api.column( 7 ).footer() ).html(
+                    $( api.column( 6 ).footer() ).html(
                        'รวมจำนวนเงินสุทธิ: ' + pageTotal +' บาท (ทั้งหมด '+ total +' บาท)'
                     );
                 }

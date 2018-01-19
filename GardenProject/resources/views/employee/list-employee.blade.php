@@ -21,14 +21,14 @@
                 <thead>
                     <tr>
                         <th>เลขที่พนักงาน</th>
-                        <th>ชื่อ</th>
-                        <th>นามสกุล</th>
+                        <th class="bg-info text-light">ชื่อ</th>
+                        <th class="bg-info text-light">นามสกุล</th>
                         <th>เบอร์โทรศัพท์</th>
                         <th>เพศ</th>
                         <th>สัญชาติ</th>
                         <th>วันที่เริ่มทำงาน</th>
                         <th>รูปประจำตัว</th>
-                        <th>เงินเดือน (บาท)</th>
+                        <th class="bg-primary text-light">เงินเดือน (บาท)</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -36,8 +36,8 @@
                     @foreach ($employees as $employee)
                         <tr>
                             <td>{{$employee->idEmployee}}</td>
-                            <td>{{$employee->name}}</td>
-                            <td>{{$employee->surname}}</td>
+                            <td class="text-info">{{$employee->name}}</td>
+                            <td class="text-info">{{$employee->surname}}</td>
                             <td>{{$employee->phone}}</td>
                             <td>{{getGenderThai($employee->gender)}}</td>
                             <td>{{formatNationalityThai($employee->nationality)}}</td>
@@ -47,7 +47,7 @@
                                     <img src="{{ asset('images/resize/'.$employee->profile_image) }}" style="width:50px;height:50px">
                                 </a>
                             </td>
-                            <td>{{$employee->salary}}</td>
+                            <td class="text-primary">{{$employee->salary}}</td>
                             <td>
                                 <a href="{{url('/employees/'.$employee->idEmployee)}}" class="btn btn-info">ดูรายละเอียด</a>
                                 <a href="{{url('/employees/'.$employee->idEmployee.'/edit')}}" class="btn btn-warning">แก้ไข</a>

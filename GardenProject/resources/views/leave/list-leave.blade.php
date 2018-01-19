@@ -21,13 +21,12 @@
                 <thead>
                     <tr>
                         <th>เลขที่การลา</th>
-                        <th>ชื่อ</th>
-                        <th>นามสกุล</th>
+                        <th class="bg-info text-light">ชื่อ-นามสกุลพนักงาน</th>
                         <th>จากวันที่</th>
                         <th>ถึงวันที่</th>
                         <th>จำนวน (วัน)</th>
                         <th>ประเภท</th>
-                        <th>สาเหตุ</th>
+                        <th class="bg-primary text-light">สาเหตุ</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -35,13 +34,12 @@
                     @foreach ($leaves as $leave)
                         <tr>
                             <td>{{$leave->idTakeLeave}}</td>
-                            <td>{{$leave->name}}</td>
-                            <td>{{$leave->surname}}</td>
+                            <td class="text-info">{{$leave->name}} {{$leave->surname}}</td>
                             <td>{{formatDateThai($leave->from_date)}}</td>
                             <td>{{formatDateThai($leave->to_date)}}</td>
                             <td>{{$leave->amount_day}}</td>
                             <td>{{formatLeaveTypeThai($leave->type)}}</td>
-                            <td>{{$leave->cause}}</td>
+                            <td class="text-primary">{{$leave->cause}}</td>
                             <td>
                                 <a href="{{url('/leaves/'.$leave->idTakeLeave.'/edit')}}" class="btn btn-warning">แก้ไข</a>
                                 <button data-toggle="modal" data-target="#deleteLeave{{$loop->index}}" class="btn btn-danger">ลบ</button>
