@@ -19,7 +19,7 @@ class HarvestController extends Controller
     public function index()
     {
         $harvests = DB::table('Harvest')->join('Assignment', 'Harvest.idAssignment', '=', 'Assignment.idAssignment')
-            ->join('Product', 'Harvest.idProduct', '=', 'Product.idProduct')->get();
+            ->join('Product', 'Harvest.idProduct', '=', 'Product.idProduct')->get(); 
         return view('harvest.list-harvest', ['harvests'=>$harvests]);
     }
 

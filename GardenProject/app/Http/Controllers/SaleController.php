@@ -11,10 +11,6 @@ class SaleController extends Controller
     {
         $this->middleware('auth');
     }
-    private function setTotalMoney($idSale) {
-        $sum = DB::table('SaleDetail')->where('idSale', $idSale)->sum('total_price');
-        DB::update('update Sale set total_money = ? where idSale = ?', [$sum, $idSale]);
-    }
     /**
      * Display a listing of the resource.
      *
@@ -23,9 +19,6 @@ class SaleController extends Controller
     public function index()
     {
         $sales = DB::select('select * from Sale');
-        foreach($sales as $sale) {
-            $this->setTotalMoney($sale->idSale);
-        }
         return view('sale.list-sale', ['sales'=>$sales]);
     }
 

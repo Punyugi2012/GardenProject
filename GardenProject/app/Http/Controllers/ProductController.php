@@ -32,6 +32,14 @@ class ProductController extends Controller
         $products = DB::select('select * from Product'); 
         foreach($products as $product) {
             $this->calculateAmountStock($product->idProduct);
+            $hasHarvest = DB::table('Harvest')->where('idProduct', $product->idProduct)->first();
+            $hasSaleDetail =  DB::table('SaleDetail')->where('idProduct', $product->idProduct)->first();
+            if($hasHarvest || $hasSaleDetail) {
+                $product->canDelete = false;
+            }
+            else {
+                $product->canDelete = true;
+            }
         }
         return view('product.list-product', ['products'=>$products]);
     }

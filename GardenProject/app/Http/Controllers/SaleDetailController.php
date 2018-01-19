@@ -34,13 +34,19 @@ class SaleDetailController extends Controller
         ]);
         $this->calculateAmountStock($request->input('product'));
         session()->flash('added', 'เพิ่ม เรียบร้อย');
+        $this->setTotalMoney($idSale);
         return redirect('/sales/'.$idSale);
     } 
+    private function setTotalMoney($idSale) {
+        $sum = DB::table('SaleDetail')->where('idSale', $idSale)->sum('total_price');
+        DB::update('update Sale set total_money = ? where idSale = ?', [$sum, $idSale]);
+    }
     public function destroy($idSaleDetail, $idSale) {
         $idProduct = DB::table('SaleDetail')->where('idSaleDetail', $idSaleDetail)->first()->idProduct;
         DB::delete('delete from SaleDetail where idSaleDetail = ?', [$idSaleDetail]);
         session()->flash('deleted', 'ลบ เรียบร้อย');
         $this->calculateAmountStock($idProduct);
+        $this->setTotalMoney($idSale);
         return redirect('/sales/'.$idSale);
     }
 }
