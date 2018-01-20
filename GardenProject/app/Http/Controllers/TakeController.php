@@ -30,6 +30,7 @@ class TakeController extends Controller
             else {
                 $take->canDelete = true;
             }
+            $take->assignment_name = DB::Table('AssignmentType')->where('idAssignmentType', $take->idAssignmentType)->first()->name;
         }
         return view('take.list-take', ['takes'=>$takes]);
     }

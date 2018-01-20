@@ -24,8 +24,8 @@
                 <thead>
                     <tr>
                         <th>เลขที่การรับ</th>
-                        <th>วันที่รับ</th>
-                        <th>เวลารับ</th>
+                        <th class="bg-info text-light">วันที่รับ</th>
+                        <th class="bg-primary text-light">เวลารับ</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -33,8 +33,8 @@
                     @foreach ($receipts as $receipt)
                         <tr>
                             <td>{{$receipt->idReceiving}}</td>
-                            <td>{{formatDateThai($receipt->date)}}</td>
-                            <td>{{formatDateThai($receipt->time)}} น.</td>
+                            <td class="text-info">{{formatDateThai($receipt->date)}}</td>
+                            <td class="text-primary">{{formatDateThai($receipt->time)}} น.</td>
                             <td>
                                 <a href='{{url("/receipts/{$receipt->idReceiving}?purchase={$purchase}")}}' class="btn btn-info">วัตถุดิบที่รับ</a>
                                 <a href='{{url("/receipts/{$receipt->idReceiving}/edit?purchase={$purchase}")}}' class="btn btn-warning">แก้ไข</a>

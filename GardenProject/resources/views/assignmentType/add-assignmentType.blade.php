@@ -40,7 +40,7 @@
                 <thead>
                     <tr>
                         <th>เลขที่ประเภท</th>
-                        <th>ชื่อ</th>
+                        <th class="bg-primary text-light">ชื่อ</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -48,7 +48,7 @@
                     @foreach ($assignmentTypes as $type)
                         <tr>
                             <td>{{$type->idAssignmentType}}</td>
-                            <td>{{$type->name}}</td>
+                            <td class="text-primary">{{$type->name}}</td>
                             <td>
                                 <a href="{{url('/assignmentTypes/'.$type->idAssignmentType.'/edit')}}" class="btn btn-warning">แก้ไข</a>
                                 @if ($type->canDelete)

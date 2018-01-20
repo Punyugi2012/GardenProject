@@ -75,7 +75,7 @@
                 </thead>
                 <tfoot>
                     <tr>
-                        <th colspan="7" style="text-align:right"></th>
+                        <th colspan="7" style="text-align:right" class="text-success"></th>
                     </tr>
                 </tfoot>
                 <tbody>

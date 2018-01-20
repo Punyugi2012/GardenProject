@@ -23,17 +23,22 @@
                         <th>เลขที่การขาย</th>
                         <th>วันที่</th>
                         <th>เวลา</th>
-                        <th>จำนวนเงินรวม (บาท)</th>
+                        <th class="bg-primary text-light">จำนวนเงินรวม (บาท)</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
+                <tfoot>
+                    <tr>
+                        <th colspan="5" style="text-align:right" class="text-success"></th>
+                    </tr>
+                </tfoot>
                 <tbody>
                     @foreach ($sales as $sale)
                         <tr>
                             <td>{{$sale->idSale}}</td>
                             <td>{{formatDateThai($sale->date)}}</td>
                             <td>{{formatDateThai($sale->time)}} น.</td>
-                            <td>{{$sale->total_money}}</td>
+                            <td class="text-primary">{{$sale->total_money}}</td>
                             <td>
                                 <a href="{{url('/sales/'.$sale->idSale)}}" class="btn btn-info">รายละเอียด</a> 
                                 <a href="{{url('/sales/'.$sale->idSale.'/edit')}}" class="btn btn-warning">แก้ไข</a>   
@@ -71,7 +76,32 @@
 @section('footer')
     <script type="text/javascript">
         $(document).ready( function () {
-            $('#table_id').DataTable();
+            $('#table_id').DataTable({
+                "footerCallback": function ( row, data, start, end, display ) {
+                    var api = this.api(), data;
+                    var intVal = function ( i ) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '')*1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+                    total = api
+                        .column( 3 )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+                    pageTotal = api
+                        .column( 3, { page: 'current'} )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+                    $( api.column( 3 ).footer() ).html(
+                       'รวมจำนวนเงินรวม: ' + pageTotal +' บาท (ทั้งหมด '+ total +' บาท)'
+                    );
+                }
+            });
         });
     </script>
     @if (session()->has('added'))

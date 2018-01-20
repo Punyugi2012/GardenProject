@@ -23,20 +23,25 @@
                         <th>เลขที่การเก็บเกี่ยว</th>
                         <th>วันที่</th>
                         <th>เวลา</th>
-                        <th>ผลผลิต</th>
-                        <th>จำนวนผลผลิต (กิโลกรัม)</th>
+                        <th class="bg-primary text-light">ผลผลิต</th>
+                        <th class="bg-info text-light">จำนวนผลผลิต (กิโลกรัม)</th>
                         <th>เลขที่การมอบหมายงาน</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
+                <tfoot>
+                    <tr>
+                        <th colspan="7" style="text-align:right" class="text-success"></th>
+                    </tr>
+                </tfoot>
                 <tbody>
                     @foreach ($harvests as $harvest)
                         <tr>
                             <td>{{$harvest->idHarvest}}</td>
                             <td>{{formatDateThai($harvest->date_harvest)}}</td>
                             <td>{{formatDateThai($harvest->time_harvest)}} น.</td>
-                            <td>{{$harvest->name}}</td>
-                            <td>{{$harvest->amount}}</td>
+                            <td class="text-primary">{{$harvest->name}}</td>
+                            <td class="text-info">{{$harvest->amount}}</td>
                             <td>{{$harvest->idAssignment}}</td>
                             <td>
                                 <a href="{{url('/harvests/'.$harvest->idHarvest.'/edit')}}" class="btn btn-warning">แก้ไข</a>
@@ -72,7 +77,32 @@
 @section('footer')
     <script type="text/javascript">
         $(document).ready( function () {
-            $('#table_id').DataTable();
+            $('#table_id').DataTable({
+                "footerCallback": function ( row, data, start, end, display ) {
+                    var api = this.api(), data;
+                    var intVal = function ( i ) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '')*1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+                    total = api
+                        .column( 4 )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+                    pageTotal = api
+                        .column( 4, { page: 'current'} )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+                    $( api.column( 4 ).footer() ).html(
+                       'รวมจำนวนผลผลิต: ' + pageTotal +' กิโลกรัม (ทั้งหมด '+ total +' กิโลกรัม)'
+                    );
+                }
+            });
         });
     </script>
     @if (session()->has('added'))

@@ -22,10 +22,10 @@
                 <thead>
                     <tr>
                         <th>เลขที่การเคลม</th>
-                        <th>วันที่เคลม</th>
-                        <th>เวลาเคลม</th>
-                        <th>วันที่รับ</th>
-                        <th>เวลารับ</th>
+                        <th class="bg-primary text-light">วันที่เคลม</th>
+                        <th class="bg-primary text-light">เวลาเคลม</th>
+                        <th class="bg-info text-light">วันที่รับ</th>
+                        <th class="bg-info text-light">เวลารับ</th>
                         <th>สถานะ</th>
                         <th>เครื่องมือ</th>
                     </tr>

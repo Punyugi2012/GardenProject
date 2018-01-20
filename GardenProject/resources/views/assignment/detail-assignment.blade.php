@@ -44,7 +44,7 @@
                 <thead>
                     <tr>
                         <th>เลขที่รายละเอียด</th>
-                        <th>ชื่อ-นามสกุลพนักงาน</th>
+                        <th class="bg-primary text-light">ชื่อ-นามสกุลพนักงาน</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -52,7 +52,7 @@
                     @foreach ($assignmentsDetail as $detail)
                         <tr>
                             <td>{{$detail->idAssignmentDetail}}</td>
-                            <td>{{$detail->name}} {{$detail->surname}}</td>
+                            <td class="text-primary">{{$detail->name}} {{$detail->surname}}</td>
                             <td>
                                 <button data-toggle="modal" data-target="#deleteAssignmentDetail{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteAssignmentDetail{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

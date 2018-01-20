@@ -21,8 +21,9 @@
                 <thead>
                     <tr>
                         <th>เลขที่การเบิก</th>
-                        <th>ชื่อ-สกุลพนักงาน</th>
+                        <th class="bg-primary text-light">ชื่อ-สกุลพนักงาน</th>
                         <th>เลขที่มอบหมายงาน</th>
+                        <th class="bg-info text-light">งาน</th>
                         <th>วันที่</th>
                         <th>เวลา</th>
                         <th>สถานะ</th>
@@ -33,8 +34,9 @@
                     @foreach ($takes as $take)
                         <tr>
                             <td>{{$take->idTake}}</td>
-                            <td>{{$take->name}} {{$take->surname}}</td>
+                            <td class="text-primary">{{$take->name}} {{$take->surname}}</td>
                             <td>{{$take->idAssignment}}</td>
+                            <td class="text-info">{{$take->assignment_name}}</td>
                             <td>{{formatDateThai($take->date_take)}}</td>
                             <td>{{formatDateThai($take->time_take)}} น.</td>
                             <td>

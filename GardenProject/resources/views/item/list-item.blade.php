@@ -21,10 +21,10 @@
                 <thead>
                     <tr>
                         <th>เลขที่วัตถุดิบ</th>
-                        <th>ชื่อ</th>
+                        <th class="bg-info text-light">ชื่อ</th>
                         <th>จำนวน</th>
                         <th>ราคาต่อหน่วย (บาท)</th>
-                        <th>ประเภท</th>
+                        <th class="bg-primary text-light">ประเภท</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -32,12 +32,12 @@
                     @foreach ($items as $item)
                         <tr>
                             <td>{{$item->idItem}}</td>
-                            <td>{{$item->name}}</td>
+                            <td class="text-info">{{$item->name}}</td>
                             <td>
                                 {{$item->amount}}
                             </td>
                             <td>{{$item->price_per_item}}</td>
-                            <td>  
+                            <td class="text-primary">  
                                 @if ($item->type == 'tree')
                                     ต้นไม้
                                 @elseif($item->type == 'drug')

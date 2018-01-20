@@ -21,7 +21,7 @@
                 <thead>
                     <tr>
                         <th>เลขที่ร้านค้า</th>
-                        <th>ชื่อ</th>
+                        <th class="bg-primary text-light">ชื่อ</th>
                         <th>ที่อยู่</th>
                         <th>เบอร์โทรศัพท์</th>
                         <th>เลขบัญชี</th>
@@ -32,7 +32,7 @@
                     @foreach ($shops as $shop)
                         <tr>
                             <td>{{$shop->idShop}}</td>
-                            <td>{{$shop->name}}</td>
+                            <td class="text-primary">{{$shop->name}}</td>
                             <td>{{$shop->address}}</td>
                             <td>{{$shop->phone}}</td>
                             <td>{{$shop->account_number??'-'}}</td>

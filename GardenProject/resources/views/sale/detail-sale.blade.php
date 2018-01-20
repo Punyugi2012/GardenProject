@@ -56,10 +56,10 @@
                 <thead>
                     <tr>
                         <th>เลขที่รายละเอียด</th>
-                        <th>ชื่อผลผลิต</th>
+                        <th class="bg-primary text-light">ชื่อผลผลิต</th>
                         <th>จำนวน (กิโลกรัม)</th>
                         <th>ราคาต่อหน่วย (บาท)</th>
-                        <th>ราคารวม (บาท)</th>
+                        <th class="bg-info text-light">ราคารวม (บาท)</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -67,10 +67,10 @@
                     @foreach ($salesDetail as $detail)
                         <tr>
                             <td>{{$detail->idSaleDetail}}</td>
-                            <td>{{$detail->name}}</td>
+                            <td class="text-primary">{{$detail->name}}</td>
                             <td>{{$detail->amount}}</td>
                             <td>{{$detail->price_per_product}}</td>
-                            <td>{{$detail->total_price}}</td>
+                            <td class="text-info">{{$detail->total_price}}</td>
                             <td>
                                 <button data-toggle="modal" data-target="#deleteSaleDetail{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteSaleDetail{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

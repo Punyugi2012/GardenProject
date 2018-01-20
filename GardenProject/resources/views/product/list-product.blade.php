@@ -21,19 +21,24 @@
                 <thead>
                     <tr>
                         <th>เลขที่ผลผลิต</th>
-                        <th>ชื่อ</th>
+                        <th class="bg-primary text-light">ชื่อ</th>
                         <th>ราคาต่อกิโลกรัม (บาท)</th>
-                        <th>จำนวนในสต็อค (กิโลกรัม)</th>
+                        <th class="bg-info text-light">จำนวนในสต็อค (กิโลกรัม)</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
+                <tfoot>
+                    <tr>
+                        <th colspan="5" style="text-align:right" class="text-success"></th>
+                    </tr>
+                </tfoot>
                 <tbody>
                     @foreach ($products as $product)
                         <tr>
                             <td>{{$product->idProduct}}</td>
-                            <td>{{$product->name}}</td>
+                            <td class="text-primary">{{$product->name}}</td>
                             <td>{{$product->price_per_product}}</td>
-                            <td>{{$product->amount_stock}}</td>
+                            <td class="text-info">{{$product->amount_stock}}</td>
                             <td>
                                 <a href="{{url('/products/'.$product->idProduct.'/edit')}}" class="btn btn-warning">แก้ไข</a>
                                 @if ($product->canDelete)
@@ -70,7 +75,32 @@
 @section('footer')
     <script type="text/javascript">
         $(document).ready( function () {
-            $('#table_id').DataTable();
+            $('#table_id').DataTable({
+                "footerCallback": function ( row, data, start, end, display ) {
+                    var api = this.api(), data;
+                    var intVal = function ( i ) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '')*1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+                    total = api
+                        .column( 3 )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+                    pageTotal = api
+                        .column( 3, { page: 'current'} )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+                    $( api.column( 3 ).footer() ).html(
+                       'รวมจำนวนในสต็อค: ' + pageTotal +' กิโลกรัม (ทั้งหมด '+ total +' กิโลกรัม)'
+                    );
+                }
+            });
         });
     </script>
     @if (session()->has('added'))

@@ -19,6 +19,9 @@ class PaymentController extends Controller
     public function index()
     {
         $payments = DB::table('pay')->join('shop', 'pay.idShop', '=', 'shop.idShop')->get();
+        foreach($payments as $payment) {
+            $payment->total_money = DB::table('PayDetail')->where('idPay', $payment->idPay)->sum('amount_money');
+        }
         return view('payment.list-payment', ['payments'=>$payments]);
 
     }

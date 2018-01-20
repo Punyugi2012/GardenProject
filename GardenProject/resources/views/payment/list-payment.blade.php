@@ -23,17 +23,24 @@
                         <th>เลขที่การจ่ายเงิน</th>
                         <th>วันที่</th>
                         <th>เวลา</th>
+                        <th class="bg-primary text-light">จำนวนเงินรวม (บาท)</th>
                         <th>ประเภท</th>
-                        <th>ชื่อร้านค้า</th>
+                        <th class="bg-info text-light">ชื่อร้านค้า</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
+                <tfoot>
+                    <tr>
+                        <th colspan="7" style="text-align:right" class="text-success"></th>
+                    </tr>
+                </tfoot>
                 <tbody>
                     @foreach ($payments as $payment)
                         <tr>
                             <td>{{$payment->idPay}}</td>
                             <td>{{formatDateThai($payment->date)}}</td>
                             <td>{{formatDateThai($payment->time)}} น.</td>
+                            <td class="text-primary">{{$payment->total_money}}</td>
                             <td>
                                 @if ($payment->type == 'normal')
                                     ปกติ
@@ -41,7 +48,7 @@
                                     โอน
                                 @endif
                             </td>
-                            <td>{{$payment->name}}</td>
+                            <td class="text-info">{{$payment->name}}</td>
                             <td>
                                 <a href="{{url('/payments/'.$payment->idPay)}}" class="btn btn-info">รายละเอียด</a>
                                 <a href="{{url('/payments/'.$payment->idPay.'/edit')}}" class="btn btn-warning">แก้ไข</a>
@@ -77,7 +84,32 @@
 @section('footer')
     <script type="text/javascript">
         $(document).ready( function () {
-            $('#table_id').DataTable();
+            $('#table_id').DataTable({
+                "footerCallback": function ( row, data, start, end, display ) {
+                    var api = this.api(), data;
+                    var intVal = function ( i ) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '')*1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+                    total = api
+                        .column( 3 )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+                    pageTotal = api
+                        .column( 3, { page: 'current'} )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+                    $( api.column( 3 ).footer() ).html(
+                       'รวมจำนวนเงินรวม: ' + pageTotal +' บาท (ทั้งหมด '+ total +' บาท)'
+                    );
+                }
+            });
         });
     </script>
     @if (session()->has('added'))

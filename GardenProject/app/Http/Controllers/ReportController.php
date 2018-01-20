@@ -22,6 +22,9 @@ class ReportController extends Controller
     {
         $reports = DB::table('Report')->join('Employee', 'Report.idEmployee', '=', 'Employee.idEmployee')
             ->join('Assignment', 'Report.idAssignment', '=', 'Assignment.idAssignment')->get();
+        foreach($reports as $report) {
+            $report->assignment_name = DB::table('AssignmentType')->where('idAssignmentType', $report->idAssignmentType)->first()->name;
+        }
         return view('report.list-report', ['reports'=>$reports]);
     }
 

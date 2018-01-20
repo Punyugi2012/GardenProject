@@ -27,14 +27,19 @@
                         <th>เวลาจ่าย</th>
                         <th>วันที่รับ</th>
                         <th>เวลารับ</th>
-                        <th>จำนวนเงินทั้งหมด (บาท)</th>
-                        <th>ชื่อร้านค้า</th>
+                        <th class="bg-primary text-light">จำนวนเงินทั้งหมด (บาท)</th>
+                        <th class="bg-info text-light">ชื่อร้านค้า</th>
                         <th>เคลม</th>
                         <th>สถานะการจ่ายเงิน</th>
                         <th>สถานะการรับ</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
+                <tfoot>
+                    <tr>
+                        <th colspan="13" style="text-align:right" class="text-success"></th>
+                    </tr>
+                </tfoot>
                 <tbody>
                     @foreach ($purchases as $purchase)
                         <tr>
@@ -45,8 +50,8 @@
                             <td>{{formatDateThai($purchase->time_pay)}} น.</td>
                             <td>{{formatDateThai($purchase->date_get)}}</td>
                             <td>{{formatDateThai($purchase->time_get)}} น.</td>
-                            <td>{{$purchase->total_money}}</td>
-                            <td>{{$purchase->name}}</td>
+                            <td class="text-primary">{{$purchase->total_money}}</td>
+                            <td class="text-info">{{$purchase->name}}</td>
                             <td>
                                 @if ($purchase->status_claim == 'hasnotClaim')
                                     <button class="btn btn-success">ไม่มีเคลม</button>
@@ -105,7 +110,32 @@
 @section('footer')
     <script type="text/javascript">
         $(document).ready( function () {
-            $('#table_id').DataTable();
+            $('#table_id').DataTable({
+                "footerCallback": function ( row, data, start, end, display ) {
+                    var api = this.api(), data;
+                    var intVal = function ( i ) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '')*1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+                    total = api
+                        .column( 7 )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+                    pageTotal = api
+                        .column( 7, { page: 'current'} )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+                    $( api.column( 7 ).footer() ).html(
+                       'จำนวนเงินรวม: ' + pageTotal +' บาท (ทั้งหมด '+ total +' บาท)'
+                    );
+                }
+            });
         });
     </script>
     @if (session()->has('added'))

@@ -21,12 +21,13 @@
                 <thead>
                     <tr>
                         <th>เลขที่การรายงาน</th>
-                        <th>ชื่อ-สกุลพนักงาน</th>
+                        <th class="bg-primary text-light">ชื่อ-สกุลพนักงาน</th>
                         <th>วันที่</th>
                         <th>เวลา</th>
                         <th>เลขที่การมอบหมายงาน</th>
+                        <th class="bg-info text-light">งาน</th>
                         <th>รายละเอียด</th>
-                        <th>ประเภท</th>
+                        <th class="bg-primary text-light">ประเภท</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -34,10 +35,11 @@
                     @foreach ($reports as $report)
                         <tr>
                             <td>{{$report->idReport}}</td>
-                            <td>{{$report->name}} {{$report->surname}}</td>
+                            <td class="text-primary">{{$report->name}} {{$report->surname}}</td>
                             <td>{{formatDateThai($report->date)}}</td>
                             <td>{{formatDateThai($report->time)}} น.</td>
                             <td>{{$report->idAssignment}}</td>
+                            <td class="text-info">{{$report->assignment_name}}</td>
                             <td>{{$report->detail}}</td>
                             <td>
                                 @if ($report->type == 'permission')

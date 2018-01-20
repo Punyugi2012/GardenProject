@@ -31,30 +31,37 @@
             <p>วันที่เข้าทำงาน: {{formatDateThai($employee->date_worked)}}</p>
             <p>เงินเดือน: {{$employee->salary}} บาท</p>
             <p>เพศ: {{getGenderThai($employee->gender)}}</p>
+
             <h4>ประวัติการเข้าทำงาน</h4>
             <table id="table_idThree" data-order='[[ 0, "desc" ]]' class="display">
                 <thead>
                     <tr>
                         <th>เลขที่การลงเวลา</th>
                         <th>วันที่</th>
-                        <th>เวลาเข้าทำงาน</th>
-                        <th>เวลาออกงาน</th>
-                        <th>จำนวนเวลา(ชม.)</th>
+                        <th class="bg-info text-light">เวลาเข้าทำงาน</th>
+                        <th class="bg-info text-light">เวลาออกงาน</th>
+                        <th class="bg-primary text-light">จำนวนเวลา(ชม.)</th>
                     </tr>
                 </thead>
+                <tfoot>
+                    <tr>
+                        <th colspan="5" style="text-align:right" class="text-success"></th>
+                    </tr>
+                </tfoot>
                 <tbody>
                     @foreach ($attendances as $attendance)
                         <tr>
                             <td>{{$attendance->idAttendance}}</td>
                             <td>{{formatDateThai($attendance->date)}}</td>
-                            <td>{{formatDateThai($attendance->start_time)}} น.</td>
-                            <td>{{formatDateThai($attendance->finish_time)}} น.</td>
-                            <td>{{$attendance->amount_time}}</td>
+                            <td class="text-info">{{formatDateThai($attendance->start_time)}} น.</td>
+                            <td class="text-info">{{formatDateThai($attendance->finish_time)}} น.</td>
+                            <td class="text-primary">{{$attendance->amount_time}}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
             <hr>
+
             <h4>ประวัติการจ่ายเงินเดือน</h4>
             <table id="table_idOne" data-order='[[ 0, "desc" ]]' class="display">
                 <thead>
@@ -63,11 +70,16 @@
                         <th>วันที่</th>
                         <th>เวลา</th>
                         <th>จำนวนเงิน (บาท)</th>
-                        <th>ค่าเสียหาย (บาท)</th>
-                        <th>จำนวนเงินสุทธิ (บาท)</th>
+                        <th class="bg-danger text-light">ค่าเสียหาย (บาท)</th>
+                        <th class="bg-primary text-light">จำนวนเงินสุทธิ (บาท)</th>
                         <th>รอบ</th>
                     </tr>
                 </thead>
+                <tfoot>
+                    <tr>
+                        <th colspan="7" style="text-align:right" class="text-success"></th>
+                    </tr>
+                </tfoot>
                 <tbody>
                    @foreach ($salaries as $salary)
                     <tr>
@@ -75,8 +87,8 @@
                         <td>{{formatDateThai($salary->date)}}</td>
                         <td>{{formatDateThai($salary->time)}} น.</td>
                         <td>{{$salary->amount_money}}</td>
-                        <td>{{$salary->cost}}</td>
-                        <td>{{$salary->rest_money}}</td>
+                        <td class="text-danger">{{$salary->cost}}</td>
+                        <td class="text-primary">{{$salary->rest_money}}</td>
                         <td>{{$salary->round}}</td>
                     </tr>
                    @endforeach
@@ -90,19 +102,24 @@
                         <th>เลขที่การลา</th>
                         <th>จากวันที่</th>
                         <th>ถึงวันที่</th>
-                        <th>จำนวน(วัน)</th>
-                        <th>ประเภท</th>
+                        <th class="bg-primary text-light">จำนวน(วัน)</th>
+                        <th class="bg-info text-light">ประเภท</th>
                         <th>สาเหตุ</th>
                     </tr>
                 </thead>
+                <tfoot>
+                    <tr>
+                        <th colspan="6" style="text-align:right" class="text-success"></th>
+                    </tr>
+                </tfoot>
                 <tbody>
                     @foreach ($leaves as $leave)
                         <tr>
                             <td>{{$leave->idTakeLeave}}</td>
                             <td>{{formatDateThai($leave->from_date)}}</td>
                             <td>{{formatDateThai($leave->to_date)}}</td>
-                            <td>{{$leave->amount_day}} วัน</td>
-                            <td>{{formatLeaveTypeThai($leave->type)}}</td>
+                            <td class="text-primary">{{$leave->amount_day}}</td>
+                            <td class="text-info">{{formatLeaveTypeThai($leave->type)}}</td>
                             <td>{{$leave->cause}}</td>
                         </tr>
                     @endforeach
@@ -116,7 +133,7 @@
                         <th>เลขที่มอบหมายงาน</th>
                         <th>วันที่</th>
                         <th>เวลา</th>
-                        <th>งาน</th>
+                        <th class="bg-primary text-light">งาน</th>
                         <th>สถานะ</th>
                     </tr>
                 </thead>
@@ -124,13 +141,14 @@
                     @foreach ($assignments as $assignment)
                         <tr>
                             <td>{{$assignment->idAssignment}}</td>
-                            <td>{{formatDateTime($assignment->date)}}</td>
-                            <td>{{formatDateTime($assignment->time)}}</td>
+                            <td>{{formatDateThai($assignment->date)}}</td>
+                            <td>{{formatDateThai($assignment->time)}}</td>
+                            <td class="text-primary">{{$assignment->name}}</td>
                             <td>
                                 @if ($assignment->status == 'success')
-                                    เรียบร้อยแล้ว
+                                    <span class="text-success">เรียบร้อยแล้ว</span>
                                 @else
-                                    ยังไม่เรียบร้อย
+                                    <span class="text-danger">ยังไม่เรียบร้อย</span>
                                 @endif
                             </td>
                         </tr>
@@ -145,10 +163,10 @@
                         <th>เลขที่การเบิก</th>
                         <th>วันที่เบิก</th>
                         <th>เวลาเบิก</th>
-                        <th>เลขที่มอบหมายงาน</th>
+                        <th class="bg-info text-light">เลขที่มอบหมายงาน</th>
+                        <th class="bg-primary text-light">งาน</th>
                         <th>วันที่งาน</th>
                         <th>เวลางาน</th>
-                        <th>งาน</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -158,12 +176,12 @@
                             <td>{{$take->idTake}}</td>
                             <td>{{formatDateThai($take->date_take)}}</td>
                             <td>{{formatDateThai($take->time_take)}} น.</td>
-                            <td>{{$take->assignment->idAssignment}}</td>
+                            <td class="text-info">{{$take->assignment->idAssignment}}</td>
+                            <td class="text-primary">{{$take->assignment->name}}</td>
                             <td>{{formatDateThai($take->assignment->date)}}</td>
                             <td>{{formatDateThai($take->assignment->time)}} น.</td>
-                            <td>{{$take->assignment->name}}</td>
                             <td>
-                                <a href="{{url('/employees/take_detail/take/'.$take->idTake)}}" class="btn btn-light">รายละเอียด</a>
+                                <a href='{{url("/employees/take_detail/take/{$take->idTake}?employee={$idEmployee}")}}' class="btn btn-info">รายละเอียด</a>
                             </td>
                         </tr>
                     @endforeach
@@ -177,7 +195,7 @@
                         <th>เลขที่การคืน</th>
                         <th>วันที่คืน</th>
                         <th>เวลาคืน</th>
-                        <th>เลขที่การเบิก</th>
+                        <th class="bg-primary text-light">เลขที่การเบิก</th>
                         <th>วันที่เบิก</th>
                         <th>เวลาเบิก</th>
                         <th>เครื่องมือ</th>
@@ -189,11 +207,11 @@
                             <td>{{$returning->idReverting}}</td>
                             <td>{{formatDateThai($returning->date)}}</td>
                             <td>{{formatDateThai($returning->time)}} น.</td>
-                            <td>{{$returning->idTake}}</td>
+                            <td class="text-primary">{{$returning->idTake}}</td>
                             <td>{{formatDateThai($returning->date_take)}}</td>
                             <td>{{formatDateThai($returning->time_take)}} น.</td>
                             <td>
-                                <a href="{{url('/employees/returning_detail/returning/'.$returning->idReverting)}}" class="btn btn-light">รายละเอียด</a>
+                                <a href='{{url("/employees/returning_detail/returning/{$returning->idReverting}?employee={$idEmployee}")}}' class="btn btn-info">รายละเอียด</a>
                             </td>
                         </tr>
                     @endforeach
@@ -204,26 +222,31 @@
             <table id="table_idFive" data-order='[[ 0, "desc" ]]'>
                 <thead>
                     <tr>
-                        <th>เลขที่กาหักเงิน</th>
+                        <th>เลขที่การหักเงิน</th>
                         <th>วันที่</th>
-                        <th>จำนวนเงินรวม (บาท)</th>
+                        <th class="bg-primary text-light">จำนวนเงินรวม (บาท)</th>
                         <th>เลขที่การเบิก</th>
                         <th>วันที่เบิก</th>
                         <th>เวลาเบิก</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
+                <tfoot>
+                    <tr>
+                        <th colspan="7" style="text-align:right" class="text-success"></th>
+                    </tr>
+                </tfoot>
                 <tbody>
                     @foreach ($deductions as $deduction)
                         <tr>
                             <td>{{$deduction->idDeduction}}</td>
                             <td>{{formatDateThai($deduction->date)}}</td>
-                            <td>{{$deduction->total_money}}</td>
+                            <td class="text-primary">{{$deduction->total_money}}</td>
                             <td>{{$deduction->idTake}}</td>
                             <td>{{formatDateThai($deduction->date_take)}}</td>
                             <td>{{formatDateThai($deduction->time_take)}} น.</td>
                             <td>
-                                <a href="{{url('/employees/deduction_detail/deduction/'.$deduction->idDeduction)}}" class="btn btn-light">รายละเอียด</a>
+                                <a href='{{url("/employees/deduction_detail/deduction/{$deduction->idDeduction}?employee={$idEmployee}")}}' class="btn btn-info">รายละเอียด</a>
                             </td>
                         </tr>
                     @endforeach
@@ -235,11 +258,111 @@
 @section('footer')
     <script type="text/javascript">
         $(document).ready( function () {
-            $('#table_idOne').DataTable();
-            $('#table_idTwo').DataTable();
-            $('#table_idThree').DataTable();
+            $('#table_idOne').DataTable({
+                "footerCallback": function ( row, data, start, end, display ) {
+                    var api = this.api(), data;
+                    var intVal = function ( i ) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '')*1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+                    total = api
+                        .column( 5 )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+                    pageTotal = api
+                        .column( 5, { page: 'current'} )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+                    $( api.column( 5 ).footer() ).html(
+                       'รวมเงินสุทธิ: ' + pageTotal +' บาท (ทั้งหมด '+ total +' บาท)'
+                    );
+                }
+            });
+            $('#table_idTwo').DataTable({
+                "footerCallback": function ( row, data, start, end, display ) {
+                    var api = this.api(), data;
+                    var intVal = function ( i ) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '')*1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+                    total = api
+                        .column( 3 )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+                    pageTotal = api
+                        .column( 3, { page: 'current'} )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+                    $( api.column( 3 ).footer() ).html(
+                       'รวมจำนวนวัน: ' + pageTotal +' วัน (ทั้งหมด '+ total +' วัน)'
+                    );
+                }
+            });
+            $('#table_idThree').DataTable({
+                "footerCallback": function ( row, data, start, end, display ) {
+                    var api = this.api(), data;
+                    var intVal = function ( i ) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '')*1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+                    total = api
+                        .column( 4 )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+                    pageTotal = api
+                        .column( 4, { page: 'current'} )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+                    $( api.column( 4 ).footer() ).html(
+                       'จำนวนเงินรวม: ' + pageTotal +' บาท (ทั้งหมด '+ total +' บาท)'
+                    );
+                }
+            });
             $('#table_idFour').DataTable();
-            $('#table_idFive').DataTable();
+            $('#table_idFive').DataTable({
+                "footerCallback": function ( row, data, start, end, display ) {
+                    var api = this.api(), data;
+                    var intVal = function ( i ) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '')*1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+                    total = api
+                        .column( 2 )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+                    pageTotal = api
+                        .column( 2, { page: 'current'} )
+                        .data()
+                        .reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+                    $( api.column( 2 ).footer() ).html(
+                       'จำนวนเงินรวม: ' + pageTotal +' บาท (ทั้งหมด '+ total +' บาท)'
+                    );
+                }
+            });
             $('#table_idSix').DataTable();
             $('#table_idSeven').DataTable();
         });

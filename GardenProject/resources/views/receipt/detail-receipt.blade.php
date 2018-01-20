@@ -53,8 +53,8 @@
                 <thead>
                     <tr>
                         <th>เลขที่รายละเอียด</th>
-                        <th>ชื่อวัตถุดิบ</th>
-                        <th>จำนวน</th>
+                        <th class="bg-primary text-light">ชื่อวัตถุดิบ</th>
+                        <th class="bg-info text-light">จำนวน</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -62,10 +62,10 @@
                     @foreach ($receiptsDetail as $receiptDetail)
                         <tr>
                             <td>{{$receiptDetail->idReceivingDetail}}</td>
-                            <td>
+                            <td class="text-primary">
                                 {{$receiptDetail->name}}                       
                             </td>
-                            <td>{{$receiptDetail->amount}}</td>
+                            <td class="text-info">{{$receiptDetail->amount}}</td>
                             <td>
                                 <button data-toggle="modal" data-target="#deleteReceiptDetail{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteReceiptDetail{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -21,8 +21,8 @@
                 <thead>
                     <tr>
                         <th>เลขที่โซน</th>
-                        <th>พื้นที่ (ตรม.)</th>
-                        <th>ขนาด (ไร่.)</th>
+                        <th class="bg-primary text-light">พื้นที่ (ตรม.)</th>
+                        <th class="bg-info text-light">ขนาด (ไร่.)</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -30,8 +30,8 @@
                     @foreach ($zones as $zone)
                         <tr>
                             <td>{{$zone->idZone}}</td>
-                            <td>{{$zone->area}}</td>
-                            <td>{{$zone->size}}</td>
+                            <td class="text-primary">{{$zone->area}}</td>
+                            <td class="text-info">{{$zone->size}}</td>
                             <td>
                                 <a href="{{url('/zones/'.$zone->idZone)}}" class="btn btn-info">รูปภาพ</a>
                                 <a href="{{url('/zones/'.$zone->idZone.'/edit')}}" class="btn btn-warning">แก้ไข</a>

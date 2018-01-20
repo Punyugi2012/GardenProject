@@ -63,7 +63,7 @@
                 <thead>
                     <tr>
                         <th>เลขที่รายละเอียด</th>
-                        <th>ชื่ออุปกรณ์</th>
+                        <th class="bg-primary text-light">ชื่ออุปกรณ์</th>
                         <th>จำนวน</th>
                         <th>หมายเหตุ</th>
                         <th>เครื่องมือ</th>
@@ -73,7 +73,7 @@
                     @foreach ($returningsDetail as $detail)
                         <tr>
                             <td>{{$detail->idRevertingDetail}}</td>
-                            <td>{{$detail->name}}</td>
+                            <td class="text-primary">{{$detail->name}}</td>
                             <td>{{$detail->amount}}</td>
                             <td>{{$detail->cause}}</td>
                             <td>

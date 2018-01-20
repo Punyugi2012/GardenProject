@@ -54,9 +54,9 @@
                 <thead>
                     <tr>
                         <th>เลขที่รายละเอียด</th>
-                        <th>จำนวนเงินที่จ่าย (บาท)</th>
-                        <th>เลขที่การสั่งซื้อ</th>
-                        <th>จำนวนเงินที่ต้องจ่าย (บาท)</th>
+                        <th class="bg-info text-light">จำนวนเงินที่จ่าย (บาท)</th>
+                        <th class="bg-primary text-light">เลขที่การสั่งซื้อ</th>
+                        <th class="bg-info text-light">จำนวนเงินที่ต้องจ่าย (บาท)</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -64,9 +64,9 @@
                     @foreach ($paymentsDetail as $paymentDetail)
                         <tr>
                             <td>{{$paymentDetail->idPayDetail}}</td>
-                            <td>{{$paymentDetail->amount_money}}</td>
-                            <td>{{$paymentDetail->idPurchase}}</td>
-                            <td>{{$paymentDetail->total_money}}</td>
+                            <td class="text-info">{{$paymentDetail->amount_money}}</td>
+                            <td class="text-primary">{{$paymentDetail->idPurchase}}</td>
+                            <td class="text-info">{{$paymentDetail->total_money}}</td>
                             <td>
                                 <button data-toggle="modal" data-target="#deletePaymentDetail{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deletePaymentDetail{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

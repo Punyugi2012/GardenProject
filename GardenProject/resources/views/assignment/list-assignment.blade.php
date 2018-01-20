@@ -21,8 +21,8 @@
                 <thead>
                     <tr>
                         <th>เลขที่การมอบหมายงาน</th>
-                        <th>ประเภทของงาน</th>
-                        <th>โซน</th>
+                        <th class="bg-primary text-light">ประเภทของงาน</th>
+                        <th class="bg-info text-light">โซน</th>
                         <th>วันที่</th>
                         <th>เวลา</th>
                         <th>จำนวนพนักงาน</th>
@@ -35,7 +35,7 @@
                         <tr>
                             <td>{{$assignment->idAssignment}}</td>
                             <td class="text-primary"><b>{{$assignment->name}}</b></td>
-                            <td>{{$assignment->idZone}}</td>
+                            <td class="text-info">{{$assignment->idZone}}</td>
                             <td>{{formatDateThai($assignment->date)}}</td>
                             <td>{{formatDateThai($assignment->time)}} น.</td>
                             <td>{{$assignment->amount_employee}} คน</td>

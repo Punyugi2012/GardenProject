@@ -5,7 +5,7 @@
     <ol class="breadcrumb"  style="margin-bottom:0px!important">
         <li class="breadcrumb-item"><a href="{{url('/purchases')}}">การสั่งซื้อ</a></li>
         <li class="breadcrumb-item"><a href='{{url("/claims?purchase={$purchase}")}}'>การเคลม</a></li>
-        <li class="breadcrumb-item"><a href='{{url("/receiptclaims?claim={$claim}&purchase={$purchase}")}}'>รับวัตถุดิบจากการเคลม</a></li>
+        <li class="breadcrumb-item"><a href='{{url("/receiptclaims?claim={$claim}&purchase={$purchase}")}}'>รับอุปกรณ์จากการเคลม</a></li>
         <li class="breadcrumb-item active" aria-current="page">อุปกรณ์ที่รับจากการเคลม</li>
     </ol>
 </nav>
@@ -56,8 +56,8 @@
                 <thead>
                     <tr>
                         <th>เลขที่รายละเอียด</th>
-                        <th>ชื่ออุปกรณ์</th>
-                        <th>จำนวนที่รับ</th>
+                        <th class="bg-primary text-light">ชื่ออุปกรณ์</th>
+                        <th class="bg-info text-light">จำนวนที่รับ</th>
                         <th>เครื่องมือ</th>
                     </tr>
                 </thead>
@@ -65,8 +65,8 @@
                     @foreach ($receiptclaimsDetail as $receiptclaimDetail)
                         <tr>
                             <td>{{$receiptclaimDetail->idReceivingClaimDetail}}</td>
-                            <td>{{$receiptclaimDetail->name}}</td>
-                            <td>{{$receiptclaimDetail->amount}}</td>
+                            <td class="text-primary">{{$receiptclaimDetail->name}}</td>
+                            <td class="text-info">{{$receiptclaimDetail->amount}}</td>
                             <td>
                                 <button data-toggle="modal" data-target="#deleteReceiptclaimDetail{{$loop->index}}" class="btn btn-danger">ลบ</button>
                                 <div class="modal fade" id="deleteReceiptclaimDetail{{$loop->index}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

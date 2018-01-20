@@ -33,7 +33,7 @@
                 </thead>
                 <tfoot>
                     <tr>
-                        <th colspan="9" style="text-align:right"></th>
+                        <th colspan="9" style="text-align:right" class="text-success"></th>
                     </tr>
                 </tfoot>
                 <tbody>

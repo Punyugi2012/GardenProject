@@ -59,8 +59,8 @@
                 <thead>
                     <tr>
                         <th>เลขที่รายละเอียด</th>
-                        <th>ชื่ออุปกรณ์</th>
-                        <th>จำนวน</th>
+                        <th class="bg-primary text-light">ชื่ออุปกรณ์</th>
+                        <th class="bg-info text-light">จำนวน</th>
                         <th>หมายเหตุ</th>
                         <th>เครื่องมือ</th>
                     </tr>
@@ -69,8 +69,8 @@
                     @foreach ($claimsDetail as $claimDetail)
                         <tr>
                             <td>{{$claimDetail->idClaimDetail}}</td>
-                            <td>{{$claimDetail->name}}</td>
-                            <td>{{$claimDetail->amount}}</td>
+                            <td class="text-primary">{{$claimDetail->name}}</td>
+                            <td class="text-info">{{$claimDetail->amount}}</td>
                             <td>{{$claimDetail->cause}}</td>
                             <td>
                                 <button data-toggle="modal" data-target="#deleteClaimDetail{{$loop->index}}" class="btn btn-danger">ลบ</button>

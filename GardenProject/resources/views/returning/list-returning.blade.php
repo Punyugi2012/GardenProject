@@ -24,7 +24,7 @@
                 <thead>
                     <tr>
                         <th>เลขที่การคืน</th>
-                        <th>ชื่อ-สกุลพนักงาน</th>
+                        <th class="bg-primary text-light">ชื่อ-สกุลพนักงาน</th>
                         <th>วันที่</th>
                         <th>เวลา</th>
                         <th>เครื่องมือ</th>
@@ -34,7 +34,7 @@
                     @foreach ($returnings as $returning)
                         <tr>
                             <td>{{$returning->idReverting}}</td>
-                            <td>{{$returning->name}} {{$returning->surname}}</td>
+                            <td class="text-primary">{{$returning->name}} {{$returning->surname}}</td>
                             <td>{{formatDateThai($returning->date)}}</td>
                             <td>{{formatDateThai($returning->time)}} น.</td>
                             <td>
