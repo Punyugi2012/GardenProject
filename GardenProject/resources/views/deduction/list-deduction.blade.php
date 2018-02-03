@@ -20,7 +20,7 @@
             <table id="table_id" data-order='[[ 0, "desc" ]]' class="display">
                 <thead>
                     <tr>
-                        <th>เลขที่กาหักเงิน</th>
+                        <th>เลขที่การหักเงิน</th>
                         <th>วันที่</th>
                         <th class="bg-info text-light">จำนวนเงินรวม (บาท)</th>
                         <th class="bg-primary text-light">ชื่อ-สกุลพนักงาน</th>
